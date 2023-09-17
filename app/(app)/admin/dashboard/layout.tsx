@@ -1,4 +1,4 @@
-import Sidebar from "@/components/layout/sidebar";
+import Sidebar from "@/app/(app)/admin/dashboard/components/sidebar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="container grid w-full grid-cols-1 px-0 lg:mx-auto lg:grid-cols-[280px_1fr]">
+    <div className="grid w-full grid-cols-1 px-0 lg:mx-auto lg:grid-cols-[280px_1fr]">
       <Sidebar />
       {children}
     </div>
