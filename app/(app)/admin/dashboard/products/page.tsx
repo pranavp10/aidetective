@@ -1,6 +1,7 @@
 import { ArrowDownTray, ArrowUpTray, Plus } from "@medusajs/icons";
 import { Button, Heading } from "@medusajs/ui";
 import React from "react";
+import { AddProducts } from "./components/addProducts";
 
 const Page = () => {
   return (
@@ -17,10 +18,7 @@ const Page = () => {
           <ArrowUpTray />
           Import Products
         </Button>
-        <Button variant="secondary">
-          <Plus />
-          Add Products
-        </Button>
+        <AddProducts />
       </div>
     </div>
   );
