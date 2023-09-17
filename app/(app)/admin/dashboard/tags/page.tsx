@@ -6,20 +6,20 @@ const Tags = () => {
   return (
     <div className="flex justify-between items-center">
       <div>
-        <Heading>Products</Heading>
+        <Heading>Tags</Heading>
       </div>
       <div className="flex items-center gap-4">
         <Button variant="secondary">
           <ArrowDownTray />
-          Export Products
+          Export Tags
         </Button>
         <Button variant="secondary">
           <ArrowUpTray />
-          Import Products
+          Import Tags
         </Button>
         <Button variant="secondary">
           <Plus />
-          Add Products
+          Add Tags
         </Button>
       </div>
     </div>

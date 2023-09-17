@@ -75,11 +75,5 @@ const getList = (pathname: string) => {
       isActive: pathname === "/admin/dashboard/tags",
       Icon: Tag,
     },
-    {
-      title: "Analytics",
-      link: "/admin/dashboard/analytics",
-      isActive: pathname === "/admin/dashboard/analytics",
-      Icon: DocumentText,
-    },
   ];
 };
