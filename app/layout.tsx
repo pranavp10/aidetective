@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import SessionProvider from "@/context/SessionProvider";
 import { getServerSession } from "next-auth";
 import NavBar from "@/components/layout/navbar";
+import { authOptions } from "@/utils/authOptions";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   return (
     <html lang="en">
