@@ -2,7 +2,7 @@ import { ArrowDownTray, ArrowUpTray, Plus } from "@medusajs/icons";
 import { Button, Heading } from "@medusajs/ui";
 import React from "react";
 
-const Page = () => {
+const Tags = () => {
   return (
     <div className="flex justify-between items-center">
       <div>
@@ -26,4 +26,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Tags;

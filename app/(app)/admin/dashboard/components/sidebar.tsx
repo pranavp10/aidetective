@@ -1,5 +1,10 @@
 "use client";
-import { DocumentText, Tag } from "@medusajs/icons";
+import {
+  BuildingStorefront,
+  CubeSolid,
+  DocumentText,
+  Tag,
+} from "@medusajs/icons";
 import { Avatar, Text } from "@medusajs/ui";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -62,6 +67,12 @@ const getList = (pathname: string) => {
       title: "Products",
       link: "/admin/dashboard/products",
       isActive: pathname === "/admin/dashboard/products",
+      Icon: BuildingStorefront,
+    },
+    {
+      title: "Tags",
+      link: "/admin/dashboard/tags",
+      isActive: pathname === "/admin/dashboard/tags",
       Icon: Tag,
     },
     {
