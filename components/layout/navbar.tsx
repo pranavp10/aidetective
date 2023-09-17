@@ -18,10 +18,10 @@ const NavBar = () => {
             )}
             {status === "authenticated" &&
               session.user?.image &&
-              session.user.email && (
+              session.user.name && (
                 <Avatar
                   src={session.user?.image}
-                  fallback={session.user.email}
+                  fallback={session.user.name[0]}
                 />
               )}
           </div>
