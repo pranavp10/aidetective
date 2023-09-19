@@ -43,6 +43,7 @@ model User {
   role          String    @default("USER")
   accounts      Account[]
   sessions      Session[]
+  Tools         Tools[]
 }
 
 model VerificationToken {
@@ -51,4 +52,56 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum Pricing {
+  free
+  paid
+  free_trail
+  free_trail_no_card
+}
+
+model ImageUrls {
+  imageUrlId String @id @default(cuid())
+  url        String
+  toolId     String
+  tool       Tools  @relation(fields: [imageUrlId], references: [toolId])
+}
+
+model PossibleUseCase {
+  possibleUseCaesId String @id @default(cuid())
+  description       String
+  toolId            String
+  tool              Tools  @relation(fields: [possibleUseCaesId], references: [toolId], onDelete: Cascade)
+
+  @@unique([toolId, possibleUseCaesId])
+}
+
+model Tools {
+  toolId          String            @id @unique @default(cuid())
+  slug            String            @unique
+  name            String
+  summary         String
+  description     String
+  websiteUrl      String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  featuredAt      DateTime?
+  pricing         Pricing           @default(free)
+  appStoreURL     String?
+  playStoreURL    String?
+  PossibleUseCase PossibleUseCase[]
+  ImageUrls       ImageUrls[]
+  tags            Tags[]
+  userId          String
+  user            User              @relation(fields: [userId], references: [id])
+}
+
+model Tags {
+  tagId     String   @id @unique @default(cuid())
+  slug      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  tools     Tools[]
 }

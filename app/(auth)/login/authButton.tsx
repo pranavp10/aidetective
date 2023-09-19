@@ -22,6 +22,7 @@ const container = {
     },
   },
 };
+
 const AuthButton = ({
   providers,
 }: {
