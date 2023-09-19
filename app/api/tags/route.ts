@@ -3,7 +3,7 @@ import { slugger } from '@/lib/slugger';
 import { tag } from '@/schema/tags.type';
 import { NextResponse } from 'next/server'
 
-export async function POST(request: Request) {
+export const POST = async (request: Request) => {
    try {
       const body: unknown = await request.json();
       const result = tag.safeParse(body);
@@ -25,6 +25,15 @@ export async function POST(request: Request) {
          }
       )
       return new NextResponse(JSON.stringify(tags), { status: 201 })
+   } catch (error) {
+      return new NextResponse(JSON.stringify({ error }), { status: 500 })
+   }
+}
+
+export async function GET(request: Request) {
+   try {
+      const tags = await prisma.tags.findMany()
+      return NextResponse.json(tags)
    } catch (error) {
       return new NextResponse(JSON.stringify({ error }), { status: 500 })
    }
