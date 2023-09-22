@@ -31,16 +31,20 @@ const AuthButton = ({
     ClientSafeProvider
   > | null;
 }) => {
-  const { status } = useSession();
+  const { status, data } = useSession();
   const { push } = useRouter();
   const searchParams = useSearchParams();
   const callback = searchParams.get("callbackUrl") || "/dashboard";
 
   useEffect(() => {
     if (status === "authenticated") {
-      push(callback);
+      if (data.user.role === "SUPER_ADMIN") {
+        push("/admin/dashboard");
+      } else {
+        push(callback);
+      }
     }
-  }, [status, callback, push]);
+  }, [callback, push, data]);
 
   return (
     <div>

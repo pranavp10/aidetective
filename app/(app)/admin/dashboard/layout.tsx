@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Sidebar />
       <div className="min-h-screen bg-ui-bg-base-pressed">
         <div className="p-10 h-full w-full">
-          <div className="flex h-full rounded-2xl bg-ui-bg-base p-10 w-full">
+          <div className="flex h-full rounded-2xl bg-ui-bg-base w-full">
             <div className="w-full">{children}</div>
           </div>
         </div>

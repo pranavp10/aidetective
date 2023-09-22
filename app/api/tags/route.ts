@@ -1,10 +1,16 @@
 import { prisma } from '@/lib/prisma'
 import { slugger } from '@/lib/slugger';
 import { tag } from '@/schema/tags.type';
+import { authOptions } from '@/utils/authOptions';
+import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server'
 
 export const POST = async (request: Request) => {
    try {
+      const session = await getServerSession(authOptions);
+      if ((session?.user.role !== 'SUPER_ADMIN')) {
+         return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
+      }
       const body: unknown = await request.json();
       const result = tag.safeParse(body);
       if (!result.success) {

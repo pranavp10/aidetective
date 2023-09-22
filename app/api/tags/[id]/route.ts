@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import { slugger } from '@/lib/slugger'
 import { tag } from '@/schema/tags.type'
+import { authOptions } from '@/utils/authOptions'
+import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
 
 const GET = async (request: Request, { params }: { params: { id: string } }) => {
@@ -18,6 +20,10 @@ const GET = async (request: Request, { params }: { params: { id: string } }) => 
 }
 
 const PUT = async (request: Request, { params }: { params: { id: string } }) => {
+    const session = await getServerSession(authOptions);
+    if (!(session?.user.role === 'SUPER_ADMIN')) {
+        return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
+    }
     const body: unknown = await request.json();
     const result = tag.safeParse(body);
     if (!result.success) {
@@ -30,11 +36,11 @@ const PUT = async (request: Request, { params }: { params: { id: string } }) => 
     const name = result.data.name
     const slug = slugger.slug(name)
 
-    const id = params.id
+    const tagId = params.id
     try {
         const tag = await prisma.tags.update({
             where: {
-                tagId: id
+                tagId
             },
             data: { slug, name }
         })
@@ -45,11 +51,15 @@ const PUT = async (request: Request, { params }: { params: { id: string } }) => 
 }
 
 const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
-    const id = params.id
+    const session = await getServerSession(authOptions);
+    if (!(session?.user.role === 'SUPER_ADMIN')) {
+        return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
+    }
+    const tagId = params.id
     try {
         const tag = await prisma.tags.delete({
             where: {
-                tagId: id
+                tagId
             }
         })
         return NextResponse.json(tag)
