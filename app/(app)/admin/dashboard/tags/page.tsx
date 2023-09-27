@@ -4,7 +4,7 @@ import { Button, Heading } from "@medusajs/ui";
 import React from "react";
 import { AddTag } from "./components/addTag";
 import useSWR from "swr";
-import TableDemo from "./components/tagsList";
+import { TagTable } from "./components/tagsList";
 
 const Tag = () => {
   const { data, error, isLoading } = useSWR<Tag[]>("/api/tags");
@@ -32,7 +32,7 @@ const Tag = () => {
         </div>
       )}
       {error && <div>Error loading tags </div>}
-      {data && <TableDemo tags={data} />}
+      {data && <TagTable tags={data} />}
     </div>
   );
 };

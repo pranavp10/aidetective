@@ -1,40 +1,52 @@
 "use client";
 
-import { Plus } from "@medusajs/icons";
 import { Button, Input, Label, Prompt, useToast } from "@medusajs/ui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { mutate } from "swr";
 
-export const AddTag = () => {
-  const [open, setModal] = useState(false);
+export const EditTag = ({
+  tag,
+  onClose,
+  open,
+}: {
+  tag?: Tag;
+  open: boolean;
+  onClose: () => void;
+}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [tag, setTag] = useState("");
   const { toast } = useToast();
+  const [updatedTag, setUpdatedTag] = useState<string>("");
+
+  useEffect(() => {
+    setUpdatedTag(tag?.name || "");
+  }, [tag]);
 
   const saveTag = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.post<Tag>("/api/tags", {
-        name: tag,
+      const { data } = await axios.put<Tag>(`/api/tags/${tag?.tagId}`, {
+        name: updatedTag,
       });
       mutate<Tag[]>("/api/tags", async (oldData) => {
-        if (oldData) return [...oldData, data];
+        if (oldData)
+          return [
+            ...oldData.map((tag) => (data.tagId === tag.tagId ? data : tag)),
+          ];
       });
       setIsLoading(false);
-      setModal(false);
+      onClose();
       toast({
         title: "Success",
-        description: "New tag add",
+        description: "update tag",
         variant: "success",
         duration: 2000,
       });
-      setTag("");
     } catch (e: any) {
       setIsLoading(false);
       toast({
         title: "Error",
-        description: "unable to add tag",
+        description: "unable to update tag",
         variant: "error",
         duration: 2000,
       });
@@ -43,30 +55,26 @@ export const AddTag = () => {
 
   return (
     <Prompt open={open}>
-      <Button variant="secondary" onClick={() => setModal((open) => !open)}>
-        <Plus />
-        Add Tag
-      </Button>
       <Prompt.Content>
         <Prompt.Header>
-          <Prompt.Title>Add Tag</Prompt.Title>
+          <Prompt.Title>Update Tag</Prompt.Title>
           <Prompt.Description>
-            Tag are associated with the tools
+            All tools will be updated with the new tags
           </Prompt.Description>
         </Prompt.Header>
         <div className="px-6 pt-4">
           <Label>Tag Name</Label>
-          <Input value={tag} onChange={(e) => setTag(e.target.value)} />
+          <Input
+            value={updatedTag}
+            onChange={(e) => setUpdatedTag(e.target.value)}
+          />
         </div>
         <Prompt.Footer>
-          <Prompt.Cancel
-            disabled={isLoading}
-            onClick={() => setModal((open) => false)}
-          >
+          <Prompt.Cancel disabled={isLoading} onClick={onClose}>
             Cancel
           </Prompt.Cancel>
           <Button isLoading={isLoading} onClick={saveTag}>
-            Save
+            Update Tag
           </Button>
         </Prompt.Footer>
       </Prompt.Content>

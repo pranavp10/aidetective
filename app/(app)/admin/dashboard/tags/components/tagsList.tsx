@@ -4,9 +4,11 @@ import dayjs from "dayjs";
 import { EllipsisVertical, PencilSquare, Trash } from "@medusajs/icons";
 import { DeleteTag } from "./deleteTag";
 import { useState } from "react";
+import { EditTag } from "./editTag";
 
-const TableDemo = ({ tags }: { tags: Tag[] }) => {
+export const TagTable = ({ tags }: { tags: Tag[] }) => {
   const [deleteId, setDeleteId] = useState<string | undefined>();
+  const [editTag, setEditTag] = useState<Tag | undefined>();
   return (
     <div className="mt-3">
       <div className="flex mb-4 mt-5 px-10 justify-end">
@@ -51,7 +53,10 @@ const TableDemo = ({ tags }: { tags: Tag[] }) => {
                       style={{ minWidth: "10px" }}
                       align="end"
                     >
-                      <DropdownMenu.Item className="gap-x-2">
+                      <DropdownMenu.Item
+                        className="gap-x-2"
+                        onClick={() => setEditTag(tag)}
+                      >
                         <PencilSquare className="text-ui-fg-subtle" />
                         Edit
                       </DropdownMenu.Item>
@@ -73,10 +78,13 @@ const TableDemo = ({ tags }: { tags: Tag[] }) => {
             open={!!deleteId}
             tagId={deleteId}
           />
+          <EditTag
+            open={!!editTag}
+            onClose={() => setEditTag(undefined)}
+            tag={editTag}
+          />
         </Table.Body>
       </Table>
     </div>
   );
 };
-
-export default TableDemo;
