@@ -41,6 +41,7 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "@medusajs/ui-preset": "^1.0.0"
+    "@medusajs/ui-preset": "^1.0.0",
+    "@types/papaparse": "^5.3.9"
   }
 }
