@@ -5,7 +5,7 @@ import { EllipsisVertical, PencilSquare, Trash } from "@medusajs/icons";
 import { DeleteTag } from "./deleteTag";
 import { useState } from "react";
 
-const TableDemo = ({ tags }: { tags: Tags[] }) => {
+const TableDemo = ({ tags }: { tags: Tag[] }) => {
   const [deleteId, setDeleteId] = useState<string | undefined>();
   return (
     <div className="mt-3">

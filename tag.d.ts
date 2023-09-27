@@ -1,4 +1,4 @@
-type Tags = {
+type Tag = {
     tagId: string
     name: string
     slug: string

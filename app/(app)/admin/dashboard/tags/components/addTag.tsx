@@ -1,8 +1,11 @@
 "use client";
+
 import { Plus } from "@medusajs/icons";
 import { Button, Input, Label, Prompt, useToast } from "@medusajs/ui";
 import { useState } from "react";
 import axios from "axios";
+import { mutate } from "swr";
+
 export const AddTag = () => {
   const [open, setModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -12,8 +15,11 @@ export const AddTag = () => {
   const saveTag = async () => {
     try {
       setIsLoading(true);
-      await axios.post("/api/tags", {
+      const { data } = await axios.post<Tag>("/api/tags", {
         name: tag,
+      });
+      mutate<Tag[]>("/api/tags", async (oldData) => {
+        if (oldData) return [...oldData, data];
       });
       setIsLoading(false);
       setModal(false);
@@ -24,7 +30,6 @@ export const AddTag = () => {
         duration: 2000,
       });
     } catch (e: any) {
-      console.log(e.response.data.error);
       setIsLoading(false);
       toast({
         title: "Error",
@@ -39,13 +44,13 @@ export const AddTag = () => {
     <Prompt open={open}>
       <Button variant="secondary" onClick={() => setModal((open) => !open)}>
         <Plus />
-        Add Tags
+        Add Tag
       </Button>
       <Prompt.Content>
         <Prompt.Header>
           <Prompt.Title>Add Tag</Prompt.Title>
           <Prompt.Description>
-            Tags are associated with the tools
+            Tag are associated with the tools
           </Prompt.Description>
         </Prompt.Header>
         <div className="px-6 pt-4">

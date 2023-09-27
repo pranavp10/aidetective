@@ -6,22 +6,22 @@ import { AddTag } from "./components/addTag";
 import useSWR from "swr";
 import TableDemo from "./components/tagsList";
 
-const Tags = () => {
-  const { data, error, isLoading } = useSWR<Tags[]>("/api/tags");
+const Tag = () => {
+  const { data, error, isLoading } = useSWR<Tag[]>("/api/tags");
   return (
     <div>
       <div className="flex justify-between items-center pt-10 px-10">
         <div>
-          <Heading>Tags</Heading>
+          <Heading>Tag</Heading>
         </div>
         <div className="flex items-center gap-4">
           <Button variant="secondary">
             <ArrowDownTray />
-            Export Tags
+            Export Tag
           </Button>
           <Button variant="secondary">
             <ArrowUpTray />
-            Import Tags
+            Import Tag
           </Button>
           <AddTag />
         </div>
@@ -37,4 +37,4 @@ const Tags = () => {
   );
 };
 
-export default Tags;
+export default Tag;
