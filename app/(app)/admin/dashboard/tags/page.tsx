@@ -62,7 +62,7 @@ const Tag = () => {
               size="small"
             />
           </div>
-          <div className="h-[calc(100vh-235px)] overflow-y-auto">
+          <div className="h-[calc(100vh-255px)] overflow-y-auto">
             <TagTable tags={data} />
           </div>
         </>
