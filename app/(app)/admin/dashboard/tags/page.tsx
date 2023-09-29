@@ -1,11 +1,12 @@
 "use client";
-import { ArrowDownTray, ArrowUpTray, Plus, Spinner } from "@medusajs/icons";
-import { Button, Heading, useToast } from "@medusajs/ui";
+import { ArrowDownTray, Spinner } from "@medusajs/icons";
+import { Button, Heading, Input, useToast } from "@medusajs/ui";
 import React from "react";
 import { AddTag } from "./components/addTag";
 import useSWR from "swr";
 import { TagTable } from "./components/tagsList";
 import { unparse } from "papaparse";
+import { BulkUpload } from "./components/bulkUpload";
 const Tag = () => {
   const { toast } = useToast();
   const { data, error, isLoading } = useSWR<Tag[]>("/api/tags");
@@ -41,10 +42,7 @@ const Tag = () => {
             <ArrowDownTray />
             Export Tag
           </Button>
-          <Button variant="secondary">
-            <ArrowUpTray />
-            Import Tag
-          </Button>
+          <BulkUpload />
           <AddTag />
         </div>
       </div>
@@ -54,7 +52,21 @@ const Tag = () => {
         </div>
       )}
       {error && <div>Error loading tags </div>}
-      {data && <TagTable tags={data} />}
+      {data && (
+        <>
+          <div className="flex mb-4 mt-5 px-10 justify-end">
+            <Input
+              placeholder="Search"
+              id="search-input"
+              type="search"
+              size="small"
+            />
+          </div>
+          <div className="h-[calc(100vh-235px)] overflow-y-auto">
+            <TagTable tags={data} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
