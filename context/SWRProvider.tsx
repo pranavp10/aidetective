@@ -9,7 +9,7 @@ export default function SWRProvider({
   return (
     <SWRConfig
       value={{
-        refreshInterval: 3000,
+        refreshInterval: 300000,
         fetcher: (resource, init) =>
           fetch(resource, init).then((res) => res.json()),
       }}

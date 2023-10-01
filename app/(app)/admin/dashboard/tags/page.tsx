@@ -7,15 +7,14 @@ import useSWR from "swr";
 import { TagTable } from "./components/tagsList";
 import { unparse } from "papaparse";
 import { BulkUpload } from "./components/bulkUpload";
+
 const Tag = () => {
   const { toast } = useToast();
   const { data, error, isLoading } = useSWR<Tag[]>("/api/tags");
   return (
     <div>
       <div className="flex justify-between items-center pt-10 px-10">
-        <div>
-          <Heading>Tag</Heading>
-        </div>
+        <Heading>Tag</Heading>
         <div className="flex items-center gap-4">
           <Button
             variant="secondary"

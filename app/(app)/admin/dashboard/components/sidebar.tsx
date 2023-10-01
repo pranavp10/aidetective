@@ -64,9 +64,9 @@ export default Sidebar;
 const getList = (pathname: string) => {
   return [
     {
-      title: "Products",
-      link: "/admin/dashboard/products",
-      isActive: pathname === "/admin/dashboard/products",
+      title: "Tools",
+      link: "/admin/dashboard/tools",
+      isActive: pathname === "/admin/dashboard/tools",
       Icon: BuildingStorefront,
     },
     {

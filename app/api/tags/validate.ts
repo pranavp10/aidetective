@@ -1,5 +1,5 @@
 import { SafeParseReturnType } from "zod";
-import { TagSchema } from '@/schema/tags.type';
+import { TagSchema } from '@/schema/tags.schema';
 import { NextResponse } from "next/server";
 
 export const validateTags = (result: SafeParseReturnType<TagSchema, TagSchema>) => {

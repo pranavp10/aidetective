@@ -43,14 +43,7 @@ export const BulkUpload = () => {
   return (
     <Drawer open={open} modal={true}>
       <Drawer.Trigger asChild>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            if (!isLoading) {
-              setOpen(true);
-            }
-          }}
-        >
+        <Button variant="secondary" onClick={() => setOpen(true)}>
           <ArrowUpTray />
           Import Tag
         </Button>
@@ -60,36 +53,29 @@ export const BulkUpload = () => {
           <Drawer.Title>Bulk Upload Tags </Drawer.Title>
         </Drawer.Header>
         <Drawer.Body className="p-4">
-          <div>
-            <input
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
-                  const file = e.target.files[0];
-                  if (file.type === "text/csv") {
-                    parse(file, {
-                      header: false,
-                      complete: (result) => {
-                        if (typeof result.data === "object") {
-                          setTagsList(result.data.flat() as string[]);
-                        }
-                      },
-                    });
-                  }
+          <input
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                const file = e.target.files[0];
+                if (file.type === "text/csv") {
+                  parse(file, {
+                    header: false,
+                    complete: (result) => {
+                      if (typeof result.data === "object") {
+                        setTagsList(result.data.flat() as string[]);
+                      }
+                    },
+                  });
                 }
-              }}
-              type="file"
-              className="block w-full text-sm text-ui-fg-base
-      file:mr-4 file:py-2 file:px-4
-      file:rounded-full file:border-0
-      file:text-sm file:font-semibold
-      file:bg-ui-bg-base-pressed file:text-ui-fg-base
-      hover:file:bg-ui-bg-base-hover"
-            />
-            <div className="flex flex-wrap gap-3 mt-6 overflow-y-auto">
-              {tagsList?.map((tag, index) => {
-                return <Badge key={`${tag}-${index}`}>{tag}</Badge>;
-              })}
-            </div>
+              }
+            }}
+            type="file"
+            className="block w-full text-sm text-ui-fg-base file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-ui-bg-base-pressed file:text-ui-fg-base hover:file:bg-ui-bg-base-hover"
+          />
+          <div className="flex flex-wrap gap-3 mt-6 overflow-y-auto">
+            {tagsList?.map((tag, index) => {
+              return <Badge key={`${tag}-${index}`}>{tag}</Badge>;
+            })}
           </div>
         </Drawer.Body>
         <Drawer.Footer>

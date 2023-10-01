@@ -34,7 +34,6 @@ export const DeleteTag = ({
         duration: 2000,
       });
     } catch (e: any) {
-      console.log(e.response.data.error);
       setIsLoading(false);
       toast({
         title: "Error",

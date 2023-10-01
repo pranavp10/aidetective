@@ -43,7 +43,7 @@ model User {
   role          String    @default("USER")
   accounts      Account[]
   sessions      Session[]
-  Tools         Tools[]
+  tools         Tools[]
 }
 
 model VerificationToken {
@@ -61,20 +61,18 @@ enum Pricing {
   free_trail_no_card
 }
 
-model ImageUrls {
-  imageUrlId String @id @default(cuid())
-  url        String
+model ImageURLs {
+  imageURLId String @id @default(cuid())
+  imageURL   String
   toolId     String
-  tool       Tools  @relation(fields: [imageUrlId], references: [toolId])
+  tool       Tools  @relation(fields: [toolId], references: [toolId])
 }
 
 model PossibleUseCase {
   possibleUseCaesId String @id @default(cuid())
   description       String
   toolId            String
-  tool              Tools  @relation(fields: [possibleUseCaesId], references: [toolId], onDelete: Cascade)
-
-  @@unique([toolId, possibleUseCaesId])
+  tool              Tools  @relation(fields: [toolId], references: [toolId])
 }
 
 model Tools {
@@ -83,15 +81,16 @@ model Tools {
   name            String
   summary         String
   description     String
-  websiteUrl      String
+  websiteURL      String
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   featuredAt      DateTime?
   pricing         Pricing           @default(free)
+  isToolPublished Boolean           @default(false)
   appStoreURL     String?
   playStoreURL    String?
-  PossibleUseCase PossibleUseCase[]
-  ImageUrls       ImageUrls[]
+  possibleUseCase PossibleUseCase[]
+  imageURLs       ImageURLs[]
   tags            Tags[]
   userId          String
   user            User              @relation(fields: [userId], references: [id])

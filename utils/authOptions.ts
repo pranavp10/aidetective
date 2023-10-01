@@ -31,12 +31,19 @@ export const authOptions: NextAuthOptions = {
         strategy: 'jwt'
     },
     callbacks: {
-        jwt({ token, user }) {
-            if (user) token.role = user.role
+        jwt({ token, user, }) {
+            if (user) {
+                token.role = user.role
+            }
             return token
         },
-        session({ session, token }) {
-            if (session.user) session.user.role = token.role
+        session({ session, token, user }) {
+            if (session.user) {
+                if (token.sub) {
+                    session.user.id = token.sub
+                }
+                session.user.role = token.role
+            }
             return session
         }
     }

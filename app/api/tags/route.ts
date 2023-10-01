@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { slugger } from '@/lib/slugger';
-import { tag } from '@/schema/tags.type';
+import { tag } from '@/schema/tags.schema';
 import { authOptions } from '@/utils/authOptions';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server'
