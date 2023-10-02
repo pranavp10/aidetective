@@ -30,7 +30,7 @@ export const POST = async (request: Request) => {
         const appStoreURL = requestTool.appStoreURL
         const playStoreURL = requestTool.playStoreURL
         const possibleUseCase = requestTool.possibleUseCase
-        const imageURLs = requestTool.imageURLs
+        const imageURL = requestTool.imageURL
         const tags = requestTool.tags
         const slug = slugger.slug(name)
         const isToolPublished = requestTool.isToolPublished
@@ -50,23 +50,17 @@ export const POST = async (request: Request) => {
                     userId: session.user.id,
                     isToolPublished,
                     tags: { connect: tags.map((tagId) => ({ tagId })) },
+                    imageURL,
+                    possibleUseCase,
                 }
             }
         )
-        await prisma.possibleUseCase.createMany({
-            data: possibleUseCase.map((description) => ({ toolId: insertedTool.toolId, description: description }))
-        })
-        await prisma.imageURLs.createMany({
-            data: imageURLs.map((description) => ({ toolId: insertedTool.toolId, imageURL: description }))
-        })
         const toolDetails = await prisma.tools.findUnique({
             where: {
                 toolId: insertedTool.toolId
             },
             include: {
                 tags: true,
-                possibleUseCase: true,
-                imageURLs: true,
                 user: true
             }
         })
@@ -80,26 +74,9 @@ export const POST = async (request: Request) => {
 export async function GET() {
     try {
         const tags = await prisma.tools.findMany({
-            select: {
-                _count: true,
-                appStoreURL: true,
-                createdAt: true,
-                description: true,
-                featuredAt: true,
-                isToolPublished: true,
-                name: true,
-                playStoreURL: true,
-                pricing: true,
-                slug: true,
-                summary: true,
-                tags: true,
-                toolId: true,
-                updatedAt: true,
+            include: {
                 user: true,
-                userId: true,
-                imageURLs: true,
-                possibleUseCase: true,
-                websiteURL: true
+                tags: true
             }
         })
         return NextResponse.json(tags)

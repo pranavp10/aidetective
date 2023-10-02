@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { Twitter } from "@medusajs/icons";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
-  const image = tool.imageURLs[0].imageURL;
+  const image = tool.imageURL;
   const name = tool.name;
   const updatedAt = tool.updatedAt;
   const description = tool.description;
@@ -74,9 +74,9 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             </Heading>
             <div className="mt-4 ml-9">
               <ul role="list" className="list-decimal text-ui-fg-muted">
-                {possibleUseCase.map(({ description, possibleUseCaseId }) => (
-                  <li key={possibleUseCaseId}>
-                    <Text>{description}</Text>
+                {possibleUseCase.split(";").map((useCase) => (
+                  <li key={useCase}>
+                    <Text>{useCase}</Text>
                   </li>
                 ))}
               </ul>

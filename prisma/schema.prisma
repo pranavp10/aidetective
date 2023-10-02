@@ -61,39 +61,25 @@ enum Pricing {
   free_trail_no_card
 }
 
-model ImageURLs {
-  imageURLId String @id @default(cuid())
-  imageURL   String
-  toolId     String
-  tool       Tools  @relation(fields: [toolId], references: [toolId], onDelete: Cascade)
-}
-
-model PossibleUseCase {
-  possibleUseCaseId String @id @default(cuid())
-  description       String
-  toolId            String
-  tool              Tools  @relation(fields: [toolId], references: [toolId], onDelete: Cascade)
-}
-
 model Tools {
-  toolId          String            @id @unique @default(cuid())
-  slug            String            @unique
+  toolId          String    @id @unique @default(cuid())
+  slug            String    @unique
   name            String
   summary         String
   description     String
   websiteURL      String
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
   featuredAt      DateTime?
-  pricing         Pricing           @default(free)
-  isToolPublished Boolean           @default(false)
+  pricing         Pricing   @default(free)
+  isToolPublished Boolean   @default(false)
   appStoreURL     String?
   playStoreURL    String?
-  possibleUseCase PossibleUseCase[]
-  imageURLs       ImageURLs[]
+  possibleUseCase String
+  imageURL        String
   tags            Tags[]
   userId          String
-  user            User              @relation(fields: [userId], references: [id])
+  user            User      @relation(fields: [userId], references: [id])
 }
 
 model Tags {

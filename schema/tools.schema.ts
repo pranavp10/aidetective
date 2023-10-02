@@ -17,8 +17,8 @@ export const toolsSchema = z
         ]),
         appStoreURL: z.string().optional(),
         playStoreURL: z.string().optional(),
-        possibleUseCase: z.string().array().min(1, 'At least one use case is required'),
-        imageURLs: z.string().array().min(1, 'At least one image url is required'),
+        possibleUseCase: z.string().nonempty(),
+        imageURL: z.any(),
         tags: z.string().array().min(1, 'At least one tags is required'),
         isToolPublished: z.boolean()
     })

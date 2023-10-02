@@ -1,5 +1,6 @@
-import { Input, Kbd, Label, Text } from "@medusajs/ui";
-import React, { useState } from "react";
+import { InformationCircleSolid } from "@medusajs/icons";
+import { Label, Textarea, Tooltip } from "@medusajs/ui";
+import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 export const PossibleUseCase = () => {
@@ -7,56 +8,32 @@ export const PossibleUseCase = () => {
     control,
     formState: { errors },
   } = useFormContext();
-  const [input, setInput] = useState("");
   return (
     <Controller
       render={({ field: { value, onChange } }) => (
         <div className="flex flex-col gap-y-2">
-          <Label htmlFor="possibleUseCase" className="text-ui-fg-subtle">
-            Possible use case
+          <Label
+            htmlFor="possibleUseCase"
+            className="text-ui-fg-subtle flex items-center gap-2"
+          >
+            Possible use case{" "}
+            <Tooltip content="Add the Possible use cases separated by `;` eg: Possible use case 1;possible use case 2;possible use case 3 ">
+              <InformationCircleSolid />
+            </Tooltip>
           </Label>
           <div className="relative">
-            <Input
+            <Textarea
               id="possibleUseCase"
-              placeholder="It can be used for improving grammar"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
+              placeholder="Possible use case 1;possible use case 2;possible use case 3"
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
               aria-invalid={!!errors?.possibleUseCase?.message}
             />
-            <Kbd
-              onClick={() => {
-                if (input) {
-                  onChange([...value, input]);
-                  setInput("");
-                }
-              }}
-              className="absolute right-4 top-0 translate-y-1/2 cursor-pointer"
-            >
-              Add Possible Use Case
-            </Kbd>
           </div>
           {errors?.possibleUseCase?.message && (
             <Label className="text-ui-fg-error">
               {errors?.possibleUseCase?.message as string}
             </Label>
-          )}
-          {!!value?.length && (
-            <div>
-              {value.map((useCase: string, i: number) => (
-                <div
-                  key={`${useCase} ${i}`}
-                  className="flex gap-2 text-ui-fg-subtle cursor-pointer"
-                  onClick={() => {
-                    const newList = [...value];
-                    newList.splice(i, 1);
-                    onChange(newList);
-                  }}
-                >
-                  <Text>{i + 1}</Text>
-                  <Text>{useCase}</Text>
-                </div>
-              ))}
-            </div>
           )}
         </div>
       )}

@@ -15,7 +15,7 @@ import { FeatureAt } from "./fields/featuredAt";
 import { IsToolPublished } from "./fields/isToolPublished";
 import { Tags } from "./fields/tags";
 import { PossibleUseCase } from "./fields/possibleUseCase";
-import { ImageURL } from "./fields/imageUrls";
+import { ImageURL } from "./fields/imageUrl";
 import axios from "axios";
 import { mutate } from "swr";
 
@@ -40,10 +40,8 @@ export const EditTools = ({
       tags: tool.tags.map(({ tagId }: Tag) => tagId),
       websiteURL: tool.websiteURL,
       featuredAt: tool?.featuredAt?.toString() || new Date().toString(),
-      possibleUseCase: tool?.possibleUseCase.map(
-        ({ description }) => description
-      ),
-      imageURLs: tool?.imageURLs.map(({ imageURL }) => imageURL),
+      possibleUseCase: tool.possibleUseCase,
+      imageURL: tool?.imageURL,
     },
   });
   const { toast } = useToast();
@@ -53,11 +51,18 @@ export const EditTools = ({
       setIsLoading(true);
       const { data } = await axios.put<Tool>(`/api/tools/${tool?.toolId}`, {
         ...value,
+        imageURL: tool.imageURL,
       });
+      if (typeof value.imageURL !== "string") {
+        const formData = new FormData();
+        formData.set("file", value.imageURL);
+        await axios.post(`/api/tools/${data.toolId}/image-upload`, formData);
+      }
       mutate<Tool[]>("/api/tools", async (oldData) => {
         if (oldData) return [...oldData, data];
       });
       setIsLoading(false);
+      onClose();
       toast({
         title: "Success",
         description: "Updated tool",

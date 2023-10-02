@@ -29,7 +29,7 @@ export const DeleteTool = ({
       });
       toast({
         title: "Success",
-        description: "Tag deleted",
+        description: "Tool deleted",
         variant: "success",
         duration: 2000,
       });
@@ -37,7 +37,7 @@ export const DeleteTool = ({
       setIsLoading(false);
       toast({
         title: "Error",
-        description: "unable to Delete tag",
+        description: "unable to Delete Tool",
         variant: "error",
         duration: 2000,
       });

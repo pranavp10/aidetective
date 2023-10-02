@@ -1,6 +1,7 @@
+import cloudinary from '@/lib/cloudinary'
 import { prisma } from '@/lib/prisma'
 import { slugger } from '@/lib/slugger'
-import { tag } from '@/schema/tags.schema'
+import { toolsSchema } from '@/schema/tools.schema'
 import { authOptions } from '@/utils/authOptions'
 import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
@@ -12,26 +13,9 @@ const GET = async (request: Request, { params }: { params: { id: string } }) => 
             where: {
                 toolId: id
             },
-            select: {
-                _count: true,
-                appStoreURL: true,
-                createdAt: true,
-                description: true,
-                featuredAt: true,
-                isToolPublished: true,
-                name: true,
-                playStoreURL: true,
-                pricing: true,
-                slug: true,
-                summary: true,
+            include: {
                 tags: true,
-                toolId: true,
-                updatedAt: true,
-                user: true,
-                userId: true,
-                imageURLs: true,
-                possibleUseCase: true,
-                websiteURL: true
+                user: true
             }
         })
         return NextResponse.json(tool)
@@ -41,31 +25,68 @@ const GET = async (request: Request, { params }: { params: { id: string } }) => 
 }
 
 const PUT = async (request: Request, { params }: { params: { id: string } }) => {
-    const session = await getServerSession(authOptions);
-    if (!(session?.user.role === 'SUPER_ADMIN')) {
-        return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
-    }
-    const body: unknown = await request.json();
-    const result = tag.safeParse(body);
-    if (!result.success) {
-        let zodErrors = {};
-        result.error.issues.forEach((issue) => {
-            zodErrors = { ...zodErrors, [issue.path[0]]: issue.message };
-        });
-        return new NextResponse(JSON.stringify({ error: zodErrors }), { status: 400 })
-    }
-    const name = result.data.name
-    const slug = slugger.slug(name)
-
-    const tagId = params.id
     try {
-        const tag = await prisma.tags.update({
+        const session = await getServerSession(authOptions);
+        if ((session?.user.role !== 'SUPER_ADMIN')) {
+            return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
+        }
+        const body: unknown = await request.json();
+        const result = toolsSchema.safeParse(body);
+        if (!result.success) {
+            let zodErrors = {};
+            result.error.issues.forEach((issue) => {
+                zodErrors = { ...zodErrors, [issue.path[0]]: issue.message };
+            });
+            return new NextResponse(JSON.stringify({ error: zodErrors }), { status: 400 })
+        }
+        const requestTool = result.data
+        const name = requestTool.name
+        const summary = requestTool.summary
+        const description = requestTool.description
+        const websiteURL = requestTool.websiteURL
+        const featuredAt = requestTool.featuredAt
+        const pricing = requestTool.pricing
+        const appStoreURL = requestTool.appStoreURL
+        const playStoreURL = requestTool.playStoreURL
+        const possibleUseCase = requestTool.possibleUseCase
+        const imageURL = requestTool.imageURL
+        const tags = requestTool.tags
+        const slug = slugger.slug(name)
+        const isToolPublished = requestTool.isToolPublished
+
+        const updatedTool = await prisma.tools.update(
+            {
+                where: {
+                    toolId: params.id,
+                },
+                data: {
+                    name,
+                    slug,
+                    description,
+                    summary,
+                    websiteURL,
+                    appStoreURL,
+                    playStoreURL,
+                    featuredAt: featuredAt ? new Date(featuredAt).toISOString() : undefined,
+                    pricing,
+                    userId: session.user.id,
+                    isToolPublished,
+                    tags: { connect: tags.map((tagId) => ({ tagId })) },
+                    imageURL,
+                    possibleUseCase,
+                }
+            }
+        )
+        const updatedToolDetails = await prisma.tools.findUnique({
             where: {
-                tagId
+                toolId: updatedTool.toolId
             },
-            data: { slug, name }
+            include: {
+                tags: true,
+                user: true
+            }
         })
-        return NextResponse.json(tag)
+        return NextResponse.json(updatedToolDetails)
     } catch (error) {
         return new NextResponse(JSON.stringify({ error }), { status: 500 })
     }
@@ -76,14 +97,15 @@ const DELETE = async (request: Request, { params }: { params: { id: string } }) 
     if (!(session?.user.role === 'SUPER_ADMIN')) {
         return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
     }
-    const tagId = params.id
+    const toolId = params.id
     try {
-        const tag = await prisma.tags.delete({
+        const toolDetails = await prisma.tools.delete({
             where: {
-                tagId
+                toolId
             }
         })
-        return NextResponse.json(tag)
+        await cloudinary.uploader.destroy(`superflex/tools/${params.id}`)
+        return NextResponse.json(toolDetails)
     } catch (error) {
         return new NextResponse(JSON.stringify({ error }), { status: 500 })
     }

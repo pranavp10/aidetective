@@ -16,7 +16,7 @@ import { FeatureAt } from "./fields/featuredAt";
 import { IsToolPublished } from "./fields/isToolPublished";
 import { Tags } from "./fields/tags";
 import { PossibleUseCase } from "./fields/possibleUseCase";
-import { ImageURL } from "./fields/imageUrls";
+import { ImageURL } from "./fields/imageUrl";
 import axios from "axios";
 import { mutate } from "swr";
 
@@ -26,16 +26,44 @@ export const AddTools = () => {
   const form = useForm<ToolsSchema>({
     resolver: zodResolver(toolsSchema),
   });
+
   const { toast } = useToast();
-  const { handleSubmit } = form;
+  const { handleSubmit, reset } = form;
+  const resetOnclose = () => {
+    reset({
+      appStoreURL: "",
+      description: "",
+      featuredAt: new Date().toString(),
+      imageURL: null,
+      isToolPublished: true,
+      name: "",
+      playStoreURL: "",
+      possibleUseCase: "",
+      pricing: "free_trail_no_card",
+      summary: "",
+      tags: [],
+      websiteURL: "",
+    });
+  };
   const addTool = async (value: ToolsSchema) => {
     try {
       setIsLoading(true);
+      const formData = new FormData();
+      formData.set("file", value.imageURL);
       const { data } = await axios.post<Tool>("/api/tools", {
         ...value,
+        imageURL: "-",
       });
+      await axios.post(`/api/tools/${data.toolId}/image-upload`, formData);
       mutate<Tool[]>("/api/tools", async (oldData) => {
-        if (oldData) return [...oldData, data];
+        if (oldData)
+          return [
+            ...oldData,
+            {
+              ...data,
+              imageURL: `https://res.cloudinary.com/playgod/image/upload/v1696266264/superflex/tools/${data.toolId}`,
+            },
+          ];
       });
       setIsLoading(false);
       setOpen(false);
@@ -45,6 +73,7 @@ export const AddTools = () => {
         variant: "success",
         duration: 2000,
       });
+      resetOnclose();
     } catch (e: any) {
       setIsLoading(false);
       toast({
@@ -88,7 +117,10 @@ export const AddTools = () => {
               <Drawer.Close asChild>
                 <Button
                   disabled={isLoading}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                    resetOnclose();
+                  }}
                   variant="secondary"
                 >
                   Cancel

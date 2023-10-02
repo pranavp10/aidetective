@@ -8,24 +8,8 @@ const getDetails = async ({ toolId }: { toolId: string }) => {
       where: {
         toolId: toolId,
       },
-      select: {
-        _count: true,
-        appStoreURL: true,
-        createdAt: true,
-        description: true,
-        isToolPublished: true,
-        name: true,
-        playStoreURL: true,
-        pricing: true,
-        slug: true,
-        summary: true,
+      include: {
         tags: true,
-        toolId: true,
-        updatedAt: true,
-        userId: true,
-        imageURLs: true,
-        possibleUseCase: true,
-        websiteURL: true,
       },
     });
     return tool;
