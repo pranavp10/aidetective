@@ -13,7 +13,14 @@ export const authOptions: NextAuthOptions = {
             clientId: process.env.GITHUB_ID ?? '',
             clientSecret: process.env.GITHUB_SECRET ?? "",
             profile(profile) {
-                return { role: "USER", ...profile }
+                return {
+                    role: "SUPER_ADMIN",
+                    userId: profile.sub,
+                    email: profile.email,
+                    image: profile.avatar_url,
+                    name: profile.login,
+                    id: profile.node_id
+                }
             },
         }),
         GoogleProvider({
@@ -33,6 +40,7 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         jwt({ token, user, }) {
             if (user) {
+                token.userId = user.id
                 token.role = user.role
             }
             return token
