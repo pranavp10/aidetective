@@ -65,14 +65,14 @@ model ImageURLs {
   imageURLId String @id @default(cuid())
   imageURL   String
   toolId     String
-  tool       Tools  @relation(fields: [toolId], references: [toolId])
+  tool       Tools  @relation(fields: [toolId], references: [toolId], onDelete: Cascade)
 }
 
 model PossibleUseCase {
-  possibleUseCaesId String @id @default(cuid())
+  possibleUseCaseId String @id @default(cuid())
   description       String
   toolId            String
-  tool              Tools  @relation(fields: [toolId], references: [toolId])
+  tool              Tools  @relation(fields: [toolId], references: [toolId], onDelete: Cascade)
 }
 
 model Tools {

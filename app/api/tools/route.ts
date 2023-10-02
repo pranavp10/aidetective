@@ -20,6 +20,7 @@ export const POST = async (request: Request) => {
             });
             return new NextResponse(JSON.stringify({ error: zodErrors }), { status: 400 })
         }
+        console.log(session)
         const requestTool = result.data
         const name = requestTool.name
         const summary = requestTool.summary
@@ -72,6 +73,7 @@ export const POST = async (request: Request) => {
         })
         return new NextResponse(JSON.stringify(toolDetails), { status: 201 })
     } catch (error) {
+        console.log(error)
         return new NextResponse(JSON.stringify({ error }), { status: 500 })
     }
 }
@@ -97,7 +99,8 @@ export async function GET() {
                 user: true,
                 userId: true,
                 imageURLs: true,
-                possibleUseCase: true
+                possibleUseCase: true,
+                websiteURL: true
             }
         })
         return NextResponse.json(tags)

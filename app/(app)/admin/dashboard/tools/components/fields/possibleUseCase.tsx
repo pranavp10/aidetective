@@ -12,7 +12,7 @@ export const PossibleUseCase = () => {
     <Controller
       render={({ field: { value, onChange } }) => (
         <div className="flex flex-col gap-y-2">
-          <Label htmlFor="name" className="text-ui-fg-subtle">
+          <Label htmlFor="possibleUseCase" className="text-ui-fg-subtle">
             Possible use case
           </Label>
           <div className="relative">
