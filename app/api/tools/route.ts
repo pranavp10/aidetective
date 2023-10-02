@@ -20,7 +20,6 @@ export const POST = async (request: Request) => {
             });
             return new NextResponse(JSON.stringify({ error: zodErrors }), { status: 400 })
         }
-        console.log(session)
         const requestTool = result.data
         const name = requestTool.name
         const summary = requestTool.summary
