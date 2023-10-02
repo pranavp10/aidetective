@@ -8,7 +8,7 @@ export const toolsSchema = z
         summary: z.string().nonempty(),
         description: z.string().nonempty(),
         websiteURL: z.string().url('Invalid URL').nonempty(),
-        featuredAt: z.string(),
+        featuredAt: z.string().optional(),
         pricing: z.enum([
             Pricing.free,
             Pricing.free_trail,

@@ -74,8 +74,8 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             </Heading>
             <div className="mt-4 ml-9">
               <ul role="list" className="list-decimal text-ui-fg-muted">
-                {possibleUseCase.map(({ description, possibleUseCaesId }) => (
-                  <li key={possibleUseCaesId}>
+                {possibleUseCase.map(({ description, possibleUseCaseId }) => (
+                  <li key={possibleUseCaseId}>
                     <Text>{description}</Text>
                   </li>
                 ))}

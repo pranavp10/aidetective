@@ -46,7 +46,7 @@ export const POST = async (request: Request) => {
                     websiteURL,
                     appStoreURL,
                     playStoreURL,
-                    featuredAt: new Date(featuredAt).toISOString(),
+                    featuredAt: featuredAt ? new Date(featuredAt).toISOString() : undefined,
                     pricing,
                     userId: session.user.id,
                     isToolPublished,

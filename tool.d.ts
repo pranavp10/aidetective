@@ -5,7 +5,7 @@ type ImageURL = {
 }
 
 type PossibleUseCase = {
-    possibleUseCaesId: string;
+    possibleUseCaseId: string;
     description: string;
     toolId: string;
 }

@@ -23,14 +23,23 @@ export const EditTools = ({
   tool,
   onClose,
 }: {
-  tool?: Tool;
+  tool: Tool;
   onClose: () => void;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<ToolsSchema>({
     resolver: zodResolver(toolsSchema),
     defaultValues: {
-      ...tool,
+      name: tool.name,
+      description: tool.description,
+      appStoreURL: tool?.appStoreURL || "",
+      isToolPublished: tool.isToolPublished,
+      playStoreURL: tool?.playStoreURL || "",
+      pricing: tool.pricing,
+      summary: tool.summary,
+      tags: tool.tags.map(({ tagId }: Tag) => tagId),
+      websiteURL: tool.websiteURL,
+      featuredAt: tool?.featuredAt?.toString() || new Date().toString(),
       possibleUseCase: tool?.possibleUseCase.map(
         ({ description }) => description
       ),
