@@ -21,6 +21,7 @@ export const BulkUpload = () => {
           tagList: tagsList,
         }
       );
+      mutate("/api/tags");
       setIsLoading(false);
       setOpen(false);
       toast({
