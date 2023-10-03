@@ -18,6 +18,7 @@ import { PossibleUseCase } from "./fields/possibleUseCase";
 import { ImageURL } from "./fields/imageUrl";
 import axios from "axios";
 import { mutate } from "swr";
+import { Slug } from "./fields/slug";
 
 export const EditTools = ({
   tool,
@@ -42,6 +43,7 @@ export const EditTools = ({
       featuredAt: tool?.featuredAt?.toString() || new Date().toString(),
       possibleUseCase: tool.possibleUseCase,
       imageURL: tool?.imageURL,
+      slug: tool.slug,
     },
   });
   const { toast } = useToast();
@@ -90,6 +92,7 @@ export const EditTools = ({
             </Drawer.Header>
             <Drawer.Body className="flex  flex-col gap-y-8 h-[calc(100vh-165px)] overflow-y-auto">
               <Name />
+              <Slug />
               <Description />
               <Summary />
               <PossibleUseCase />

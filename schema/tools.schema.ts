@@ -17,6 +17,7 @@ export const toolsSchema = z
         ]),
         appStoreURL: z.string().optional(),
         playStoreURL: z.string().optional(),
+        slug: z.string().nonempty(),
         possibleUseCase: z.string().nonempty(),
         imageURL: z.any(),
         tags: z.string().array().min(1, 'At least one tags is required'),

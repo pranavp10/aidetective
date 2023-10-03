@@ -12,6 +12,7 @@ type Tool = {
     imageURL: string;
     isToolPublished: boolean;
     appStoreURL?: string | null;
+    slug: string
     playStoreURL?: string | null;
     tags: Tags[]
 }

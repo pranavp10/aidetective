@@ -1,5 +1,4 @@
 import { prisma } from '@/lib/prisma'
-import { slugger } from '@/lib/slugger';
 import { toolsSchema } from '@/schema/tools.schema';
 import { authOptions } from '@/utils/authOptions';
 import { getServerSession } from 'next-auth';
@@ -32,7 +31,7 @@ export const POST = async (request: Request) => {
         const possibleUseCase = requestTool.possibleUseCase
         const imageURL = requestTool.imageURL
         const tags = requestTool.tags
-        const slug = slugger.slug(name)
+        const slug = requestTool.slug
         const isToolPublished = requestTool.isToolPublished
 
         const insertedTool = await prisma.tools.create(
