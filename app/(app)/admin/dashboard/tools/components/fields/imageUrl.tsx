@@ -19,6 +19,7 @@ export const ImageURL = () => {
     accept: {
       "image/jpeg": [],
       "image/png": [],
+      "image/webp": [],
     },
   });
 
