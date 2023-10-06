@@ -10,6 +10,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const description = tool.description;
   const possibleUseCase = tool.possibleUseCase;
   const tags = tool.tags;
+  const websiteURL = tool.websiteURL;
   return (
     <div className="container max-w-7xl mx-auto">
       <div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
@@ -66,7 +67,9 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
           </Text>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-            <Button variant="secondary">Go to website </Button>
+            <a href={websiteURL} target="_blank">
+              <Button variant="secondary">Go to website </Button>
+            </a>
           </div>
           <div className="mt-10 border-t border-ui-border-base pt-10">
             <Heading level="h3" className="text-sm font-medium">
