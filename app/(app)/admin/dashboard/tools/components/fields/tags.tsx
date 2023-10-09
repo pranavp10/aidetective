@@ -58,24 +58,26 @@ export const Tags = () => {
               onPointerDownOutside={closeDropDown}
             >
               {!isLoading && data ? (
-                data?.map((tag) => {
-                  const isSelected = value?.includes(tag.tagId);
-                  if (!isSelected) {
-                    return (
-                      <DropdownMenu.Item
-                        key={tag.tagId}
-                        onClick={() => {
-                          onChange([...value, tag.tagId]);
-                          setOpen(false);
-                        }}
-                      >
-                        {tag.name}
-                      </DropdownMenu.Item>
-                    );
-                  } else {
-                    return null;
-                  }
-                })
+                data
+                  ?.sort((a, b) => a.name.localeCompare(b.name))
+                  .map((tag) => {
+                    const isSelected = value?.includes(tag.tagId);
+                    if (!isSelected) {
+                      return (
+                        <DropdownMenu.Item
+                          key={tag.tagId}
+                          onClick={() => {
+                            onChange([...value, tag.tagId]);
+                            setOpen(false);
+                          }}
+                        >
+                          {tag.name}
+                        </DropdownMenu.Item>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })
               ) : (
                 <DropdownMenu.Label>Loading...</DropdownMenu.Label>
               )}
