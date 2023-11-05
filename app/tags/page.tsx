@@ -1,47 +1,32 @@
-import React from "react";
 import { prisma } from "@/lib/prisma";
-import { ToolCard } from "@/components/toolCard/toolCard";
+import { Badge, Heading } from "@medusajs/ui";
+import Link from "next/link";
 
-const getDetails = async ({ slug }: { slug: string }) => {
+const getTags = async () => {
   try {
-    const tool = await prisma.tools.findMany({
-      where: {
-        tags: {
-          every: {
-            slug,
-          },
-        },
-      },
-      include: {
-        tags: true,
-      },
-    });
-    return tool;
+    return await prisma.tags.findMany();
   } catch (e) {
     return null;
   }
 };
-
-const Page = async ({ params: { slug } }: { params: { slug: string } }) => {
-  const tools = await getDetails({ slug });
-
-  if (tools) {
-    return (
-      <div className="container px-4 py-3 md:px-8 mx-auto mt-10">
-        <div className="grid grid-cols-4 gap-4">
-          {tools.map((tool) => (
-            <ToolCard tool={tool} key={tool.toolId} />
+const Tags = async () => {
+  const tags = await getTags();
+  return (
+    <main className="container flex items-center justify-between px-4 py-3 md:px-8 mx-auto">
+      <div>
+        <Heading level="h1" className="text-4xl text-center w-full mt-4">
+          <Badge className="text-4xl mb-6">Tags</Badge>
+        </Heading>
+        <div className="flex gap-3 justify-center items-center flex-wrap">
+          {tags?.map((tag: Tag) => (
+            <Link key={tag.tagId} href={`/tag/${tag.slug}`}>
+              <Badge className="text-lg">{tag.name}</Badge>
+            </Link>
           ))}
         </div>
       </div>
-    );
-  } else {
-    return (
-      <div className="container px-4 py-3 md:px-8 mx-auto mt-10">
-        No tools found based on tags
-      </div>
-    );
-  }
+    </main>
+  );
 };
 
-export default Page;
+export default Tags;
