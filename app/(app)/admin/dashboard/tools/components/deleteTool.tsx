@@ -20,10 +20,10 @@ export const DeleteTool = ({
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.delete<Tool>(`/api/tools/${toolId}`);
+      const { data } = await axios.delete<Tool>(`/api/admin/tools/${toolId}`);
       setIsLoading(false);
       onClose();
-      mutate<Tool[]>("/api/tools", async (oldData) => {
+      mutate<Tool[]>("/api/admin/tools", async (oldData) => {
         if (oldData)
           return [...oldData.filter((tool) => tool.toolId !== data.toolId)];
       });

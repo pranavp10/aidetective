@@ -7,7 +7,7 @@ import useSWR from "swr";
 import { ToolsList } from "./components/toolsList";
 
 const Page = () => {
-  const { data, error, isLoading } = useSWR<Tool[]>("/api/tools");
+  const { data, error, isLoading } = useSWR<Tool[]>("/api/admin/tools");
   return (
     <>
       <div className="flex justify-between items-center pt-10 px-10">

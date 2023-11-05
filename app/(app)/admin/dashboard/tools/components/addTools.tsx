@@ -52,12 +52,15 @@ export const AddTools = () => {
       setIsLoading(true);
       const formData = new FormData();
       formData.set("file", value.imageURL);
-      const { data } = await axios.post<Tool>("/api/tools", {
+      const { data } = await axios.post<Tool>("/api/admin/tools", {
         ...value,
         imageURL: "-",
       });
-      await axios.post(`/api/tools/${data.toolId}/image-upload`, formData);
-      mutate<Tool[]>("/api/tools", async (oldData) => {
+      await axios.post(
+        `/api/admin/tools/${data.toolId}/image-upload`,
+        formData
+      );
+      mutate<Tool[]>("/api/admin/tools", async (oldData) => {
         if (oldData)
           return [
             ...oldData,

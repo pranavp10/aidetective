@@ -13,6 +13,7 @@ const config: Config = {
   ],
   theme: {},
   plugins: [],
+  darkMode: 'class',
   presets: [require("@medusajs/ui-preset")],
 }
 export default config

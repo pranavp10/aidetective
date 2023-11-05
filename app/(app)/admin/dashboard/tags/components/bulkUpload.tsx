@@ -16,12 +16,12 @@ export const BulkUpload = () => {
     try {
       setIsLoading(true);
       const { data } = await axios.post<{ count: number }>(
-        "/api/tags/bulk-upload",
+        "/api/admin/tags/bulk-upload",
         {
           tagList: tagsList,
         }
       );
-      mutate("/api/tags");
+      mutate("/api/admin/tags");
       setIsLoading(false);
       setOpen(false);
       toast({

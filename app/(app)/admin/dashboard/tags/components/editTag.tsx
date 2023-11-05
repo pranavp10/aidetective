@@ -25,10 +25,10 @@ export const EditTag = ({
   const saveTag = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.put<Tag>(`/api/tags/${tag?.tagId}`, {
+      const { data } = await axios.put<Tag>(`/api/admin/tags/${tag?.tagId}`, {
         name: updatedTag,
       });
-      mutate<Tag[]>("/api/tags", async (oldData) => {
+      mutate<Tag[]>("/api/admin/tags", async (oldData) => {
         if (oldData)
           return [
             ...oldData.map((tag) => (data.tagId === tag.tagId ? data : tag)),

@@ -20,10 +20,10 @@ export const DeleteTag = ({
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.delete<Tag>(`/api/tags/${tagId}`);
+      const { data } = await axios.delete<Tag>(`/api/admin/tags/${tagId}`);
       setIsLoading(false);
       onClose();
-      mutate<Tag[]>("/api/tags", async (oldData) => {
+      mutate<Tag[]>("/api/admin/tags", async (oldData) => {
         if (oldData)
           return [...oldData.filter((tag) => tag.tagId !== data.tagId)];
       });

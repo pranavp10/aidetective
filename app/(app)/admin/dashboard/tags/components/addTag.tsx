@@ -15,10 +15,10 @@ export const AddTag = () => {
   const saveTag = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.post<Tag>("/api/tags", {
+      const { data } = await axios.post<Tag>("/api/admin/tags", {
         name: tag,
       });
-      mutate<Tag[]>("/api/tags", async (oldData) => {
+      mutate<Tag[]>("/api/admin/tags", async (oldData) => {
         if (oldData) return [...oldData, data];
       });
       setIsLoading(false);

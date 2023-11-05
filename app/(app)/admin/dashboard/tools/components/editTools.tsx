@@ -51,16 +51,22 @@ export const EditTools = ({
   const addTool = async (value: ToolsSchema) => {
     try {
       setIsLoading(true);
-      const { data } = await axios.put<Tool>(`/api/tools/${tool?.toolId}`, {
-        ...value,
-        imageURL: tool.imageURL,
-      });
+      const { data } = await axios.put<Tool>(
+        `/api/admin/tools/${tool?.toolId}`,
+        {
+          ...value,
+          imageURL: tool.imageURL,
+        }
+      );
       if (typeof value.imageURL !== "string") {
         const formData = new FormData();
         formData.set("file", value.imageURL);
-        await axios.post(`/api/tools/${data.toolId}/image-upload`, formData);
+        await axios.post(
+          `/api/admin/tools/${data.toolId}/image-upload`,
+          formData
+        );
       }
-      mutate<Tool[]>("/api/tools", async (oldData) => {
+      mutate<Tool[]>("/api/admin/tools", async (oldData) => {
         if (oldData) return [...oldData, data];
       });
       setIsLoading(false);

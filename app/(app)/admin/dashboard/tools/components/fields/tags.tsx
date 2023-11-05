@@ -9,7 +9,7 @@ export const Tags = () => {
     control,
     formState: { errors },
   } = useFormContext();
-  const { data, error, isLoading } = useSWR<Tag[]>("/api/tags");
+  const { data, error, isLoading } = useSWR<Tag[]>("/api/admin/tags");
   const [open, setOpen] = useState(false);
 
   const closeDropDown = () => setOpen(false);

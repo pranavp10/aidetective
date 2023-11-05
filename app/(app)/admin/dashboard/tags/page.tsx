@@ -10,7 +10,7 @@ import { BulkUpload } from "./components/bulkUpload";
 
 const Tag = () => {
   const { toast } = useToast();
-  const { data, error, isLoading } = useSWR<Tag[]>("/api/tags");
+  const { data, error, isLoading } = useSWR<Tag[]>("/api/admin/tags");
   return (
     <div>
       <div className="flex justify-between items-center pt-10 px-10">

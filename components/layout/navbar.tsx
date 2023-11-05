@@ -2,6 +2,7 @@
 import useShowNavbar from "@/hooks/useShowNavbar";
 import { Avatar, Button, Heading } from "@medusajs/ui";
 import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
 
 const NavBar = () => {
   const showNaveBar = useShowNavbar();
@@ -12,7 +13,9 @@ const NavBar = () => {
       <nav>
         <div className="border-ui-border-base bg-ui-bg-base sticky top-0 z-50 w-full border-b">
           <div className="container flex items-center justify-between px-4 py-3 md:px-8 mx-auto">
-            <Heading>Superflex AI</Heading>
+            <Link href="/">
+              <Heading>Superflex AI</Heading>
+            </Link>
             {status === "unauthenticated" && (
               <Button onClick={() => signIn()}>Get Started</Button>
             )}
