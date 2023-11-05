@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { Twitter } from "@medusajs/icons";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
-  const image = tool.imageURL;
+  const image = tool.imageURL !== "-" ? tool.imageURL : "/noImg.png";
   const name = tool.name;
   const updatedAt = tool.updatedAt;
   const description = tool.description;
@@ -38,7 +38,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
                   </time>
                   )
                 </Text>
-                <div>
+                <div className="flex items-center gap-2">
                   {tags.map(({ createdAt, name, tagId }: Tag) => (
                     <Badge size="small" key={tagId}>
                       {name}
