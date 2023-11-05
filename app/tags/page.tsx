@@ -18,7 +18,7 @@ const Tags = async () => {
       <main className="container flex items-center justify-between px-4 py-3 md:px-8 mx-auto">
         <div>
           <Heading level="h1" className="text-4xl text-center w-full mt-4">
-            <Badge className="text-4xl mb-6">Tags</Badge>
+            Select the Tag
           </Heading>
           <div className="flex gap-3 justify-center items-center flex-wrap">
             {tags?.map((tag: Tag) => (
