@@ -4,7 +4,7 @@ import { ToolCard } from "@/components/toolCard/toolCard";
 import { Spinner } from "@medusajs/icons";
 import useSWR from "swr";
 
-export const Page = () => {
+const Page = () => {
   const { data, error, isLoading } = useSWR<Tool[]>("/api/tools");
 
   if (isLoading) {
