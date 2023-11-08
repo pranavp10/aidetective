@@ -70,15 +70,19 @@ export const POST = async (request: Request) => {
     }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+    const session = await getServerSession(authOptions);
+    if ((session?.user.role !== 'SUPER_ADMIN')) {
+        return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
+    }
     try {
-        const tags = await prisma.tools.findMany({
+        const tools = await prisma.tools.findMany({
             include: {
                 user: true,
                 tags: true
             }
         })
-        return NextResponse.json(tags)
+        return NextResponse.json(tools)
     } catch (error) {
         return new NextResponse(JSON.stringify({ error }), { status: 500 })
     }
