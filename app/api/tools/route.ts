@@ -23,6 +23,11 @@ export async function GET(request: Request) {
       const tool = await prisma.tools.findMany({
          where: {
             userId: session?.user.id
+         },
+         include: {
+            tags: true,
+            user: true
+
          }
       })
       return NextResponse.json(tool)
