@@ -1,10 +1,4 @@
 "use client";
-import {
-  BuildingStorefront,
-  CubeSolid,
-  DocumentText,
-  Tag,
-} from "@medusajs/icons";
 import { Avatar, Text } from "@medusajs/ui";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -35,7 +29,7 @@ const Sidebar = () => {
               Admin Actions
             </p>
             <ul className="txt-compact-small-plus grid grid-flow-row auto-rows-max gap-0.5">
-              {list.map(({ Icon, isActive, link, title }) => (
+              {list.map(({ isActive, link, title }) => (
                 <li key={link}>
                   <Link
                     href={link}
@@ -46,7 +40,6 @@ const Sidebar = () => {
                             : "border-transparent text-ui-fg-subtle"
                         }`}
                   >
-                    <Icon />
                     {title}
                   </Link>
                 </li>
@@ -64,16 +57,19 @@ export default Sidebar;
 const getList = (pathname: string) => {
   return [
     {
+      title: "Dashboard",
+      link: "/admin/dashboard",
+      isActive: pathname === "/admin/dashboard",
+    },
+    {
       title: "Tools",
       link: "/admin/dashboard/tools",
       isActive: pathname === "/admin/dashboard/tools",
-      Icon: BuildingStorefront,
     },
     {
       title: "Tags",
       link: "/admin/dashboard/tags",
       isActive: pathname === "/admin/dashboard/tags",
-      Icon: Tag,
     },
   ];
 };
