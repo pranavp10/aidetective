@@ -1,6 +1,5 @@
 "use client";
 import useShowNavbar from "@/hooks/useShowNavbar";
-import { ArrowRightOnRectangle } from "@medusajs/icons";
 import { Avatar, Button, Heading, DropdownMenu } from "@medusajs/ui";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -14,8 +13,8 @@ const NavBar = () => {
 
   if (showNaveBar)
     return (
-      <nav>
-        <div className="border-ui-border-base bg-ui-bg-base sticky top-0 z-50 w-full border-b">
+      <nav className="mb-14">
+        <div className="border-ui-border-base bg-ui-bg-base fixed top-0 z-50 w-full border-b">
           <div className="container flex items-center justify-between px-4 py-3 md:px-8 mx-auto">
             <Link href="/">
               <Heading>Superflex AI</Heading>
@@ -44,10 +43,15 @@ const NavBar = () => {
                       align="end"
                     >
                       <DropdownMenu.Item
-                        className="gap-x-2"
+                        className="gap-x-2 cursor-pointer"
+                        onClick={() => push("/dashboard")}
+                      >
+                        Dashboard
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item
+                        className="gap-x-2 text-ui-fg-error cursor-pointer"
                         onClick={() => signOut()}
                       >
-                        <ArrowRightOnRectangle className="text-ui-fg-subtle" />
                         Logout
                       </DropdownMenu.Item>
                     </DropdownMenu.Content>

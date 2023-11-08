@@ -9,7 +9,7 @@ export const Tags = () => {
     control,
     formState: { errors },
   } = useFormContext();
-  const { data, error, isLoading } = useSWR<Tag[]>("/api/admin/tags");
+  const { data, error, isLoading } = useSWR<Tag[]>("/api/tags");
   const [open, setOpen] = useState(false);
 
   const closeDropDown = () => setOpen(false);
@@ -53,7 +53,7 @@ export const Tags = () => {
               </div>
             </DropdownMenu.Trigger>
             <DropdownMenu.Content
-              className="max-h-64 overflow-y-auto w-10"
+              className="max-h-64 overflow-y-auto"
               onEscapeKeyDown={closeDropDown}
               onPointerDownOutside={closeDropDown}
             >
