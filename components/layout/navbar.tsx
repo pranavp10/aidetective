@@ -1,9 +1,11 @@
 "use client";
 import useShowNavbar from "@/hooks/useShowNavbar";
-import { Avatar, Button, Heading } from "@medusajs/ui";
+import { ArrowRightOnRectangle } from "@medusajs/icons";
+import { Avatar, Button, Heading, DropdownMenu } from "@medusajs/ui";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 const NavBar = () => {
   const showNaveBar = useShowNavbar();
@@ -29,10 +31,27 @@ const NavBar = () => {
                   </Button>
                 )}
                 {session.user?.image && session.user.name && (
-                  <Avatar
-                    src={session.user?.image}
-                    fallback={session.user.name[0]}
-                  />
+                  <DropdownMenu>
+                    <DropdownMenu.Trigger>
+                      <Avatar
+                        src={session.user?.image}
+                        fallback={session.user.name[0]}
+                      />
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content
+                      className="flex flex-col justify-start w-fit z-50"
+                      style={{ minWidth: "10px" }}
+                      align="end"
+                    >
+                      <DropdownMenu.Item
+                        className="gap-x-2"
+                        onClick={() => signOut()}
+                      >
+                        <ArrowRightOnRectangle className="text-ui-fg-subtle" />
+                        Logout
+                      </DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                  </DropdownMenu>
                 )}
               </div>
             )}

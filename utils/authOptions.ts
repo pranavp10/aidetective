@@ -27,7 +27,14 @@ export const authOptions: NextAuthOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID ?? '',
             clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
             profile(profile) {
-                return { role: "USER", ...profile }
+                return {
+                    role: "USER",
+                    userId: profile.id,
+                    name: profile.name,
+                    email: profile.email,
+                    image: profile.picture,
+                    id: profile.sub,
+                }
             },
         }),
     ],
