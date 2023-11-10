@@ -35,15 +35,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
-  role          String    @default("USER")
+  role          String        @default("USER")
   accounts      Account[]
   sessions      Session[]
   tools         Tools[]
+  bookmark      Bookmark[]
+  collections   Collections[]
 }
 
 model VerificationToken {
@@ -62,24 +64,26 @@ enum Pricing {
 }
 
 model Tools {
-  toolId          String    @id @unique @default(cuid())
-  slug            String    @unique
-  name            String
-  summary         String
-  description     String
-  websiteURL      String
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  featuredAt      DateTime?
-  pricing         Pricing   @default(free)
-  isToolPublished Boolean   @default(false)
-  appStoreURL     String?
-  playStoreURL    String?
-  possibleUseCase String
-  imageURL        String
-  tags            Tags[]
-  userId          String
-  user            User      @relation(fields: [userId], references: [id])
+  toolId           String             @id @unique @default(cuid())
+  slug             String             @unique
+  name             String
+  summary          String
+  description      String
+  websiteURL       String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  featuredAt       DateTime?
+  pricing          Pricing            @default(free)
+  isToolPublished  Boolean            @default(false)
+  appStoreURL      String?
+  playStoreURL     String?
+  possibleUseCase  String
+  imageURL         String
+  tags             Tags[]
+  userId           String
+  user             User               @relation(fields: [userId], references: [id])
+  bookmark         Bookmark[]
+  ToolsCollections ToolsCollections[]
 }
 
 model Tags {
@@ -89,4 +93,31 @@ model Tags {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   tools     Tools[]
+}
+
+model Bookmark {
+  bookmarkId String @id @unique @default(cuid())
+  toolId     String
+  userId     String
+  user       User   @relation(fields: [userId], references: [id])
+  tools      Tools  @relation(fields: [toolId], references: [toolId])
+}
+
+model Collections {
+  collectionId     String             @id @unique @default(cuid())
+  userId           String
+  name             String
+  description      String
+  imageURL         String?
+  slug             String
+  user             User               @relation(fields: [userId], references: [id])
+  ToolsCollections ToolsCollections[]
+}
+
+model ToolsCollections {
+  toolsCollectionId String      @id @unique @default(cuid())
+  toolId            String
+  collectionId      String
+  tools             Tools       @relation(fields: [toolId], references: [toolId])
+  collections       Collections @relation(fields: [collectionId], references: [collectionId])
 }
