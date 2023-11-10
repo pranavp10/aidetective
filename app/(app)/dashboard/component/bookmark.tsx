@@ -5,21 +5,22 @@ import { Text } from "@medusajs/ui";
 import useSWR from "swr";
 
 export const Bookmark = () => {
-  const { data, error, isLoading } = useSWR<Tool[]>("/api/bookmark");
+  const { data, error, isLoading } =
+    useSWR<{ tools: Tool; bookmarkId: string }[]>("/api/bookmark");
 
   if (error && !data) return <div>Error loading Bookmark </div>;
 
   if (isLoading)
     return (
-      <div className="h-28 flex justify-center items-center">
+      <div className="h-28 flex justify-center items-center ">
         <Spinner className="animate-spin" />
       </div>
     );
 
   return (
-    <div className="flex gap-4 overflow-y-auto items-center">
-      {data?.map((tool) => (
-        <ToolCard tool={tool} key={tool.toolId} />
+    <div className="grid grid-cols-3 gap-6">
+      {data?.map((bookmark) => (
+        <ToolCard tool={bookmark.tools} key={bookmark.bookmarkId} />
       ))}
       {!data?.length && <Text>No bookmark yet</Text>}
     </div>

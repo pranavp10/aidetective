@@ -5,16 +5,24 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
-export const ToolBookmark = ({ id }: { id: string }) => {
+export const ToolBookmark = ({
+  id,
+  size = 50,
+}: {
+  id: string;
+  size?: number;
+}) => {
   const { data: session } = useSession();
-  const { data } = useSWR<Tool[]>(
+  const { data } = useSWR<{ tools: Tool }[]>(
     session?.user.id ? "/api/bookmark" : undefined
   );
 
   const [bookmark, setBookmark] = useState<boolean>(false);
 
   useEffect(() => {
-    setBookmark(data?.some((tool) => tool.toolId === id) || false);
+    setBookmark(
+      data?.some((bookmark) => bookmark.tools.toolId === id) || false
+    );
   }, [data]);
 
   const bookmarkTool = async () => {
@@ -50,9 +58,13 @@ export const ToolBookmark = ({ id }: { id: string }) => {
         }}
       >
         {bookmark ? (
-          <Bookmark className="text-2xl" size="50" fill="#740404" />
+          <Bookmark
+            className="text-2xl text-[#FFDC26]"
+            size={size}
+            fill="#FFDC26"
+          />
         ) : (
-          <Bookmark className="text-2xl" size="50" />
+          <Bookmark className="text-2xl text-[#FFDC26]" size={size} />
         )}
       </div>
     );

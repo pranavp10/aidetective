@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { Badge, Heading, Text } from "@medusajs/ui";
-import { ToolBookmark } from "./bookmark/bookmark";
+import { ToolBookmark } from "./toolBookmark/toolBookmark";
 import { useRouter } from "next/navigation";
 
 export const ToolCard = ({ tool }: { tool: Tool }) => {
@@ -17,16 +17,18 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
       <img
         src={tool.imageURL !== "-" ? tool.imageURL : "/noImg.png"}
         alt={`${tool.name} landing page`}
-        className=" rounded-t-md"
+        className="rounded-t-md"
       />
       <div className="p-4">
         <Heading>{tool.name}</Heading>
         <Text className="line-clamp-3">{tool.description}</Text>
-        <div className="mt-3 flex items-center gap-2">
-          {[...tool.tags].slice(0, 2).map((tag: Tag) => (
-            <Badge key={tag.tagId}>{tag.name}</Badge>
-          ))}
-        </div>
+        {tool?.tags && (
+          <div className="mt-3 flex items-center gap-2">
+            {[...tool?.tags].slice(0, 2).map((tag: Tag) => (
+              <Badge key={tag.tagId}>{tag.name}</Badge>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import { Facebook, Linkedin, StarSolid } from "@medusajs/icons";
-import { Badge, Button, Heading, Text } from "@medusajs/ui";
+import { Badge, Button, Heading, IconButton, Text } from "@medusajs/ui";
 import dayjs from "dayjs";
 import { Twitter } from "@medusajs/icons";
+import { ToolBookmark } from "@/components/toolCard/toolBookmark/toolBookmark";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const image = tool.imageURL !== "-" ? tool.imageURL : "/noImg.png";
@@ -11,6 +12,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const possibleUseCase = tool.possibleUseCase;
   const tags = tool.tags;
   const websiteURL = tool.websiteURL;
+
   return (
     <div className="container max-w-7xl mx-auto">
       <div className="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
@@ -26,10 +28,15 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
         <div className="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
           <div className="flex flex-col-reverse">
             <div className="mt-4">
-              <Heading level="h1">{name}</Heading>
-              <Heading level="h2" id="tool-information" className="sr-only">
-                {name}
-              </Heading>
+              <div className="flex items-center justify-between mb-4">
+                <Heading level="h1" className="text-3xl font-medium">
+                  {name}
+                </Heading>
+                <Heading level="h2" id="tool-information" className="sr-only">
+                  {name}
+                </Heading>
+                <ToolBookmark size={30} id={tool.toolId} />
+              </div>
               <div className="flex justify-between">
                 <Text size="small" className="mt-2">
                   (Updated{" "}
