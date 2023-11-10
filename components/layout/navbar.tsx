@@ -5,6 +5,7 @@ import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 const NavBar = () => {
   const showNaveBar = useShowNavbar();
@@ -16,8 +17,15 @@ const NavBar = () => {
       <nav className="mb-14">
         <div className="border-ui-border-base bg-ui-bg-base fixed top-0 z-50 w-full border-b">
           <div className="container flex items-center justify-between px-4 py-3 md:px-8 mx-auto">
-            <Link href="/">
-              <Heading>Superflex AI</Heading>
+            <Link href="/" className="flex items-center gap-3">
+              <Image
+                src="/android-chrome-512x512.png"
+                className="rounded-full"
+                alt="logo of company"
+                width={30}
+                height={30}
+              />
+              <Heading>AI Detective</Heading>
             </Link>
             {status === "unauthenticated" && (
               <Button onClick={() => signIn()}>Get Started</Button>
