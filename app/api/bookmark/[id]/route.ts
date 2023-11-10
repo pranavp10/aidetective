@@ -4,7 +4,7 @@ import { authOptions } from '@/utils/authOptions'
 import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
 
-export const POST = async (request: Request, { params }: { params: { toolId: string } }) => {
+export const POST = async (request: Request, { params }: { params: { id: string } }) => {
     try {
         const headers = await checkRateLimit(request.headers.get("x-forwarded-for") ?? "")
         if (headers) {
@@ -18,7 +18,7 @@ export const POST = async (request: Request, { params }: { params: { toolId: str
             return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
         }
 
-        const toolId = params?.toolId
+        const toolId = params?.id
         if (!toolId) {
             return new NextResponse(JSON.stringify({ error: 'Please send toolId' }), { status: 403 })
         }
@@ -46,26 +46,28 @@ export const POST = async (request: Request, { params }: { params: { toolId: str
 }
 
 
-const DELETE = async (request: Request, { params }: { params: { bookmarkId: string } }) => {
-    const bookmarkId = params.bookmarkId
+const DELETE = async (request: Request, { params }: { params: { id: string } }) => {
+    const toolId = params.id
     const headers = await checkRateLimit(request.headers.get("x-forwarded-for") ?? "")
     if (headers) new NextResponse("You can only send a request once per hour.", {
         status: 429,
         headers
     })
-    if (!bookmarkId) return new NextResponse(JSON.stringify({ error: 'Please send valid tagId' }), { status: 403 })
+    if (!toolId) return new NextResponse(JSON.stringify({ error: 'Please send valid tagId' }), { status: 403 })
+
     const session = await getServerSession(authOptions);
     if (session?.user.role !== 'USER') new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
 
     try {
-        await prisma.bookmark.delete({
+        await prisma.bookmark.deleteMany({
             where: {
-                bookmarkId,
+                toolId,
                 userId: session?.user.id
             }
         })
         return NextResponse.json({ success: true, message: 'Remove tool removed from bookmark' })
     } catch (error) {
+        console.log("🚀 ~ file: route.ts:70 ~ DELETE ~ error:", error)
         return new NextResponse(JSON.stringify({ error }), { status: 500 })
     }
 }
