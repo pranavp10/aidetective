@@ -15,7 +15,7 @@ export async function GET(request: Request) {
       }
 
       const session = await getServerSession(authOptions);
-      if (session?.user.role !== 'USER') {
+      if (!session?.user.id || !(['USER', 'SUPER_ADMIN'].includes(session?.user.role || ""))) {
          return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
       }
 
