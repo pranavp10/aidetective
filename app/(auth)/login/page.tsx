@@ -11,7 +11,7 @@ const Login = async () => {
         <AuthButton providers={providers} />
       </div>
       <div className="flex-1 w-full flex justify-center items-center h-full">
-        <Heading>Superflex AI</Heading>
+        <Heading>AI Detective</Heading>
       </div>
     </div>
   );

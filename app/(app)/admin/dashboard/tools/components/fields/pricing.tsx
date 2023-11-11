@@ -47,24 +47,16 @@ const pricing = [
     value: PricingEnum.free,
   },
   {
-    label: "Freemium",
+    label: "Free Trial",
     value: PricingEnum.free_trail,
   },
   {
-    label: "Freemium No Credit card",
+    label: "Free Trial No Credit Card",
     value: PricingEnum.free_trail_no_card,
   },
   {
-    label: "Paid",
+    label: "Monthly Subscription",
     value: PricingEnum.paid,
-  },
-  {
-    label: "Waitlist",
-    value: PricingEnum.waitlist,
-  },
-  {
-    label: "Request Demo",
-    value: PricingEnum.request_demo,
   },
   {
     label: "Yearly Subscription",
@@ -73,5 +65,13 @@ const pricing = [
   {
     label: "One Time Payment",
     value: PricingEnum.one_time_payment,
+  },
+  {
+    label: "Waitlist",
+    value: PricingEnum.waitlist,
+  },
+  {
+    label: "Request Demo",
+    value: PricingEnum.request_demo,
   },
 ];

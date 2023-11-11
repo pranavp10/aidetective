@@ -74,7 +74,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
           </Text>
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-            <a href={`${websiteURL}?via=superflex`} target="_blank">
+            <a href={`${websiteURL}?via=aiDetective`} target="_blank">
               <Button variant="secondary">Go to website </Button>
             </a>
           </div>
