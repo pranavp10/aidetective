@@ -14,7 +14,7 @@ export const POST = async (request: Request, { params }: { params: { id: string 
             })
         }
         const session = await getServerSession(authOptions);
-        if (session?.user.role !== 'USER') {
+        if (!session?.user.id || !(['USER', 'SUPER_ADMIN'].includes(session?.user.role || ""))) {
             return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
         }
 
@@ -56,7 +56,7 @@ const DELETE = async (request: Request, { params }: { params: { id: string } }) 
     if (!toolId) return new NextResponse(JSON.stringify({ error: 'Please send valid tagId' }), { status: 403 })
 
     const session = await getServerSession(authOptions);
-    if (session?.user.role !== 'USER') new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
+    if (!session?.user.id || !(['USER', 'SUPER_ADMIN'].includes(session?.user.role || ""))) new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
 
     try {
         await prisma.bookmark.deleteMany({
