@@ -7,6 +7,7 @@ import NavBar from "@/components/layout/navbar";
 import { authOptions } from "@/utils/authOptions";
 import SWRProvider from "@/context/SWRProvider";
 import { ToastProvider } from "@/context/ToastProvider";
+import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,6 +24,17 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <Script strategy="lazyOnload" id="google-script">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+          page_path: window.location.pathname,
+          });
+        `}
+      </Script>
+
       <head>
         <link
           rel="apple-touch-icon"
