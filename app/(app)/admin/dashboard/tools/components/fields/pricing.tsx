@@ -58,4 +58,20 @@ const pricing = [
     label: "Paid",
     value: PricingEnum.paid,
   },
+  {
+    label: "Waitlist",
+    value: PricingEnum.waitlist,
+  },
+  {
+    label: "Request Demo",
+    value: PricingEnum.request_demo,
+  },
+  {
+    label: "Yearly Subscription",
+    value: PricingEnum.yearly_subscription,
+  },
+  {
+    label: "One Time Payment",
+    value: PricingEnum.one_time_payment,
+  },
 ];
