@@ -7,7 +7,7 @@ type Tool = {
     description: string;
     websiteURL: string;
     featuredAt?: Date | null;
-    pricing: "free" | "free_trail" | "free_trail_no_card" | "paid";
+    pricing: "free" | "free_trail" | "free_trail_no_card" | "paid" | 'freemium' | 'waitlist' | 'request_demo' | 'yearly_subscription' | 'one_time_payment';
     possibleUseCase: string;
     imageURL: string;
     isToolPublished: boolean;
@@ -16,5 +16,3 @@ type Tool = {
     playStoreURL?: string | null;
     tags: Tags[]
 }
-
-
