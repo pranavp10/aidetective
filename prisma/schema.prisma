@@ -61,6 +61,11 @@ enum Pricing {
   paid
   free_trail
   free_trail_no_card
+  freemium
+  waitlist
+  request_demo
+  yearly_subscription
+  one_time_payment
 }
 
 model Tools {
