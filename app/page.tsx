@@ -6,6 +6,9 @@ const getTools = async () => {
   try {
     const tool = await prisma.tools.findMany({
       include: { tags: true },
+      where: {
+        isToolPublished: true,
+      },
     });
     return tool;
   } catch (e) {
