@@ -9,7 +9,7 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
   return (
     <div
       className="transition ease-in-out delay-150 border-2 border-ui-border-base hover:border-ui-border-loud rounded-lg hover:bg-ui-bg-base-hover cursor-pointer hover:scale-105 duration-300 h-full relative"
-      onClick={() => push(`/tool/${tool.toolId}`)}
+      onClick={() => push(`/tool/${tool.slug}`)}
     >
       <div className="absolute right-0">
         <ToolBookmark id={tool.toolId} />

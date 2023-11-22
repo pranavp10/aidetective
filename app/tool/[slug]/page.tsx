@@ -4,11 +4,11 @@ import { ToolDetails } from "./component/toolDetails";
 import { Heading } from "@medusajs/ui";
 import { ToolCard } from "@/components/toolCard/toolCard";
 
-const getDetails = async ({ toolId }: { toolId: string }) => {
+const getDetails = async ({ slug }: { slug: string }) => {
   try {
     const tool = await prisma.tools.findUnique({
       where: {
-        toolId: toolId,
+        slug,
       },
       include: {
         tags: {
@@ -28,8 +28,8 @@ const getDetails = async ({ toolId }: { toolId: string }) => {
   }
 };
 
-const Page = async ({ params: { toolId } }: { params: { toolId: string } }) => {
-  const toolDetails = await getDetails({ toolId });
+const Page = async ({ params: { slug } }: { params: { slug: string } }) => {
+  const toolDetails = await getDetails({ slug });
   if (toolDetails) {
     return (
       <div className="container px-4 py-3 md:px-8 mx-auto mt-10">
