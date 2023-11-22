@@ -25,17 +25,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <Script strategy="lazyOnload" id="google-script">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-          page_path: window.location.pathname,
-          });
-        `}
-      </Script>
-
+      <Script
+        strategy="afterInteractive"
+        id="google-script"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
       <head>
         <link
           rel="apple-touch-icon"
