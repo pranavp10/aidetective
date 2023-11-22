@@ -17,7 +17,7 @@ export const WebsiteURl = () => {
           <Input
             aria-invalid={!!errors?.websiteURL?.message}
             id="websiteURL"
-            placeholder="https://superflex.ai"
+            placeholder="https://aidetective.xyz"
             value={value}
             onChange={(e) => onChange(e.target.value)}
           />

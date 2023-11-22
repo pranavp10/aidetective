@@ -8,6 +8,7 @@ import { authOptions } from "@/utils/authOptions";
 import SWRProvider from "@/context/SWRProvider";
 import { ToastProvider } from "@/context/ToastProvider";
 import Script from "next/script";
+import { Footer } from "./component/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,17 +25,6 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <Script strategy="lazyOnload" id="google-script">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-          page_path: window.location.pathname,
-          });
-        `}
-      </Script>
-
       <head>
         <link
           rel="apple-touch-icon"
@@ -59,11 +49,24 @@ export default async function RootLayout({
         <meta name="theme-color" content="#b91d47" />
       </head>
       <body className={`bg-ui-bg-base text-ui-fg-base ${inter.className}`}>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        />
+        <Script id="google-analytics">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', ${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS});
+        `}
+        </Script>
         <ToastProvider />
         <SessionProvider session={session}>
           <SWRProvider>
             <NavBar />
             {children}
+            <Footer />
           </SWRProvider>
         </SessionProvider>
       </body>
