@@ -36,7 +36,7 @@ const Page = async ({ params: { toolId } }: { params: { toolId: string } }) => {
         <ToolDetails tool={toolDetails} />
         <Heading>Related tools</Heading>
         <div>
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {toolDetails.tags.map(({ tools }) => (
               <>
                 {tools.map((tool: Tool) => (

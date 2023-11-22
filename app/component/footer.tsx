@@ -192,7 +192,7 @@ export function Footer() {
             <label htmlFor="email-address" className="sr-only">
               Email address
             </label>
-            <Input />
+            <Input placeholder="tim@apple.com" />
             <div className="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
               <Button size="large">Subscribe</Button>
             </div>
