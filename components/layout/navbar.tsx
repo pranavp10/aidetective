@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import { Google } from "@medusajs/icons";
 
 const NavBar = () => {
   const showNaveBar = useShowNavbar();
@@ -28,7 +29,10 @@ const NavBar = () => {
               <Heading>AI Detective</Heading>
             </Link>
             {status === "unauthenticated" && (
-              <Button onClick={() => signIn()}>Get Started</Button>
+              <Button onClick={() => signIn("google")} variant="secondary">
+                <Google />
+                Continue with Google
+              </Button>
             )}
             {status === "authenticated" && (
               <div className="flex items-center gap-4">
