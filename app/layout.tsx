@@ -8,6 +8,7 @@ import { authOptions } from "@/utils/authOptions";
 import SWRProvider from "@/context/SWRProvider";
 import { ToastProvider } from "@/context/ToastProvider";
 import Script from "next/script";
+import { Footer } from "./component/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -64,6 +65,7 @@ export default async function RootLayout({
           <SWRProvider>
             <NavBar />
             {children}
+            <Footer />
           </SWRProvider>
         </SessionProvider>
       </body>
