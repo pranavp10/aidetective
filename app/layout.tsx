@@ -25,11 +25,6 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <Script
-        strategy="afterInteractive"
-        id="google-script"
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-      />
       <head>
         <link
           rel="apple-touch-icon"
@@ -54,6 +49,18 @@ export default async function RootLayout({
         <meta name="theme-color" content="#b91d47" />
       </head>
       <body className={`bg-ui-bg-base text-ui-fg-base ${inter.className}`}>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        />
+        <Script id="google-analytics">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', ${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS});
+        `}
+        </Script>
         <ToastProvider />
         <SessionProvider session={session}>
           <SWRProvider>
