@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GITHUB_SECRET ?? "",
             profile(profile) {
                 return {
-                    role: "SUPER_ADMIN",
+                    role: "USER",
                     userId: profile.sub,
                     email: profile.email,
                     image: profile.avatar_url,
