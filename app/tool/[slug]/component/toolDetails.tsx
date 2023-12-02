@@ -108,7 +108,6 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
               </div>
             )}
           </div>
-
           <div>
             <Text
               size="large"
@@ -118,13 +117,16 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             </Text>
           </div>
         </div>
+
         <div className="lg:col-span-4 lg:row-end-1">
           <div className="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg">
-            <img
-              src={image}
-              alt={image}
-              className="object-cover object-center border-grey-500 border-solid border-5"
-            />
+            <a href={`${websiteURL}?via=AiDetective`} target="_blank">
+              <img
+                src={image}
+                alt={image}
+                className="object-cover object-center border-grey-500 border-solid border-5"
+              />
+            </a>
           </div>
           <div className="flex items-center gap-2 flex-wrap my-5">
             {tags.map(({ createdAt, name, tagId }: Tag) => (

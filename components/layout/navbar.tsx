@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { Google, Twitter } from "@medusajs/icons";
+import { Google, Check } from "@medusajs/icons";
 
 const NavBar = () => {
   const showNaveBar = useShowNavbar();
@@ -30,11 +30,13 @@ const NavBar = () => {
             </Link>
             <form className="mt-6 sm:flex sm:max-w-md lg:mt-0">
               <label htmlFor="email-address" className="sr-only">
-                Email address
+                Email
               </label>
-              <Input placeholder="Your Email" />
+              <Input placeholder="elon@musk.com" />
               <div className="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
-                <Button size="large">Subscribe!</Button>
+                <Button size="large">
+                  <Check />
+                </Button>
               </div>
             </form>
             {status === "unauthenticated" && (
