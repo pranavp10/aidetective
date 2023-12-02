@@ -6,6 +6,7 @@ import { Twitter } from "@medusajs/icons";
 import { ToolBookmark } from "@/components/toolCard/toolBookmark/toolBookmark";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
+  console.log("My tool", tool);
   const image = tool.imageURL !== "-" ? tool.imageURL : "/noImg.png";
   const name = tool.name;
   const description = tool.description;
