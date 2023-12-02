@@ -1,12 +1,12 @@
 "use client";
 import useShowNavbar from "@/hooks/useShowNavbar";
-import { Avatar, Button, Heading, DropdownMenu } from "@medusajs/ui";
+import { Avatar, Button, Heading, DropdownMenu, Input } from "@medusajs/ui";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { Google } from "@medusajs/icons";
+import { Google, Twitter } from "@medusajs/icons";
 
 const NavBar = () => {
   const showNaveBar = useShowNavbar();
@@ -28,10 +28,25 @@ const NavBar = () => {
               />
               <Heading>AI Detective</Heading>
             </Link>
+            <form className="mt-6 sm:flex sm:max-w-md lg:mt-0">
+              <label htmlFor="email-address" className="sr-only">
+                Email address
+              </label>
+              <Input placeholder="Your Email" />
+              <div className="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
+                <Button size="large">Subscribe!</Button>
+              </div>
+            </form>
             {status === "unauthenticated" && (
               <Button onClick={() => signIn("google")} variant="secondary">
                 <Google />
-                Continue with Google
+                Login
+              </Button>
+            )}
+            {status === "unauthenticated" && (
+              <Button onClick={() => signIn("twitter")} variant="secondary">
+                <Twitter />
+                Login
               </Button>
             )}
             {status === "authenticated" && (
