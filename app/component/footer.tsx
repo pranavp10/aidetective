@@ -37,7 +37,7 @@ export function Footer() {
     <footer className="bg-white" aria-labelledby="footer-heading">
       <div className="mx-auto container sm:px-0 px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
         <div className="mt-8 border-t border-gray-900/10 pt-8 md:flex md:items-center md:justify-between">
-          <p className="mt-8 leading-5 text-gray-500 md:order-1 md:mt-0">
+          <p className="mt-8 leading-5 text-gray-700 md:order-1 md:mt-0">
             AI Detective &copy; {new Date().getFullYear()}
           </p>
           <div className="flex space-x-6 md:order-2">
@@ -45,7 +45,7 @@ export function Footer() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-gray-600 hover:text-gray-700"
               >
                 <span>{item.name}</span>
               </Link>
@@ -56,7 +56,7 @@ export function Footer() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-gray-500 hover:text-gray-600"
               >
                 <span className="sr-only">{item.name}</span>
                 <item.icon className="h-6 w-6" aria-hidden="true" />
