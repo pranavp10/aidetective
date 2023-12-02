@@ -43,12 +43,12 @@ const NavBar = () => {
                 Login
               </Button>
             )}
-            {status === "unauthenticated" && (
+            {/* {status === "unauthenticated" && (
               <Button onClick={() => signIn("twitter")} variant="secondary">
                 <Twitter />
                 Login
               </Button>
-            )}
+            )} */}
             {status === "authenticated" && (
               <div className="flex items-center gap-4">
                 {session.user.role === "SUPER_ADMIN" && (
