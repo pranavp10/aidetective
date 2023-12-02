@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import React from "react";
 import { prisma } from "@/lib/prisma";
 import { ToolDetails } from "./component/toolDetails";
@@ -31,10 +31,11 @@ const getDetails = async ({ slug }: { slug: string }) => {
 
 const Page = async ({ params: { slug } }: { params: { slug: string } }) => {
   const toolDetails = await getDetails({ slug });
+  console.log("My toolDetails", toolDetails);
   if (toolDetails) {
     return (
       <div className="container px-4 py-3 md:px-8 mx-auto mt-10">
-        <ToolDetails tool={toolDetails} />
+        {!!toolDetails.name ? <ToolDetails tool={toolDetails} /> : <></>}
         <Heading>Related tools</Heading>
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

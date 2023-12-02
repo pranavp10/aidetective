@@ -31,16 +31,19 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
                 </Heading>
                 <ToolBookmark size={30} id={tool.toolId} />
               </div>
-              {summary == "-" ? (
-                <></>
-              ) : (
-                <Text
-                  size="large"
-                  className="mt-6 whitespace-pre-line text-ui-fg-muted"
-                >
-                  {summary}
-                </Text>
-              )}
+
+              <div>
+                {summary === "-" ? (
+                  <div></div>
+                ) : (
+                  <Text
+                    size="large"
+                    className="mt-6 whitespace-pre-line text-ui-fg-muted"
+                  >
+                    {summary}
+                  </Text>
+                )}
+              </div>
             </div>
 
             <div>
@@ -50,11 +53,9 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
                   <StarSolid key={rating} aria-hidden="true" />
                 ))}
               </div>
-              {/* <p className="sr-only">4 out of 5 stars</p> */}
             </div>
           </div>
 
-          {/* <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2"> */}
           <div className="my-4">
             <a href={`${websiteURL}?via=AiDetective`} target="_blank">
               <Button variant="secondary">Visit Website </Button>
@@ -87,24 +88,26 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             </ul>
           </div>
 
-          {possibleUseCase == "-" ? (
-            <></>
-          ) : (
-            <div className="mt-10 border-t border-ui-border-base pt-10">
-              <Heading level="h3" className="text-sm font-medium">
-                Highlights
-              </Heading>
-              <div className="mt-4 ml-9">
-                <ul role="list" className="list-decimal text-ui-fg-muted">
-                  {possibleUseCase.split(";").map((useCase) => (
-                    <li key={useCase}>
-                      <Text>{useCase}</Text>
-                    </li>
-                  ))}
-                </ul>
+          <div>
+            {possibleUseCase === "-" ? (
+              <div></div>
+            ) : (
+              <div className="mt-10 border-t border-ui-border-base pt-10">
+                <Heading level="h3" className="text-sm font-medium">
+                  Highlights
+                </Heading>
+                <div className="mt-4 ml-9">
+                  <ul role="list" className="list-decimal text-ui-fg-muted">
+                    {possibleUseCase.split(";").map((useCase) => (
+                      <li key={useCase}>
+                        <Text>{useCase}</Text>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
           <div>
             <Text
@@ -117,13 +120,11 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
         </div>
         <div className="lg:col-span-4 lg:row-end-1">
           <div className="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg">
-            {/* <a href={`${websiteURL}?via=AiDetective`} target="_blank"> */}
             <img
               src={image}
               alt={image}
               className="object-cover object-center border-grey-500 border-solid border-5"
             />
-            {/* </a> */}
           </div>
           <div className="flex items-center gap-2 flex-wrap my-5">
             {tags.map(({ createdAt, name, tagId }: Tag) => (
