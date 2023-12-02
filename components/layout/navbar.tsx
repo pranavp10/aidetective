@@ -32,7 +32,7 @@ const NavBar = () => {
               <label htmlFor="email-address" className="sr-only">
                 Email
               </label>
-              <Input placeholder="elon@musk.com" />
+              <Input placeholder="Your Email Address" />
               <div className="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
                 <Button size="large">
                   <Check />

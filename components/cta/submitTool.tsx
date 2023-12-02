@@ -2,6 +2,7 @@
 import { Button, Text } from "@medusajs/ui";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Plus } from "@medusajs/icons";
 
 export const SubmitTool = () => {
   const { status } = useSession();
@@ -17,9 +18,12 @@ export const SubmitTool = () => {
       }}
       className="w-full sm:flex cursor-pointer"
     >
-      <div className="bg-ui-bg-component border-ui-border-base border sm:flex  w-full p-4 rounded-lg justify-between">
+      <div className="bg-ui-bg-component border-ui-border-base border sm:flex  w-full p-4 rounded-lg justify-center">
         <div className="flex items-center justify-center gap-4">
-          <Button variant="secondary">{"Submit Tool (FREE)"}</Button>
+          <Button variant="primary">
+            <Plus />
+            {"Submit Your Tool (FREE)"}
+          </Button>
           {/*
           <div>
              <Text className="text-xl font-bold">Submit tool for free</Text>
