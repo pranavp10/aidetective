@@ -1,14 +1,13 @@
 // "use client";
 import { Facebook, Linkedin, StarSolid } from "@medusajs/icons";
 import { Badge, Button, Heading, IconButton, Text } from "@medusajs/ui";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import { Twitter } from "@medusajs/icons";
 import { ToolBookmark } from "@/components/toolCard/toolBookmark/toolBookmark";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const image = tool.imageURL !== "-" ? tool.imageURL : "/noImg.png";
   const name = tool.name;
-  const updatedAt = tool.updatedAt;
   const description = tool.description;
   const summary = tool.summary;
   const possibleUseCase = tool.possibleUseCase;
@@ -38,15 +37,6 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
                   {summary}
                 </Text>
               )}
-              {/* <div>
-                <Text size="small" className="my-4">
-                  (Updated{" "}
-                  <time dateTime={dayjs(updatedAt).format("MM D,YYYY")}>
-                    {dayjs(updatedAt).format("MM D,YYYY")}
-                  </time>
-                  )
-                </Text>
-              </div> */}
             </div>
 
             <div>
@@ -110,7 +100,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             </div>
           )}
 
-          {description != "-" ?? (
+          {description ?? (
             <Text
               size="large"
               className="mt-6 whitespace-pre-line text-ui-fg-muted"
@@ -137,7 +127,6 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             ))}
           </div>
         </div>
-        {/*  */}
       </div>
     </div>
   );
