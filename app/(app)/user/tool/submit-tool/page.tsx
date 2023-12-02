@@ -75,7 +75,7 @@ const Page = () => {
         <form onSubmit={handleSubmit(addTool)} className="max-w-xl m-auto mb-4">
           <div className="flex items-center justify-between pt-3 px-2">
             <div>
-              <Heading>Submit new Tool</Heading>
+              <Heading>Submit New Tool</Heading>
               <Text className="max-w-md leading-4">
                 Ones you submit a new tool it will take some time to be
                 available on the market place

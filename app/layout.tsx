@@ -13,7 +13,7 @@ import { Suspense } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Top AI tools for your assistance",
+  title: "AI Detective - Explore Best AI Tools",
   description: "Top AI tools for your assistance",
 };
 

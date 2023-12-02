@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { APISideBar } from "./components/apiSidebar";
 
 export const metadata: Metadata = {
-  title: "Top AI tools for your assistance",
+  title: "AI Detective - Explore Best AI Tools",
   description: "Top AI tools for your assistance",
 };
 
