@@ -13,15 +13,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -42,10 +41,10 @@ model User {
   image         String?
   role          String        @default("USER")
   accounts      Account[]
-  sessions      Session[]
-  tools         Tools[]
   bookmark      Bookmark[]
   collections   Collections[]
+  sessions      Session[]
+  tools         Tools[]
 }
 
 model VerificationToken {
@@ -54,18 +53,6 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-enum Pricing {
-  free
-  paid
-  free_trail
-  free_trail_no_card
-  freemium
-  waitlist
-  request_demo
-  yearly_subscription
-  one_time_payment
 }
 
 model Tools {
@@ -82,13 +69,13 @@ model Tools {
   isToolPublished  Boolean            @default(false)
   appStoreURL      String?
   playStoreURL     String?
+  userId           String
   possibleUseCase  String
   imageURL         String
-  tags             Tags[]
-  userId           String
-  user             User               @relation(fields: [userId], references: [id])
   bookmark         Bookmark[]
+  user             User               @relation(fields: [userId], references: [id])
   ToolsCollections ToolsCollections[]
+  tags             Tags[]             @relation("TagsToTools")
 }
 
 model Tags {
@@ -97,15 +84,15 @@ model Tags {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  tools     Tools[]
+  tools     Tools[]  @relation("TagsToTools")
 }
 
 model Bookmark {
   bookmarkId String @id @unique @default(cuid())
   toolId     String
   userId     String
-  user       User   @relation(fields: [userId], references: [id])
   tools      Tools  @relation(fields: [toolId], references: [toolId])
+  user       User   @relation(fields: [userId], references: [id])
 }
 
 model Collections {
@@ -123,6 +110,18 @@ model ToolsCollections {
   toolsCollectionId String      @id @unique @default(cuid())
   toolId            String
   collectionId      String
-  tools             Tools       @relation(fields: [toolId], references: [toolId])
   collections       Collections @relation(fields: [collectionId], references: [collectionId])
+  tools             Tools       @relation(fields: [toolId], references: [toolId])
+}
+
+enum Pricing {
+  free
+  paid
+  free_trail
+  free_trail_no_card
+  freemium
+  waitlist
+  request_demo
+  yearly_subscription
+  one_time_payment
 }

@@ -45,10 +45,10 @@ export const authOptions: NextAuthOptions = {
           role: "USER",
           userId: profile.id,
           name: profile.name,
-          username: profile.username, // Twitter-specific
-          email: profile.email, // Not always provided by Twitter
-          image: profile.profile_image_url, // Twitter-specific
-          id: profile.id_str, // Twitter-specific
+          username: profile.username,
+          email: profile.email,
+          image: profile.profile_image_url,
+          id: profile.id,
         };
       },
     }),
@@ -67,7 +67,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    session({ session, token, user }) {
+    session({ session, token }) {
       if (session.user) {
         if (token.sub) {
           session.user.id = token.sub;
