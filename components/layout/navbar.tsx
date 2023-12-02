@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { Google, Twitter } from "@medusajs/icons";
+import { Google, Check } from "@medusajs/icons";
 
 const NavBar = () => {
   const showNaveBar = useShowNavbar();
@@ -15,78 +15,79 @@ const NavBar = () => {
 
   if (showNaveBar)
     return (
-      <nav className="mb-14">
-        <div className="border-ui-border-base bg-ui-bg-base fixed top-0 z-50 w-full border-b">
-          <div className="container flex items-center justify-between px-4 py-3 md:px-8 mx-auto">
-            <Link href="/" className="flex items-center gap-3">
-              <Image
-                src="/android-chrome-512x512.png"
-                className="rounded-full"
-                alt="logo of company"
-                width={30}
-                height={30}
-              />
-              <Heading>AI Detective</Heading>
-            </Link>
-            <form className="mt-6 sm:flex sm:max-w-md lg:mt-0">
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <Input placeholder="Your Email" />
-              <div className="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
-                <Button size="large">Subscribe!</Button>
-              </div>
-            </form>
-            {status === "unauthenticated" && (
-              <Button onClick={() => signIn("google")} variant="secondary">
-                <Google />
+      <nav className="">
+        <div className=" flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/android-chrome-512x512.png"
+              className="rounded-full"
+              alt="logo of company"
+              width={30}
+              height={30}
+            />
+            <Heading>AI Detective</Heading>
+          </Link>
+          {status === "unauthenticated" && (
+            <div className="flex items-center">
+              <Button
+                onClick={() =>
+                  signIn("google", { callbackUrl: "/user/tool/submit-tool" })
+                }
+                variant="transparent"
+              >
+                Submit
+              </Button>
+              <Button onClick={() => signIn("google")} variant="transparent">
                 Login
               </Button>
-            )}
-            {status === "unauthenticated" && (
-              <Button onClick={() => signIn("twitter")} variant="secondary">
-                <Twitter />
-                Login
+            </div>
+          )}
+          {status === "authenticated" && (
+            <div className="flex items-center gap-3">
+              <Button
+                onClick={() => push("/user/tool/submit-tool")}
+                variant="transparent"
+              >
+                Submit
               </Button>
-            )}
-            {status === "authenticated" && (
-              <div className="flex items-center gap-4">
-                {session.user.role === "SUPER_ADMIN" && (
-                  <Button onClick={() => push("/admin/dashboard")}>
-                    Admin Dashboard
-                  </Button>
-                )}
-                {session.user?.image && session.user.name && (
-                  <DropdownMenu>
-                    <DropdownMenu.Trigger>
-                      <Avatar
-                        src={session.user?.image}
-                        fallback={session.user.name[0]}
-                      />
-                    </DropdownMenu.Trigger>
-                    <DropdownMenu.Content
-                      className="flex flex-col justify-start w-fit z-50"
-                      style={{ minWidth: "10px" }}
-                      align="end"
+              {session.user?.image && session.user.name && (
+                <DropdownMenu>
+                  <DropdownMenu.Trigger>
+                    <Avatar
+                      src={session.user?.image}
+                      fallback={session.user.name[0]}
+                    />
+                  </DropdownMenu.Trigger>
+                  <DropdownMenu.Content
+                    className="flex flex-col justify-start w-fit z-50"
+                    style={{ minWidth: "10px" }}
+                    align="end"
+                  >
+                    <DropdownMenu.Item
+                      className="gap-x-2 cursor-pointer"
+                      onClick={() => push("/dashboard")}
                     >
+                      Dashboard
+                    </DropdownMenu.Item>
+                    {session.user.role === "SUPER_ADMIN" && (
                       <DropdownMenu.Item
                         className="gap-x-2 cursor-pointer"
-                        onClick={() => push("/dashboard")}
+                        onClick={() => push("/admin/dashboard")}
                       >
-                        Dashboard
+                        Super Admin
                       </DropdownMenu.Item>
-                      <DropdownMenu.Item
-                        className="gap-x-2 text-ui-fg-error cursor-pointer"
-                        onClick={() => signOut()}
-                      >
-                        Logout
-                      </DropdownMenu.Item>
-                    </DropdownMenu.Content>
-                  </DropdownMenu>
-                )}
-              </div>
-            )}
-          </div>
+                    )}
+                    <DropdownMenu.Item
+                      className="gap-x-2 text-ui-fg-error cursor-pointer"
+                      onClick={() => signOut()}
+                    >
+                      Logout
+                    </DropdownMenu.Item>
+                  </DropdownMenu.Content>
+                </DropdownMenu>
+              )}
+            </div>
+          )}
         </div>
       </nav>
     );

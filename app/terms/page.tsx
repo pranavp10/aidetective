@@ -2,14 +2,14 @@ import { Heading, Text } from "@medusajs/ui";
 
 const Page = () => {
   return (
-    <div className="container px-4 py-3 md:px-8 mx-auto mt-10">
+    <div>
       <Heading level="h1">Terms and Conditions</Heading>
 
       <Text>
         Welcome to AI Detective
         <br />
         These terms and conditions outline the rules and regulations for the use
-        of AI Detective’s Website, located at https://www.aiDetective.xyz/
+        of AI Detective’s Website, located at https://www.AiDetective.xyz/
         <br />
         By accessing this website we assume you accept these terms and
         conditions. Do not continue to use AI Detective if you do not agree to

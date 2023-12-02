@@ -2,13 +2,13 @@ import { Heading, Text } from "@medusajs/ui";
 
 const Page = () => {
   return (
-    <div className="container px-4 py-3 md:px-8 mx-auto mt-10">
+    <div>
       <Heading level="h1">Privacy Policy</Heading>
       <Heading level="h3" className="mt-4">
         Introduction
       </Heading>
       <Text>
-        aiDetective.xyz is committed to protecting your privacy. This Privacy
+        AiDetective.xyz is committed to protecting your privacy. This Privacy
         Policy explains what information we collect and how we use it.
       </Text>
       <Heading className="mt-4" level="h2">
@@ -105,7 +105,7 @@ const Page = () => {
       </Heading>
       <Text>
         If you have any questions about this Privacy Policy, please contact us
-        at hi@aidetective.xyz
+        at hello@aidetective.xyz
       </Text>
     </div>
   );

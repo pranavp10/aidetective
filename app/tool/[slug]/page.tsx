@@ -1,8 +1,9 @@
+// "use client";
 import React from "react";
 import { prisma } from "@/lib/prisma";
 import { ToolDetails } from "./component/toolDetails";
 import { Heading } from "@medusajs/ui";
-import { ToolCard } from "@/components/toolCard/toolCard";
+import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
 
 const getDetails = async ({ slug }: { slug: string }) => {
   try {
@@ -30,30 +31,19 @@ const getDetails = async ({ slug }: { slug: string }) => {
 
 const Page = async ({ params: { slug } }: { params: { slug: string } }) => {
   const toolDetails = await getDetails({ slug });
+
   if (toolDetails) {
     return (
-      <div className="container px-4 py-3 md:px-8 mx-auto mt-10">
-        <ToolDetails tool={toolDetails} />
-        <Heading>Related tools</Heading>
-        <div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {toolDetails.tags.map(({ tools }) => (
-              <>
-                {tools.map((tool: Tool) => (
-                  <ToolCard tool={tool} key={tool.toolId} />
-                ))}
-              </>
-            ))}
-          </div>
-        </div>
+      <div>
+        {!!toolDetails.name ? <ToolDetails tool={toolDetails} /> : <></>}
+        <Heading className="mt-8">Related tools</Heading>
+        <ToolCardLayout
+          tools={toolDetails.tags.map((tag) => tag.tools).flat()}
+        />
       </div>
     );
   } else {
-    return (
-      <div className="container px-4 py-3 md:px-8 mx-auto mt-10">
-        Page not found
-      </div>
-    );
+    return <div>Page not found</div>;
   }
 };
 
