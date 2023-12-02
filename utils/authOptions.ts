@@ -43,14 +43,15 @@ export const authOptions: NextAuthOptions = {
       profile(profile) {
         return {
           role: "USER",
-          userId: profile.id,
+          userId: profile.id_str,
           name: profile.name,
           username: profile.username,
           email: profile.email,
           image: profile.profile_image_url,
-          id: profile.id,
+          id: profile.id_str,
         };
       },
+
     }),
   ],
   pages: {
@@ -69,8 +70,8 @@ export const authOptions: NextAuthOptions = {
     },
     session({ session, token }) {
       if (session.user) {
-        if (token.sub) {
-          session.user.id = token.sub;
+        if (token.userId) {
+          session.user.id = token.userId;
         }
         session.user.role = token.role;
       }
