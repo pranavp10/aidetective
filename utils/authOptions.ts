@@ -38,12 +38,8 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     TwitterProvider({
-      clientId: process.env.TWITTER_CLIENT_ID
-        ? process.env.TWITTER_CLIENT_ID
-        : "",
-      clientSecret: process.env.TWITTER_CLIENT_SECRET
-        ? process.env.TWITTER_CLIENT_SECRET
-        : "",
+      clientId: process.env.TWITTER_CLIENT_ID ?? "",
+      clientSecret: process.env.TWITTER_CLIENT_SECRET ?? "",
       profile(profile) {
         return {
           role: "USER",
