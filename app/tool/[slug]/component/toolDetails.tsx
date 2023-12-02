@@ -6,7 +6,6 @@ import { Twitter } from "@medusajs/icons";
 import { ToolBookmark } from "@/components/toolCard/toolBookmark/toolBookmark";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
-  console.log("My tool", tool);
   const image = tool.imageURL !== "-" ? tool.imageURL : "/noImg.png";
   const name = tool.name;
   const description = tool.description;
@@ -14,6 +13,8 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const possibleUseCase = tool.possibleUseCase;
   const tags = tool.tags;
   const websiteURL = tool.websiteURL;
+
+  console.log("My tool", tool);
 
   return (
     <div className="container max-w-7xl mx-auto">
@@ -30,7 +31,9 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
                 </Heading>
                 <ToolBookmark size={30} id={tool.toolId} />
               </div>
-              {summary != "-" ?? (
+              {summary == "-" ? (
+                <></>
+              ) : (
                 <Text
                   size="large"
                   className="mt-6 whitespace-pre-line text-ui-fg-muted"
@@ -47,7 +50,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
                   <StarSolid key={rating} aria-hidden="true" />
                 ))}
               </div>
-              <p className="sr-only">4 out of 5 stars</p>
+              {/* <p className="sr-only">4 out of 5 stars</p> */}
             </div>
           </div>
 
@@ -65,7 +68,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             <ul role="list" className="mt-4 flex items-center space-x-6">
               <li>
                 <a
-                  href="#"
+                  href="https://linkedin.com/company/aidetective"
                   className="flex h-6 w-6 items-center justify-center text-gray-400 hover:text-gray-500"
                 >
                   <span className="sr-only">Share on Twitter</span>
@@ -74,7 +77,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://twitter.com/AiDetective_xyz"
                   className="flex h-6 w-6 items-center justify-center"
                 >
                   <span className="sr-only">Share on Linkedin</span>
@@ -84,7 +87,9 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             </ul>
           </div>
 
-          {possibleUseCase != "-" ?? (
+          {possibleUseCase == "-" ? (
+            <></>
+          ) : (
             <div className="mt-10 border-t border-ui-border-base pt-10">
               <Heading level="h3" className="text-sm font-medium">
                 Highlights
@@ -101,24 +106,24 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             </div>
           )}
 
-          {description ?? (
+          <div>
             <Text
               size="large"
               className="mt-6 whitespace-pre-line text-ui-fg-muted"
             >
               {description}
             </Text>
-          )}
+          </div>
         </div>
         <div className="lg:col-span-4 lg:row-end-1">
           <div className="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg">
-            <a href={`${websiteURL}?via=AiDetective`} target="_blank">
-              <img
-                src={image}
-                alt={image}
-                className="object-cover object-center border-grey-500 border-solid border-5"
-              />
-            </a>
+            {/* <a href={`${websiteURL}?via=AiDetective`} target="_blank"> */}
+            <img
+              src={image}
+              alt={image}
+              className="object-cover object-center border-grey-500 border-solid border-5"
+            />
+            {/* </a> */}
           </div>
           <div className="flex items-center gap-2 flex-wrap my-5">
             {tags.map(({ createdAt, name, tagId }: Tag) => (
