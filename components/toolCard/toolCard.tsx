@@ -1,34 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { Badge, Heading, Text } from "@medusajs/ui";
-import { ToolBookmark } from "./toolBookmark/toolBookmark";
+import { Heading, Text } from "@medusajs/ui";
 import { useRouter } from "next/navigation";
+import { ToolBookmark } from "./toolBookmark/toolBookmark";
 
 export const ToolCard = ({ tool }: { tool: Tool }) => {
   const { push } = useRouter();
   return (
     <div
-      className="transition ease-in-out delay-150 border-2 border-ui-border-base hover:border-ui-border-loud rounded-lg hover:bg-ui-bg-base-hover cursor-pointer hover:scale-105 duration-300 h-full relative"
+      className="rounded-lg cursor-pointer gap-3 relative flex bg-gray-100/60 hover:shadow-md px-3 py-2 items-center"
       onClick={() => push(`/tool/${tool.slug}`)}
     >
-      <div className="absolute right-0">
-        <ToolBookmark id={tool.toolId} />
+      <div className="absolute right-2 top-2">
+        <ToolBookmark id={tool.toolId} size={20} />
       </div>
       <img
         src={tool.imageURL !== "-" ? tool.imageURL : "/noImg.png"}
         alt={`${tool.name} landing page`}
-        className="rounded-t-md"
+        className="rounded-md w-14 h-14 object-cover"
       />
-      <div className="p-4">
-        <Heading>{tool.name}</Heading>
-        <Text className="line-clamp-3">{tool.description}</Text>
-        {tool?.tags && (
-          <div className="mt-3 flex items-center gap-2">
-            {[...tool?.tags].slice(0, 2).map((tag: Tag) => (
-              <Badge key={tag.tagId}>{tag.name}</Badge>
-            ))}
-          </div>
-        )}
+      <div>
+        <Heading className="line-clamp-1">{tool.name}</Heading>
+        <Text size="xsmall" className="line-clamp-2 text-gray-500 leading-4 ">
+          {tool.description}
+        </Text>
       </div>
     </div>
   );

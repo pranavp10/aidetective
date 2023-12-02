@@ -1,5 +1,4 @@
 "use client";
-import { SubmitTool } from "@/components/cta/submitTool";
 import { ToolCard } from "@/components/toolCard/toolCard";
 import { Spinner } from "@medusajs/icons";
 import useSWR from "swr";
@@ -20,7 +19,6 @@ const Page = () => {
 
   return (
     <div className="container flex items-center justify-between px-4 py-3 md:px-8 mx-auto">
-      {!data?.length && <SubmitTool />}
       {data?.map((tool) => (
         <ToolCard tool={tool} key={tool.toolId} />
       ))}

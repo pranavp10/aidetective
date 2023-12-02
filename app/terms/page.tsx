@@ -2,7 +2,7 @@ import { Heading, Text } from "@medusajs/ui";
 
 const Page = () => {
   return (
-    <div className="container px-4 py-3 md:px-8 mx-auto mt-10">
+    <div>
       <Heading level="h1">Terms and Conditions</Heading>
 
       <Text>

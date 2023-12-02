@@ -3,13 +3,18 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import SessionProvider from "@/context/SessionProvider";
 import { getServerSession } from "next-auth";
-import NavBar from "@/components/layout/navbar";
 import { authOptions } from "@/utils/authOptions";
 import SWRProvider from "@/context/SWRProvider";
 import { ToastProvider } from "@/context/ToastProvider";
-import { Footer } from "./component/footer";
 import { PHProvider, PostHogPageview } from "@/context/PostHogProvider";
 import { Suspense } from "react";
+import { getTags } from "@/fetch/getToolsTags";
+import SidebarTags from "./component/sidebarTags";
+import Link from "next/link";
+import Image from "next/image";
+import { Heading } from "@medusajs/ui";
+import { SubmitTool } from "@/components/cta/submitTool";
+import NavBar from "@/components/layout/navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,6 +28,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+  const tags = await getTags();
 
   return (
     <html lang="en">
@@ -57,9 +63,20 @@ export default async function RootLayout({
         <PHProvider>
           <SessionProvider session={session}>
             <SWRProvider>
-              <NavBar />
-              {children}
-              <Footer />
+              <div className="grid w-full grid-cols-1 px-0 lg:mx-auto lg:grid-cols-[280px_1fr]">
+                <SidebarTags tags={tags} />
+                <div className="w-full h-screen overflow-y-auto">
+                  <div className="container px-4 py-3 md:px-8 mx-auto max-w-7xl">
+                    <NavBar />
+                    <div>
+                      <div className="my-10">
+                        <SubmitTool />
+                      </div>
+                    </div>
+                    {children}
+                  </div>
+                </div>
+              </div>
             </SWRProvider>
           </SessionProvider>
         </PHProvider>
