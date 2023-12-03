@@ -1,12 +1,11 @@
 "use client";
 import useShowNavbar from "@/hooks/useShowNavbar";
-import { Avatar, Button, Heading, DropdownMenu, Input } from "@medusajs/ui";
+import { Avatar, Button, Heading, DropdownMenu } from "@medusajs/ui";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { Google, Check } from "@medusajs/icons";
 
 const NavBar = () => {
   const showNaveBar = useShowNavbar();
