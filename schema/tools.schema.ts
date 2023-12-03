@@ -5,7 +5,7 @@ import { Pricing } from "@prisma/client";
 export const toolsSchema = z
     .object({
         name: z.string().nonempty(),
-        summary: z.string().nonempty(),
+        summary: z.string().optional(),
         description: z.string().nonempty(),
         websiteURL: z.string().url('Invalid URL').nonempty(),
         featuredAt: z.string().optional(),
@@ -22,7 +22,7 @@ export const toolsSchema = z
         ]),
         appStoreURL: z.string().optional(),
         playStoreURL: z.string().optional(),
-        slug: z.string().nonempty(),
+        slug: z.string().optional(),
         possibleUseCase: z.string().nonempty(),
         imageURL: z.any(),
         tags: z.string().array().min(1, 'At least one tags is required'),

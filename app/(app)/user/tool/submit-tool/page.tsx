@@ -7,8 +7,6 @@ import { Name } from "@/app/(app)/admin/dashboard/tools/components/fields/name";
 import { PlayStoreURL } from "@/app/(app)/admin/dashboard/tools/components/fields/playStoreURL";
 import { PossibleUseCase } from "@/app/(app)/admin/dashboard/tools/components/fields/possibleUseCase";
 import { Pricing } from "@/app/(app)/admin/dashboard/tools/components/fields/pricing";
-import { Slug } from "@/app/(app)/admin/dashboard/tools/components/fields/slug";
-import { Summary } from "@/app/(app)/admin/dashboard/tools/components/fields/summary";
 import { Tags } from "@/app/(app)/admin/dashboard/tools/components/fields/tags";
 import { WebsiteURl } from "@/app/(app)/admin/dashboard/tools/components/fields/websiteUrl";
 import { ToolsSchema, toolsSchema } from "@/schema/tools.schema";
@@ -29,7 +27,11 @@ const Page = () => {
   });
 
   const { toast } = useToast();
-  const { handleSubmit } = form;
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = form;
+  console.log("🚀 ~ file: page.tsx:33 ~ Page ~ errors:", errors);
 
   const addTool = async (value: ToolsSchema) => {
     try {
@@ -39,8 +41,10 @@ const Page = () => {
       const { data } = await axios.post<Tool>("/api/tools", {
         ...value,
         imageURL: "-",
+        summary: "-",
       });
-      await axios.post(`/api/tools/${data.toolId}/image-upload`, formData);
+      if (value.imageURL)
+        await axios.post(`/api/tools/${data.toolId}/image-upload`, formData);
       setIsLoading(false);
       toast({
         title: "Success",
@@ -60,10 +64,11 @@ const Page = () => {
       });
       push("/user/tool");
     } catch (e: any) {
+      const isSlugError = e.meta.target.include["slug"];
       setIsLoading(false);
       toast({
         title: "Error",
-        description: "unable to add tool",
+        description: isSlugError ? "Name already exist" : "unable to add tool",
         variant: "error",
         duration: 2000,
       });
@@ -85,16 +90,14 @@ const Page = () => {
               <XMark className="cursor-pointer" />
             </IconButton>
           </div>
-          <div className="flex  flex-col gap-y-8 overflow-y-auto mt-4 px-2">
+          <div className="flex flex-col gap-y-2 overflow-y-auto mt-4 px-2">
+            <WebsiteURl />
             <Name />
-            <Slug />
             <Description />
-            <Summary />
             <PossibleUseCase />
             <ImageURL />
             <Tags />
             <Pricing />
-            <WebsiteURl />
             <PlayStoreURL />
             <AppStoreURL />
             <IsToolPublished hideContent />
