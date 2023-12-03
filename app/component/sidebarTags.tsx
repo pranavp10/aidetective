@@ -1,4 +1,5 @@
 "use client";
+import { Text } from "@medusajs/ui";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -12,10 +13,10 @@ const SidebarTags = ({ tags }: SidebarTagsPops) => {
   return (
     <aside className="border-ui-border-base w-sidebar relative hidden h-full border-r lg:block">
       <div className="sticky inset-x-0 bottom-0 h-screen w-full">
-        <div className="h-full w-full overflow-y-auto">
-          <div className="h-full w-full p-4">
+        <div className="h-full w-full overflow-y-auto p-4">
+          <div className="h-full w-full">
             <ul className="txt-compact-small-plus grid grid-flow-row auto-rows-max gap-0.5">
-              {tags?.map(({ name, slug, tagId }) => (
+              {tags?.map(({ name, slug, tagId, emoji }) => (
                 <li key={tagId}>
                   <Link
                     href={`/categories/${slug}`}
@@ -26,7 +27,10 @@ const SidebarTags = ({ tags }: SidebarTagsPops) => {
                             : "border-transparent text-ui-fg-subtle"
                         }`}
                   >
-                    {name}
+                    <Text className="border border-ui-border-base flex items-center rounded-md px-1 py-0.5">
+                      {emoji}
+                    </Text>
+                    <Text>{name}</Text>
                   </Link>
                 </li>
               ))}

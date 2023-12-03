@@ -2,7 +2,11 @@ import { prisma } from "@/lib/prisma";
 
 export const getTags = async (): Promise<Tag[] | undefined> => {
   try {
-    const tags = await prisma.tags.findMany();
+    const tags = await prisma.tags.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    });
     return tags;
   } catch (e) {
     throw "Something when wrong";

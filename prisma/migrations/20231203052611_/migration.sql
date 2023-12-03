@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Pricing" AS ENUM ('free', 'paid', 'free_trail', 'free_trail_no_card');
+CREATE TYPE "Pricing" AS ENUM ('free', 'paid', 'free_trail', 'free_trail_no_card', 'freemium', 'waitlist', 'request_demo', 'yearly_subscription', 'one_time_payment');
 
 -- CreateTable
 CREATE TABLE "Account" (
@@ -37,6 +37,8 @@ CREATE TABLE "User" (
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
     "role" TEXT NOT NULL DEFAULT 'USER',
+    "oauth_token" TEXT,
+    "oauth_token_secret" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -46,24 +48,6 @@ CREATE TABLE "VerificationToken" (
     "identifier" TEXT NOT NULL,
     "token" TEXT NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL
-);
-
--- CreateTable
-CREATE TABLE "ImageURLs" (
-    "imageURLId" TEXT NOT NULL,
-    "imageURL" TEXT NOT NULL,
-    "toolId" TEXT NOT NULL,
-
-    CONSTRAINT "ImageURLs_pkey" PRIMARY KEY ("imageURLId")
-);
-
--- CreateTable
-CREATE TABLE "PossibleUseCase" (
-    "possibleUseCaseId" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    "toolId" TEXT NOT NULL,
-
-    CONSTRAINT "PossibleUseCase_pkey" PRIMARY KEY ("possibleUseCaseId")
 );
 
 -- CreateTable
@@ -82,6 +66,8 @@ CREATE TABLE "Tools" (
     "appStoreURL" TEXT,
     "playStoreURL" TEXT,
     "userId" TEXT NOT NULL,
+    "possibleUseCase" TEXT NOT NULL,
+    "imageURL" TEXT NOT NULL,
 
     CONSTRAINT "Tools_pkey" PRIMARY KEY ("toolId")
 );
@@ -93,8 +79,39 @@ CREATE TABLE "Tags" (
     "name" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "emoji" VARCHAR(255) NOT NULL DEFAULT '❓',
 
     CONSTRAINT "Tags_pkey" PRIMARY KEY ("tagId")
+);
+
+-- CreateTable
+CREATE TABLE "Bookmark" (
+    "bookmarkId" TEXT NOT NULL,
+    "toolId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+
+    CONSTRAINT "Bookmark_pkey" PRIMARY KEY ("bookmarkId")
+);
+
+-- CreateTable
+CREATE TABLE "Collections" (
+    "collectionId" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "imageURL" TEXT,
+    "slug" TEXT NOT NULL,
+
+    CONSTRAINT "Collections_pkey" PRIMARY KEY ("collectionId")
+);
+
+-- CreateTable
+CREATE TABLE "ToolsCollections" (
+    "toolsCollectionId" TEXT NOT NULL,
+    "toolId" TEXT NOT NULL,
+    "collectionId" TEXT NOT NULL,
+
+    CONSTRAINT "ToolsCollections_pkey" PRIMARY KEY ("toolsCollectionId")
 );
 
 -- CreateTable
@@ -131,6 +148,15 @@ CREATE UNIQUE INDEX "Tags_tagId_key" ON "Tags"("tagId");
 CREATE UNIQUE INDEX "Tags_slug_key" ON "Tags"("slug");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Bookmark_bookmarkId_key" ON "Bookmark"("bookmarkId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Collections_collectionId_key" ON "Collections"("collectionId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ToolsCollections_toolsCollectionId_key" ON "ToolsCollections"("toolsCollectionId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "_TagsToTools_AB_unique" ON "_TagsToTools"("A", "B");
 
 -- CreateIndex
@@ -143,13 +169,22 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ImageURLs" ADD CONSTRAINT "ImageURLs_toolId_fkey" FOREIGN KEY ("toolId") REFERENCES "Tools"("toolId") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "PossibleUseCase" ADD CONSTRAINT "PossibleUseCase_toolId_fkey" FOREIGN KEY ("toolId") REFERENCES "Tools"("toolId") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Tools" ADD CONSTRAINT "Tools_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Bookmark" ADD CONSTRAINT "Bookmark_toolId_fkey" FOREIGN KEY ("toolId") REFERENCES "Tools"("toolId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Bookmark" ADD CONSTRAINT "Bookmark_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Collections" ADD CONSTRAINT "Collections_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ToolsCollections" ADD CONSTRAINT "ToolsCollections_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "Collections"("collectionId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ToolsCollections" ADD CONSTRAINT "ToolsCollections_toolId_fkey" FOREIGN KEY ("toolId") REFERENCES "Tools"("toolId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_TagsToTools" ADD CONSTRAINT "_TagsToTools_A_fkey" FOREIGN KEY ("A") REFERENCES "Tags"("tagId") ON DELETE CASCADE ON UPDATE CASCADE;
