@@ -2,16 +2,7 @@ import { prisma } from "@/lib/prisma";
 
 export const getTags = async (): Promise<Tag[] | undefined> => {
   try {
-    const allTags = await prisma.tags.findMany({
-      include: {
-        tools: {
-          include: {
-            _count: true,
-          },
-        },
-      },
-    });
-    const tags = allTags.filter((tag) => tag.tools.length);
+    const tags = await prisma.tags.findMany();
     return tags;
   } catch (e) {
     throw "Something when wrong";
