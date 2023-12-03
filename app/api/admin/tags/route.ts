@@ -22,11 +22,14 @@ export const POST = async (request: Request) => {
       }
       const name = result.data.name
       const slug = slugger.slug(name)
+      const emoji = result.data.emoji
+
       const tags = await prisma.tags.create(
          {
             data: {
                name,
-               slug
+               slug,
+               emoji
             }
          }
       )
