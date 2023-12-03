@@ -1,7 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import TwitterProvider from "next-auth/providers/twitter";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 
@@ -36,22 +35,6 @@ export const authOptions: NextAuthOptions = {
           id: profile.sub,
         };
       },
-    }),
-    TwitterProvider({
-      clientId: process.env.TWITTER_CLIENT_ID ?? "",
-      clientSecret: process.env.TWITTER_CLIENT_SECRET ?? "",
-      profile(profile) {
-        return {
-          role: "USER",
-          userId: profile.id_str,
-          name: profile.name,
-          username: profile.username,
-          email: profile.email,
-          image: profile.profile_image_url,
-          id: profile.id_str,
-        };
-      },
-
     }),
   ],
   pages: {
