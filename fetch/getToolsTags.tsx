@@ -2,11 +2,15 @@ import { prisma } from "@/lib/prisma";
 
 export const getTags = async (): Promise<Tag[] | undefined> => {
   try {
-    const tags = await prisma.tags.findMany({
+    const allTags = await prisma.tags.findMany({
       orderBy: {
         name: "asc",
       },
+      include: {
+        tools: true,
+      },
     });
+    const tags = allTags.filter((tags) => !!tags.tools.length);
     return tags;
   } catch (e) {
     throw "Something when wrong";
@@ -33,17 +37,19 @@ export const getToolsByTagSlug = async ({
   slug: string;
 }): Promise<Tool[] | undefined> => {
   try {
-    const tools = await prisma.tools.findMany({
+    const tag = await prisma.tags.findUnique({
       where: {
-        tags: {
-          every: {
-            slug,
+        slug,
+      },
+      include: {
+        tools: {
+          include: {
+            tags: true,
           },
         },
       },
-      include: { tags: true },
     });
-    return tools;
+    return tag?.tools;
   } catch (e) {
     return undefined;
   }

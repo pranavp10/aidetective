@@ -17,7 +17,7 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
       <img
         src={tool.imageURL !== "-" ? tool.imageURL : "/noImg.png"}
         alt={`${tool.name} landing page`}
-        className="rounded-md w-full h-20 object-cover"
+        className="rounded-lg w-full h-20 object-cover"
       />
       <div>
         <Heading className="line-clamp-1">{tool.name}</Heading>
