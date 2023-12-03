@@ -14,6 +14,7 @@ export const TagTable = ({ tags }: { tags: Tag[] }) => {
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>#</Table.HeaderCell>
+          <Table.HeaderCell>Emoji</Table.HeaderCell>
           <Table.HeaderCell>Tag Name</Table.HeaderCell>
           <Table.HeaderCell>Slug</Table.HeaderCell>
           <Table.HeaderCell>Create At</Table.HeaderCell>
@@ -26,6 +27,9 @@ export const TagTable = ({ tags }: { tags: Tag[] }) => {
           return (
             <Table.Row key={tag.tagId}>
               <Table.Cell>{tag.tagId}</Table.Cell>
+              <Table.Cell>
+                <Badge>{tag.emoji}</Badge>
+              </Table.Cell>
               <Table.Cell>
                 <Badge>{tag.name}</Badge>
               </Table.Cell>

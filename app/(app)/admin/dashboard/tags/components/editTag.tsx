@@ -17,9 +17,11 @@ export const EditTag = ({
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const [updatedTag, setUpdatedTag] = useState<string>("");
+  const [updatedEmoji, setUpdatedEmoji] = useState<string>("");
 
   useEffect(() => {
     setUpdatedTag(tag?.name || "");
+    setUpdatedEmoji(tag?.emoji || "");
   }, [tag]);
 
   const saveTag = async () => {
@@ -27,6 +29,7 @@ export const EditTag = ({
       setIsLoading(true);
       const { data } = await axios.put<Tag>(`/api/admin/tags/${tag?.tagId}`, {
         name: updatedTag,
+        emoji: updatedEmoji,
       });
       mutate<Tag[]>("/api/admin/tags", async (oldData) => {
         if (oldData)
@@ -63,10 +66,17 @@ export const EditTag = ({
           </Prompt.Description>
         </Prompt.Header>
         <div className="px-6 pt-4">
-          <Label>Tag Name</Label>
+          <Label>Name</Label>
           <Input
             value={updatedTag}
             onChange={(e) => setUpdatedTag(e.target.value)}
+          />
+        </div>
+        <div className="px-6 pt-4">
+          <Label>Emoji</Label>
+          <Input
+            value={updatedEmoji}
+            onChange={(e) => setUpdatedEmoji(e.target.value)}
           />
         </div>
         <Prompt.Footer>

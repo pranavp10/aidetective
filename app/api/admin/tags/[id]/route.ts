@@ -35,6 +35,7 @@ const PUT = async (request: Request, { params }: { params: { id: string } }) => 
     }
     const name = result.data.name
     const slug = slugger.slug(name)
+    const emoji = result.data.emoji
 
     const tagId = params.id
     try {
@@ -42,7 +43,7 @@ const PUT = async (request: Request, { params }: { params: { id: string } }) => 
             where: {
                 tagId
             },
-            data: { slug, name }
+            data: { slug, name, emoji }
         })
         return NextResponse.json(tag)
     } catch (error) {

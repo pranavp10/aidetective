@@ -4,4 +4,5 @@ type Tag = {
     slug: string
     createdAt: Date
     updatedAt: Date
+    emoji: string
 }

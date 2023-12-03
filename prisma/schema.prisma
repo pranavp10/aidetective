@@ -34,17 +34,19 @@ model Session {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  name          String?
-  email         String?       @unique
-  emailVerified DateTime?
-  image         String?
-  role          String        @default("USER")
-  accounts      Account[]
-  bookmark      Bookmark[]
-  collections   Collections[]
-  sessions      Session[]
-  tools         Tools[]
+  id                 String        @id @default(cuid())
+  name               String?
+  email              String?       @unique
+  emailVerified      DateTime?
+  image              String?
+  role               String        @default("USER")
+  oauth_token        String?
+  oauth_token_secret String?
+  accounts           Account[]
+  bookmark           Bookmark[]
+  collections        Collections[]
+  sessions           Session[]
+  tools              Tools[]
 }
 
 model VerificationToken {
@@ -84,6 +86,7 @@ model Tags {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  emoji     String?  @default("❓") @db.VarChar(255)
   tools     Tools[]  @relation("TagsToTools")
 }
 

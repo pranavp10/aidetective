@@ -1,5 +1,4 @@
 "use client";
-
 import { Plus } from "@medusajs/icons";
 import { Button, Input, Label, Prompt, useToast } from "@medusajs/ui";
 import { useState } from "react";
@@ -10,6 +9,7 @@ export const AddTag = () => {
   const [open, setModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [tag, setTag] = useState("");
+  const [emoji, setEmoji] = useState("");
   const { toast } = useToast();
 
   const saveTag = async () => {
@@ -17,6 +17,7 @@ export const AddTag = () => {
       setIsLoading(true);
       const { data } = await axios.post<Tag>("/api/admin/tags", {
         name: tag,
+        emoji,
       });
       mutate<Tag[]>("/api/admin/tags", async (oldData) => {
         if (oldData) return [...oldData, data];
@@ -55,8 +56,12 @@ export const AddTag = () => {
           </Prompt.Description>
         </Prompt.Header>
         <div className="px-6 pt-4">
-          <Label>Tag Name</Label>
+          <Label>Name</Label>
           <Input value={tag} onChange={(e) => setTag(e.target.value)} />
+        </div>
+        <div className="px-6 pt-4">
+          <Label>Emoji</Label>
+          <Input value={emoji} onChange={(e) => setEmoji(e.target.value)} />
         </div>
         <Prompt.Footer>
           <Prompt.Cancel
