@@ -86,7 +86,7 @@ model Tags {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  emoji     String?  @default("❓") @db.VarChar(255)
+  emoji     String   @default("❓") @db.VarChar(255)
   tools     Tools[]  @relation("TagsToTools")
 }
 
