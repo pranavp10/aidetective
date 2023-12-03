@@ -3,9 +3,11 @@
 import { Heading, Text } from "@medusajs/ui";
 import { useRouter } from "next/navigation";
 import { ToolBookmark } from "./toolBookmark/toolBookmark";
+import { pricing } from "@/app/(app)/admin/dashboard/tools/components/fields/pricing";
 
 export const ToolCard = ({ tool }: { tool: Tool }) => {
   const { push } = useRouter();
+  const pricingDetails = pricing.find((price) => price.value === tool.pricing);
   return (
     <div
       className="rounded-lg cursor-pointer gap-3 relative flex bg-gray-100/60 hover:shadow-md px-3 py-2 items-center flex-col"
@@ -24,6 +26,13 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
         <Text size="xsmall" className="line-clamp-2 text-gray-500 leading-4 ">
           {tool.description}
         </Text>
+        <div className="flex mt-2 mb-1">
+          {pricingDetails && (
+            <div className={`text-[11px] ${pricingDetails.classNames} px-2`}>
+              {pricingDetails.label}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
