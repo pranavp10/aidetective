@@ -19,14 +19,17 @@ export const POST = async (request: Request, { params }: { params: { id: string 
         if (!session?.user.id || !(['USER', 'SUPER_ADMIN'].includes(session?.user.role || ""))) {
             return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
         }
-        const tool = await prisma.tools.findMany({
+        const tools = await prisma.tools.findMany({
             where: {
                 userId: session?.user.id
             }
         })
-        if (tool.length > 1) {
-            return new NextResponse(JSON.stringify({ error: 'Cannot Submit more then 1 tool' }), { status: 403 })
+
+        const isUsersTool = tools.some((tool) => tool.toolId === params.id)
+        if (!isUsersTool) {
+            return new NextResponse(JSON.stringify({ error: 'Tool is not submit by you' }), { status: 403 })
         }
+
         const data = await request.formData()
         const file: File | null = data.get('file') as unknown as File
 

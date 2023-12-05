@@ -27,11 +27,7 @@ const Page = () => {
   });
 
   const { toast } = useToast();
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = form;
-  console.log("🚀 ~ file: page.tsx:33 ~ Page ~ errors:", errors);
+  const { handleSubmit } = form;
 
   const addTool = async (value: ToolsSchema) => {
     try {
@@ -64,11 +60,10 @@ const Page = () => {
       });
       push("/user/tool");
     } catch (e: any) {
-      const isSlugError = e.meta.target.include["slug"];
       setIsLoading(false);
       toast({
         title: "Error",
-        description: isSlugError ? "Name already exist" : "unable to add tool",
+        description: "Unable to add tool",
         variant: "error",
         duration: 2000,
       });
