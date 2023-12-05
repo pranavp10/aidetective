@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Carlito } from "next/font/google";
 import SessionProvider from "@/context/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
@@ -10,7 +10,12 @@ import { PHProvider, PostHogPageview } from "@/context/PostHogProvider";
 import { Suspense } from "react";
 import { getTags } from "@/fetch/getToolsTags";
 import LayoutWrapper from "@/context/LayoutWrapper";
-const inter = Inter({ subsets: ["latin"] });
+
+const inter = Carlito({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  style: ["italic", "normal"],
+});
 
 export const metadata: Metadata = {
   title: "AI Detective - Explore Best AI Tools",
@@ -50,7 +55,9 @@ export default async function RootLayout({
         <meta name="msapplication-TileColor" content="#b91d47" />
         <meta name="theme-color" content="#b91d47" />
       </head>
-      <body className={`bg-ui-bg-base text-ui-fg-base ${inter.className}`}>
+      <body
+        className={`bg-ui-bg-base text-ui-fg-base ${inter.className} h-screen overflow-hidden`}
+      >
         <ToastProvider />
         <Suspense>
           <PostHogPageview />

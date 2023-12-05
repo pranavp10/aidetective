@@ -1,4 +1,5 @@
 "use client";
+import { Footer } from "@/app/component/footer";
 import SidebarTags from "@/app/component/sidebarTags";
 import NavBar from "@/components/layout/navbar";
 import useShowNavbar from "@/hooks/useShowNavbar";
@@ -20,6 +21,7 @@ export default function LayoutWrapper({
           <div className="px-4 py-3 md:px-8 mx-auto max-w-7xl">
             <NavBar />
             <div className="pt-4">{children}</div>
+            <Footer />
           </div>
         </div>
       </div>
