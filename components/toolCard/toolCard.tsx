@@ -6,33 +6,33 @@ import { ToolBookmark } from "./toolBookmark/toolBookmark";
 import { pricing } from "@/app/(app)/admin/dashboard/tools/components/fields/pricing";
 
 const lightColors = [
-  "hsl(54, 100%, 95%)", // Very light vivid yellow
-  "hsl(33, 92%, 95%)", // Very light vibrant orange
-  "hsl(348, 92%, 95%)", // Very light energetic red
-  "hsl(6, 27%, 95%)", // Very light deep red
-  "hsl(206, 55%, 95%)", // Very light cool blue
-  "hsl(150, 85%, 95%)", // Very light lush green
-  "hsl(167, 88%, 95%)", // Very light spring green
-  "hsl(322, 85%, 95%)", // Very light fuchsia
-  "hsl(38, 100%, 95%)", // Very light orange
-  "hsl(19, 76%, 95%)", // Very light chocolate
-  "hsl(258, 11%, 95%)", // Very light lavender
-  "hsl(168, 100%, 95%)", // Very light pale green
-  "hsl(194, 100%, 95%)", // Very light turquoise
-  "hsl(48, 100%, 95%)", // Very light light yellow
-  "hsl(60, 100%, 95%)", // Very light yellow
-  "hsl(8, 75%, 95%)", // Very light coral
-  "hsl(359, 50%, 95%)", // Very light maroon
-  "hsl(121, 56%, 95%)", // Very light green
-  "hsl(202, 50%, 95%)", // Very light blue
-  "hsl(182, 100%, 95%)", // Very light cyan
-  "hsl(248, 10%, 95%)", // Very light blue violet
-  "hsl(6, 89%, 95%)", // Very light light salmon
-  "hsl(19, 80%, 95%)", // Very light sienna
-  "hsl(7, 76%, 95%)", // Very light brown
-  "hsl(12, 100%, 95%)", // Very light orange red
-  "hsl(326, 56%, 95%)", // Very light orchid
-  "hsl(176, 100%, 95%)", // Very light medium spring green
+  "hsl(54, 100%, 96%)", // Very light vivid yellow
+  "hsl(33, 92%, 96%)", // Very light vibrant orange
+  "hsl(348, 92%, 96%)", // Very light energetic red
+  "hsl(6, 27%, 96%)", // Very light deep red
+  "hsl(206, 55%, 96%)", // Very light cool blue
+  "hsl(150, 85%, 96%)", // Very light lush green
+  "hsl(167, 88%, 96%)", // Very light spring green
+  "hsl(322, 85%, 96%)", // Very light fuchsia
+  "hsl(38, 100%, 96%)", // Very light orange
+  "hsl(19, 76%, 96%)", // Very light chocolate
+  "hsl(258, 11%, 96%)", // Very light lavender
+  "hsl(168, 100%, 96%)", // Very light pale green
+  "hsl(194, 100%, 96%)", // Very light turquoise
+  "hsl(48, 100%, 96%)", // Very light light yellow
+  "hsl(60, 100%, 96%)", // Very light yellow
+  "hsl(8, 75%, 96%)", // Very light coral
+  "hsl(359, 50%, 96%)", // Very light maroon
+  "hsl(121, 56%, 96%)", // Very light green
+  "hsl(202, 50%, 96%)", // Very light blue
+  "hsl(182, 100%, 96%)", // Very light cyan
+  "hsl(248, 10%, 96%)", // Very light blue violet
+  "hsl(6, 89%, 96%)", // Very light light salmon
+  "hsl(19, 80%, 96%)", // Very light sienna
+  "hsl(7, 76%, 96%)", // Very light brown
+  "hsl(12, 100%, 96%)", // Very light orange red
+  "hsl(326, 56%, 96%)", // Very light orchid
+  "hsl(176, 100%, 96%)", // Very light medium spring green
 ];
 
 export const ToolCard = ({ tool }: { tool: Tool }) => {
