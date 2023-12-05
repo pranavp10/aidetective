@@ -70,7 +70,7 @@ const Page = () => {
     }
   };
   return (
-    <div className="overflow-y-auto">
+    <div className="overflow-y-auto h-full">
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(addTool)} className="max-w-xl m-auto mb-4">
           <div className="flex items-center justify-between pt-3 px-2">
