@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { checkRateLimit } from '@/lib/ratelimit'
-import { slugger } from '@/lib/slugger'
+import { setToolsOccurrences, slugger } from '@/lib/slugger'
 import { toolsSchema } from '@/schema/tools.schema'
 import { authOptions } from '@/utils/authOptions'
 import { getServerSession } from 'next-auth'
@@ -77,6 +77,7 @@ export const POST = async (request: Request) => {
       const possibleUseCase = requestTool.possibleUseCase
       const imageURL = requestTool.imageURL
       const tags = requestTool.tags
+      await setToolsOccurrences()
       const slug = slugger.slug(name)
 
 
