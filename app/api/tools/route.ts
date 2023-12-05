@@ -56,9 +56,6 @@ export const POST = async (request: Request) => {
             userId: session?.user.id
          }
       })
-      if (tool.length) {
-         return new NextResponse(JSON.stringify({ error: 'Cannot Submit more then 1 tool' }), { status: 403 })
-      }
 
       const body: unknown = await request.json();
       const result = toolsSchema.safeParse(body);
