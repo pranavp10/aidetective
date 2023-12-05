@@ -1,4 +1,5 @@
 import { Linkedin, Twitter } from "@medusajs/icons";
+import { Text } from "@medusajs/ui";
 import Link from "next/link";
 
 const navigation = {
@@ -26,18 +27,18 @@ const navigation = {
 export function Footer() {
   return (
     <footer aria-labelledby="footer-heading">
-      <div className="pt-8 md:flex md:items-center md:justify-between">
-        <p className="mt-8 leading-5 text-xs md:order-1 md:mt-0">
+      <div className="pt-12 md:flex md:items-center md:justify-between">
+        <Text className="mt-8 leading-5 text-xs md:order-1 md:mt-0 text-gray-600 hover:text-gray-700">
           hello@aidetective.xyz
-        </p>
-        <div className="flex space-x-6 md:order-2">
+        </Text>
+        <div className="flex space-x-6 md:order-2 ">
           {navigation.legal.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               className="text-gray-600 hover:text-gray-700"
             >
-              <span>{item.name}</span>
+              <Text className="text-xs">{item.name}</Text>
             </Link>
           ))}
         </div>

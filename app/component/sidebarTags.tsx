@@ -19,6 +19,22 @@ const SidebarTags = ({ tags }: SidebarTagsPops) => {
           <div className="h-full w-full overflow-y-auto p-4">
             <div className="h-full w-full">
               <ul className="txt-compact-small-plus grid grid-flow-row auto-rows-max gap-0.5">
+                <li key="all">
+                  <Link
+                    href={`/`}
+                    className={`group flex w-full items-center rounded-md border transition-all hover:bg-ui-bg-base-hover gap-3 px-3 py-1.5
+                    ${
+                      pathname === `/`
+                        ? "bg-ui-bg-base-pressed text-ui-fg-base border-ui-border-base"
+                        : "border-transparent text-ui-fg-subtle"
+                    }`}
+                  >
+                    <Text className="border border-ui-border-base flex items-center rounded-md px-2 py-0.5">
+                      🎉
+                    </Text>
+                    <Text>All</Text>
+                  </Link>
+                </li>
                 {tags?.map(({ name, slug, tagId, emoji }) => (
                   <li key={tagId}>
                     <Link
@@ -30,7 +46,7 @@ const SidebarTags = ({ tags }: SidebarTagsPops) => {
                         : "border-transparent text-ui-fg-subtle"
                     }`}
                     >
-                      <Text className="border border-ui-border-base flex items-center rounded-md px-1 py-0.5">
+                      <Text className="border border-ui-border-base flex items-center rounded-md px-1.5 py-0.5">
                         {emoji}
                       </Text>
                       <Text>{name}</Text>
