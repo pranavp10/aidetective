@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Carlito } from "next/font/google";
+import { Inter } from "next/font/google";
 import SessionProvider from "@/context/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
@@ -11,11 +11,7 @@ import { Suspense } from "react";
 import { getTags } from "@/fetch/getToolsTags";
 import LayoutWrapper from "@/context/LayoutWrapper";
 
-const inter = Carlito({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  style: ["italic", "normal"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AI Detective - Explore Best AI Tools",

@@ -1,8 +1,6 @@
 "use client";
-import { ToolCard } from "@/components/toolCard/toolCard";
 import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
 import { Spinner } from "@medusajs/icons";
-import { Text } from "@medusajs/ui";
 import useSWR from "swr";
 
 export const Bookmark = () => {
