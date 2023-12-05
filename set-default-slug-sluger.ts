@@ -10,7 +10,9 @@ export const setSluggerSlugOnBoot = async () => {
         })
         const occurrences: Record<string, number> = {};
         slug.forEach(({ slug }: { slug: string }) => {
-            occurrences[slug] = 1;
+            const key = slug.replace(/-\d+$/, '');
+            occurrences[key] = (occurrences[key] || 0) + 1;
+
         });
         slugger.occurrences = occurrences
     } catch (e) {
