@@ -25,7 +25,7 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
           <Heading className="line-clamp-1 font-semibold max-w-[192px] text-gray-900">
             {tool.name}
           </Heading>
-          <ToolBookmark id={tool.toolId} size={25} />
+          <ToolBookmark id={tool.toolId} size={23} />
         </div>
         <Text size="xsmall" className="line-clamp-2 text-gray-600 leading-4 ">
           {tool.description}

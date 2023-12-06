@@ -29,13 +29,13 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
       <a href={`${websiteURL}?via=AiDetective`} target="_blank">
         <img src={image} alt={image} className="object-cover rounded-3xl" />
       </a>
-      <div className="flex mt-2 mb-1 items-center justify-between w-full">
+      <div className="flex mt-2 my-3 items-center justify-between w-full">
         {pricingDetails && (
           <div className={`text-[11px] ${pricingDetails.classNames} px-2`}>
             {pricingDetails.label}
           </div>
         )}
-        <ToolBookmark id={toolId} size={23} />
+        <ToolBookmark id={toolId} size={25} />
       </div>
       <Text size="large" className="mt-6 whitespace-pre-line">
         {description}
