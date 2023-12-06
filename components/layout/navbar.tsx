@@ -53,7 +53,7 @@ const NavBar = () => {
               }}
             >
               <Plus />
-              Submit Tool
+              Submit Tool (FREE)
             </Button>
             {session.user?.image && session.user.name && (
               <DropdownMenu>
