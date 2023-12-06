@@ -76,9 +76,16 @@ const Page = () => {
           <div className="flex items-center justify-between pt-3 px-2">
             <div>
               <Heading>Submit New Tool</Heading>
-              <Text className="max-w-md leading-4">
-                Ones you submit a new tool it will take some time to be
-                available on the market place
+              <Text className="max-w-md leading-4 my-2">
+                🚀 Submit your product to get featured in our newsletter and
+                reach over 15,000+ startup founders and AI enthusaists!
+              </Text>
+              <Text className="max-w-md leading-4 mb-2">
+                ⭐ Get discovered by thousands of potential customers and
+                early-adopters.
+              </Text>
+              <Text className="max-w-md leading-4 mb-2">
+                ⌛ It takes less than 1 minute!
               </Text>
             </div>
             <IconButton type="button" onClick={() => push("/user/tool")}>
@@ -100,6 +107,14 @@ const Page = () => {
               Save
             </Button>
           </div>
+          <Text className="max-w-md leading-4 my-2">
+            Once you submit, it will take some time to reflect on the
+            marketplace
+          </Text>
+          <Text className="max-w-md leading-4 mb-2">
+            In case you are unable to submit, please send the info to
+            hello@aidetective.xyz
+          </Text>
         </form>
       </FormProvider>
     </div>
