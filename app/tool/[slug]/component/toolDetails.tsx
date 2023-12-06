@@ -35,7 +35,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             {pricingDetails.label}
           </div>
         )}
-        <ToolBookmark id={toolId} size={25} />
+        <ToolBookmark id={toolId} size={23} />
       </div>
       <Text size="large" className="mt-6 whitespace-pre-line">
         {description}
