@@ -30,7 +30,7 @@ export function Footer() {
       <div className="pt-12 md:flex md:items-center md:justify-between">
         <Text
           className="mt-8 leading-5 text-xs md:order-1 md:mt-0 text-gray-700 hover:text-gray-800"
-          style={{ fontSize: "0.8rem" }}
+          style={{ fontSize: "1rem" }}
         >
           Feature/Edits - hello@aidetective.xyz
         </Text>
@@ -40,9 +40,10 @@ export function Footer() {
               key={item.name}
               href={item.href}
               className="text-gray-700 hover:text-gray-800"
-              style={{ fontSize: "0.7rem" }}
             >
-              <Text className="text-xs">{item.name}</Text>
+              <Text className="text-xs" style={{ fontSize: "0.9rem" }}>
+                {item.name}
+              </Text>
             </Link>
           ))}
         </div>
