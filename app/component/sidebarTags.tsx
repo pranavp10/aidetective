@@ -49,7 +49,9 @@ const SidebarTags = ({ tags }: SidebarTagsPops) => {
                       <Text className="border border-ui-border-base flex items-center rounded-md px-1.5 py-0.5">
                         {emoji}
                       </Text>
-                      <Text>{name}</Text>
+                      <Text style={{ fontSize: "1rem" }}>
+                        <strong>{name}</strong>
+                      </Text>
                     </Link>
                   </li>
                 ))}
