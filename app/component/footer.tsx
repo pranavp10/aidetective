@@ -27,12 +27,12 @@ const navigation = {
 export function Footer() {
   return (
     <footer aria-labelledby="footer-heading">
-      <div className="pt-12 md:flex md:items-center md:justify-between">
+      <div className="py-4 md:flex md:items-center md:justify-between">
         <Text
-          className="mt-8 leading-5 text-xs md:order-1 md:mt-0 text-gray-700 hover:text-gray-800"
+          className="mt-10 leading-5 text-xs md:order-1 md:mt-0 text-gray-600 hover:text-gray-700"
           style={{ fontSize: "1rem" }}
         >
-          Feature/Edits - hello@aidetective.xyz
+          <strong>Feature/Edits - hello@AiDetective.xyz</strong>
         </Text>
         <div className="flex space-x-6 md:order-2 ">
           {navigation.legal.map((item) => (
@@ -41,9 +41,7 @@ export function Footer() {
               href={item.href}
               className="text-gray-700 hover:text-gray-800"
             >
-              <Text className="text-xs" style={{ fontSize: "0.9rem" }}>
-                {item.name}
-              </Text>
+              <Text style={{ fontSize: "1rem" }}>{item.name}</Text>
             </Link>
           ))}
         </div>
