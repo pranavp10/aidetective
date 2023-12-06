@@ -23,12 +23,12 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
       <div>
         <div className="flex justify-between">
           <Heading className="line-clamp-1 font-semibold max-w-[192px] text-gray-900">
-            {tool.name}
+            <strong>{tool.name}</strong>
           </Heading>
           <ToolBookmark id={tool.toolId} size={23} />
         </div>
-        <Text size="xsmall" className="line-clamp-2 text-gray-600 leading-4 ">
-          {tool.description}
+        <Text size="small" className="line-clamp-2 text-gray-700 leading-4">
+          <strong>{tool.description}</strong>
         </Text>
         <div className="flex mt-2 mb-1 items-center justify-between w-full">
           {pricingDetails && (
