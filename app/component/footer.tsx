@@ -28,15 +28,19 @@ export function Footer() {
   return (
     <footer aria-labelledby="footer-heading">
       <div className="pt-12 md:flex md:items-center md:justify-between">
-        <Text className="mt-8 leading-5 text-xs md:order-1 md:mt-0 text-gray-600 hover:text-gray-700">
-          hello@aidetective.xyz
+        <Text
+          className="mt-8 leading-5 text-xs md:order-1 md:mt-0 text-gray-700 hover:text-gray-800"
+          style={{ fontSize: "0.8rem" }}
+        >
+          Feature/Edits - hello@aidetective.xyz
         </Text>
         <div className="flex space-x-6 md:order-2 ">
           {navigation.legal.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-gray-600 hover:text-gray-700"
+              className="text-gray-700 hover:text-gray-800"
+              style={{ fontSize: "0.7rem" }}
             >
               <Text className="text-xs">{item.name}</Text>
             </Link>
