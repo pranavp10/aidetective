@@ -32,7 +32,9 @@ const SidebarTags = ({ tags }: SidebarTagsPops) => {
                     <Text className="border border-ui-border-base flex items-center rounded-md px-2 py-0.5">
                       🎉
                     </Text>
-                    <Text>All</Text>
+                    <Text style={{ fontSize: "1rem" }}>
+                      <strong>All</strong>
+                    </Text>
                   </Link>
                 </li>
                 {tags?.map(({ name, slug, tagId, emoji }) => (
