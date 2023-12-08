@@ -1,5 +1,5 @@
 "use client";
-import { Avatar, Button, Heading, DropdownMenu, Input } from "@medusajs/ui";
+import { Avatar, Button, Heading, DropdownMenu } from "@medusajs/ui";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -73,6 +73,12 @@ const NavBar = () => {
                     onClick={() => push("/dashboard")}
                   >
                     Dashboard
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item
+                    className="gap-x-2 cursor-pointer"
+                    onClick={() => push("/user/tool")}
+                  >
+                    Submitted Tools
                   </DropdownMenu.Item>
                   {session.user.role === "SUPER_ADMIN" && (
                     <DropdownMenu.Item

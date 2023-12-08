@@ -12,7 +12,7 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
 
   return (
     <div
-      className="rounded-lg cursor-pointer gap-3 relative flex bg-gray-100 hover:shadow-md px-3 py-2 items-center flex-col"
+      className="rounded-lg cursor-pointer gap-3 relative flex bg-gray-100 hover:shadow-md px-3 py-2 items-center flex-col group"
       onClick={() => push(`/tool/${tool.slug}`)}
     >
       <img
@@ -23,12 +23,15 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
       <div>
         <div className="flex justify-between">
           <Heading className="line-clamp-1 font-semibold max-w-[192px] text-gray-900">
-            <strong>{tool.name}</strong>
+            {tool.name}
           </Heading>
           <ToolBookmark id={tool.toolId} size={23} />
         </div>
-        <Text size="small" className="line-clamp-2 text-gray-700 leading-4">
-          <strong>{tool.description}</strong>
+        <Text
+          size="small"
+          className="line-clamp-2 text-gray-600 leading-4 font-medium"
+        >
+          {tool.description}
         </Text>
         <div className="flex mt-2 mb-1 items-center justify-between w-full">
           {pricingDetails && (
@@ -36,7 +39,12 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
               {pricingDetails.label}
             </div>
           )}
-          <a href={`${tool.websiteURL}?via=AiDetective`} target="_blank">
+
+          <a
+            className="group-hover:visible invisible text-gray-500 hover:text-gray-900"
+            href={`${tool.websiteURL}?via=AiDetective`}
+            target="_blank"
+          >
             <ArrowUpRightMini />
           </a>
         </div>
