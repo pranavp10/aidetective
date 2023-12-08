@@ -64,7 +64,10 @@ export const ToolBookmark = ({
             fill="#FFDC26"
           />
         ) : (
-          <Bookmark className="text-2xl text-[#FFDC26]" size={size} />
+          <Bookmark
+            className="group-hover:visible invisible text-2xl text-[#FFDC26]"
+            size={size}
+          />
         )}
       </div>
     );
