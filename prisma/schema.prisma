@@ -117,6 +117,13 @@ model ToolsCollections {
   tools             Tools       @relation(fields: [toolId], references: [toolId])
 }
 
+model EmailSubscribe {
+  id        String   @id @unique @default(cuid())
+  emailID   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 enum Pricing {
   free
   paid

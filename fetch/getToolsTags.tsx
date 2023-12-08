@@ -43,6 +43,9 @@ export const getToolsByTagSlug = async ({
       },
       include: {
         tools: {
+          where: {
+            isToolPublished: true,
+          },
           include: {
             tags: true,
           },

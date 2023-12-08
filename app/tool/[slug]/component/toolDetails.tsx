@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { ArrowUpRightMini, Linkedin } from "@medusajs/icons";
 import { Button, Heading, Text } from "@medusajs/ui";
+import { ToolBookmark } from "@/components/toolCard/toolBookmark/toolBookmark";
+import { pricing } from "@/app/(app)/admin/dashboard/tools/components/fields/pricing";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const image = tool.imageURL !== "-" ? tool.imageURL : "/noImg.png";
@@ -8,6 +10,8 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const description = tool.description;
   const possibleUseCase = tool.possibleUseCase;
   const websiteURL = tool.websiteURL;
+  const toolId = tool.toolId;
+  const pricingDetails = pricing.find((price) => price.value === tool.pricing);
 
   return (
     <div className="max-w-3xl">
@@ -25,6 +29,14 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
       <a href={`${websiteURL}?via=AiDetective`} target="_blank">
         <img src={image} alt={image} className="object-cover rounded-3xl" />
       </a>
+      <div className="flex mt-6 px-3 items-center justify-between w-full">
+        {pricingDetails && (
+          <div className={`text-[11px] ${pricingDetails.classNames} px-2`}>
+            {pricingDetails.label}
+          </div>
+        )}
+        <ToolBookmark id={toolId} size={25} />
+      </div>
       <Text size="large" className="mt-6 whitespace-pre-line">
         {description}
       </Text>

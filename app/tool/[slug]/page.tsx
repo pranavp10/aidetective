@@ -36,7 +36,7 @@ const Page = async ({ params: { slug } }: { params: { slug: string } }) => {
     return (
       <div>
         {!!toolDetails.name ? <ToolDetails tool={toolDetails} /> : <></>}
-        <Heading className="mt-8">Related tools</Heading>
+        <Heading className="my-6">Related tools</Heading>
         <ToolCardLayout
           tools={toolDetails.tags.map((tag) => tag.tools).flat()}
         />
