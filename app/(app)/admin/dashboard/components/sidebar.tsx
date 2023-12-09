@@ -71,5 +71,10 @@ const getList = (pathname: string) => {
       link: "/admin/dashboard/tags",
       isActive: pathname === "/admin/dashboard/tags",
     },
+    {
+      title: "Users",
+      link: "/admin/dashboard/users",
+      isActive: pathname === "/admin/dashboard/users",
+    },
   ];
 };
