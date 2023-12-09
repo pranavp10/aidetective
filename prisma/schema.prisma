@@ -78,6 +78,8 @@ model Tools {
   user             User               @relation(fields: [userId], references: [id])
   ToolsCollections ToolsCollections[]
   tags             Tags[]             @relation("TagsToTools")
+
+  @@index([slug])
 }
 
 model Tags {

@@ -25,7 +25,11 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
           <Heading className="line-clamp-1 font-semibold max-w-[192px] text-gray-900">
             {tool.name}
           </Heading>
-          <ToolBookmark id={tool.toolId} size={23} />
+          <ToolBookmark
+            id={tool.toolId}
+            size={23}
+            className="group-hover:visible invisible"
+          />
         </div>
         <Text
           size="small"
