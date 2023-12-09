@@ -7,7 +7,9 @@ export const getTags = async (): Promise<Tag[] | undefined> => {
         name: "asc",
       },
       include: {
-        tools: true,
+        tools: {
+          where: { isToolPublished: true },
+        },
       },
     });
     const tags = allTags.filter((tags) => !!tags.tools.length);
@@ -21,6 +23,9 @@ export const getToolsTags = async (): Promise<Tool[] | undefined> => {
   try {
     const tools = await prisma.tools.findMany({
       include: { tags: true },
+      orderBy: {
+        name: "asc",
+      },
       where: {
         isToolPublished: true,
       },
