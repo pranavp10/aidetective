@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { ArrowUpRightMini, Linkedin } from "@medusajs/icons";
+import { ArrowUpRightMini } from "@medusajs/icons";
 import { Button, Heading, Text } from "@medusajs/ui";
 import { ToolBookmark } from "@/components/toolCard/toolBookmark/toolBookmark";
-import { pricing } from "@/app/(app)/admin/dashboard/tools/components/fields/pricing";
+import { pricing } from "@/data/pricing";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const image = tool.imageURL !== "-" ? tool.imageURL : "/noImg.png";
