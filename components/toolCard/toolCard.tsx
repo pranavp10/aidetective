@@ -3,8 +3,8 @@
 import { Heading, Text } from "@medusajs/ui";
 import { useRouter } from "next/navigation";
 import { ToolBookmark } from "./toolBookmark/toolBookmark";
-import { pricing } from "@/app/(app)/admin/dashboard/tools/components/fields/pricing";
 import { ArrowUpRightMini } from "@medusajs/icons";
+import { pricing } from "@/data/pricing";
 
 export const ToolCard = ({ tool }: { tool: Tool }) => {
   const { push } = useRouter();
