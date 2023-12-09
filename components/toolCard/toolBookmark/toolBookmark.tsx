@@ -25,6 +25,7 @@ export const ToolBookmark = ({
     setBookmark(
       data?.some((bookmark) => bookmark.tools.toolId === id) || false
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const bookmarkTool = async () => {
