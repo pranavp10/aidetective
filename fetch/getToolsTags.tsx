@@ -58,6 +58,23 @@ export const getToolsByTagSlug = async ({
   }
 };
 
+export const getTagBySlug = async ({
+  slug,
+}: {
+  slug: string;
+}): Promise<Tag | undefined> => {
+  try {
+    const tag = await prisma.tags.findUnique({
+      where: {
+        slug,
+      },
+    });
+    return tag ? tag : undefined;
+  } catch (e) {
+    return undefined;
+  }
+};
+
 export const getToolsDetails = async ({ slug }: { slug: string }) => {
   try {
     const tool = await prisma.tools.findUnique({
