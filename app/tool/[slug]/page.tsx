@@ -29,6 +29,14 @@ export async function generateMetadata({
         description: toolDetails.description,
         type: "article",
         url: `/tool/${toolDetails.slug}`,
+        images: [
+          {
+            url: `/api/og/tool?name=${toolDetails.name}&url=${toolDetails.imageURL}`,
+            width: 800,
+            height: 400,
+            alt: `${toolDetails.name}`,
+          },
+        ],
       },
     };
   } catch (e) {

@@ -8,9 +8,11 @@ import useSWR from "swr";
 export const ToolBookmark = ({
   id,
   size = 50,
+  className,
 }: {
   id: string;
   size?: number;
+  className?: string;
 }) => {
   const { data: session } = useSession();
   const { data } = useSWR<{ tools: Tool }[]>(
@@ -65,7 +67,7 @@ export const ToolBookmark = ({
           />
         ) : (
           <Bookmark
-            className="group-hover:visible invisible text-2xl text-[#FFDC26]"
+            className={`text-2xl text-[#FFDC26] ${className}`}
             size={size}
           />
         )}

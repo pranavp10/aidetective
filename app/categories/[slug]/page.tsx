@@ -28,6 +28,14 @@ export async function generateMetadata({
         description: `Discover the leading AI solutions in our ${tag.name} category at AI Detective. Explore a curated selection of cutting-edge tools and technologies designed to [solve a specific problem, enhance productivity, etc.]. Find the perfect [Industry/Niche] solution to propel your projects forward. Explore the future of ${tag.name} with AI Detective.`,
         type: "article",
         url: `/categories/${tag.slug}`,
+        images: [
+          {
+            url: `/api/og/categories?name${tag.emoji} ${tag.name}`,
+            width: 800,
+            height: 400,
+            alt: `${tag.emoji} ${tag.name}`,
+          },
+        ],
       },
     };
   } catch (e) {
