@@ -12,6 +12,7 @@ export const ImageURL = () => {
   const onChange = (data: File[]) => {
     setValue("imageURL", data[0]);
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onDrop = useCallback(onChange, []);
   const { getInputProps, open } = useDropzone({
     onDrop,

@@ -1,6 +1,10 @@
 import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
 import { getToolsTags } from "@/fetch/getToolsTags";
 
+export async function generateStaticParams() {
+  return ["/"];
+}
+
 const Page = async () => {
   const tools = await getToolsTags();
 
