@@ -19,14 +19,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ]
     try {
-        const slugs = await prisma.tools.findMany({
-            select: {
-                slug: true
-            },
-            where: {
-                isToolPublished: true
-            }
-        })
+        const slugs = await prisma.tools.findMany({ select: { slug: true }, where: { isToolPublished: true } })
+        const tagsSlug = await prisma.tags.findMany({ select: { slug: true }, })
 
         const toolsUrls: SitemapFile[] = slugs.map(({ slug }: { slug: string }) => ({
             url: `${WEBSITE_URL}/tool/${slug}`,
@@ -34,7 +28,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly',
             priority: 0.6,
         }))
-        return [...defaultSlugs, ...toolsUrls]
+        const tagsUrls: SitemapFile[] = tagsSlug.map(({ slug }: { slug: string }) => ({
+            url: `${WEBSITE_URL}/categories/${slug}`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.5,
+        }))
+        return [...defaultSlugs, ...toolsUrls, ...tagsUrls]
     }
     catch (e) {
         return [...defaultSlugs]
