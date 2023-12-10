@@ -56,7 +56,7 @@ export function Footer() {
   };
 
   return (
-    <div className="pointer-events-none sticky inset-x-0 bottom-0 pt-10 sm:pb-5">
+    <div className="pointer-events-none sticky inset-x-0 bottom-0 pt-10 sm:pb-0.5">
       <div className="pointer-events-auto flex items-center justify-between gap-x-6 bg-white  sm:rounded-xl py-3 pl-4 pr-3.5 sm:border border-ui-tag-neutral-border sm:flex-row flex-col">
         <div>
           <Text className="leading-5 text-sm text-gray-800 hover:text-gray-900">

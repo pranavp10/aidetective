@@ -5,6 +5,7 @@ import React from "react";
 import { AddTools } from "./components/addTools";
 import useSWR from "swr";
 import { ToolsList } from "./components/toolsList";
+import { ImportTools } from "./components/importTools";
 
 const Page = () => {
   const { data, error, isLoading } = useSWR<Tool[]>("/api/admin/tools");
@@ -17,10 +18,7 @@ const Page = () => {
             <ArrowDownTray />
             Export Tools
           </Button>
-          <Button variant="secondary">
-            <ArrowUpTray />
-            Import Tools
-          </Button>
+          <ImportTools />
           <AddTools />
         </div>
       </div>

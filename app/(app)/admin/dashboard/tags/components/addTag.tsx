@@ -43,7 +43,7 @@ export const AddTag = () => {
   };
 
   return (
-    <Prompt open={open}>
+    <Prompt open={open} onOpenChange={setModal}>
       <Button variant="secondary" onClick={() => setModal((open) => !open)}>
         <Plus />
         Add Tag

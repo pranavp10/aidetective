@@ -42,7 +42,7 @@ export const BulkUpload = () => {
   };
 
   return (
-    <Drawer open={open} modal={true}>
+    <Drawer open={open} modal={true} onOpenChange={setOpen}>
       <Drawer.Trigger asChild>
         <Button variant="secondary" onClick={() => setOpen(true)}>
           <ArrowUpTray />
