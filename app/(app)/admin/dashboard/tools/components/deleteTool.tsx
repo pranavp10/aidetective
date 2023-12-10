@@ -45,7 +45,7 @@ export const DeleteTool = ({
   };
 
   return (
-    <Prompt open={open}>
+    <Prompt open={open} onOpenChange={onClose}>
       <Prompt.Content>
         <Prompt.Header>
           <Prompt.Title>Delete Tool</Prompt.Title>

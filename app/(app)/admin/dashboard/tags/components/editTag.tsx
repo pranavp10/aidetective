@@ -57,7 +57,7 @@ export const EditTag = ({
   };
 
   return (
-    <Prompt open={open}>
+    <Prompt open={open} onOpenChange={onClose}>
       <Prompt.Content>
         <Prompt.Header>
           <Prompt.Title>Update Tag</Prompt.Title>

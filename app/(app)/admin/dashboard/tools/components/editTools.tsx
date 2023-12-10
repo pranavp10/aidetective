@@ -89,7 +89,7 @@ export const EditTools = ({
   };
 
   return (
-    <Drawer open={!!tool}>
+    <Drawer open={!!tool} onOpenChange={onClose}>
       <Drawer.Content onEscapeKeyDown={() => onClose()}>
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(addTool)}>

@@ -91,7 +91,7 @@ export const AddTools = () => {
   };
 
   return (
-    <Drawer open={open}>
+    <Drawer open={open} onOpenChange={setOpen}>
       <Drawer.Trigger asChild>
         <Button variant="secondary" onClick={() => setOpen(true)}>
           <Plus />

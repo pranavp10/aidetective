@@ -45,7 +45,7 @@ export const DeleteTag = ({
   };
 
   return (
-    <Prompt open={open}>
+    <Prompt open={open} onOpenChange={onClose}>
       <Prompt.Content>
         <Prompt.Header>
           <Prompt.Title>Delete something</Prompt.Title>

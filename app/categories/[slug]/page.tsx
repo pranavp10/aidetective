@@ -67,10 +67,16 @@ const Page = async ({ params: { slug } }: { params: { slug: string } }) => {
     <div>
       {tools && tag && (
         <div>
-          <div className="flex items-center pb-10 mt-14">
-            <Heading className="font-bold text-6xl">
-              {tag.emoji} {tag.name}
-            </Heading>
+          <div className="flex gap-4 pt-14 pb-16 items-center">
+            <div className="font-bold text-6xl rounded-md bg-gray-50 p-3 w-24 h-24 flex items-center justify-center">
+              {tag.emoji}
+            </div>
+            <div>
+              <Heading className="font-bold text-3xl">{tag.name}</Heading>
+              <Heading className="font-bold text-xl text-gray-500">
+                {tools.length} AI tools
+              </Heading>
+            </div>
           </div>
           <ToolCardLayout tools={tools} />
         </div>
