@@ -54,4 +54,4 @@ export const bulkUploadToolSchema = z.object({
     tags: z.string().array().min(1, 'At least one tags is required'),
 }).array()
 
-export type BulkUploadToolsSchema = z.infer<typeof toolsSchema>;
+export type BulkUploadToolsSchema = z.infer<typeof bulkUploadToolSchema>;
