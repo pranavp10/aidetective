@@ -19,14 +19,14 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
         <Heading level="h1" className="text-3xl font-medium">
           {name}
         </Heading>
-        <a href={`${websiteURL}?via=AiDetective`} target="_blank">
+        <a href={`${websiteURL}?ref=AiDetective`} target="_blank">
           <Button className="rounded-full">
             Website
             <ArrowUpRightMini />
           </Button>
         </a>
       </div>
-      <a href={`${websiteURL}?via=AiDetective`} target="_blank">
+      <a href={`${websiteURL}?ref=AiDetective`} target="_blank">
         <img src={image} alt={image} className="object-cover rounded-xl" />
       </a>
       <div className="flex mt-4 items-center justify-between w-full">

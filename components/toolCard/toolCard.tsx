@@ -46,7 +46,7 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
 
           <a
             className="group-hover:visible invisible text-gray-500 hover:text-gray-900"
-            href={`${tool.websiteURL}?via=AiDetective`}
+            href={`${tool.websiteURL}?ref=AiDetective`}
             target="_blank"
           >
             <ArrowUpRightMini />
