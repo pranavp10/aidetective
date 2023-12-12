@@ -29,7 +29,7 @@ const SidebarTags = ({ tags }: SidebarTagsPops) => {
                         : "border-transparent text-ui-fg-subtle"
                     }`}
                   >
-                    <Text className="border border-ui-border-base flex items-center rounded-md px-2 py-0.5">
+                    <Text className="border border-ui-border-base flex items-center rounded-md px-1.5 py-0.5">
                       🎉
                     </Text>
                     <Text className="text-gray-900 font-medium">All</Text>
