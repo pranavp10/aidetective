@@ -42,7 +42,7 @@ export const ToolsList = ({ tools }: { tools: Tool[] }) => {
                 {dayjs(tool.createdAt).format("DD/MM/YYYY")}
               </Table.Cell>
               <Table.Cell>
-                <a href={`/tool/${tool.toolId}`} target="_blank">
+                <a href={`/tool/${tool.slug}`} target="_blank">
                   <ArrowUpRightOnBox />
                 </a>
               </Table.Cell>
