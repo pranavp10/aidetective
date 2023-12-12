@@ -53,7 +53,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
             <ul role="list" className="list-decimal">
               {possibleUseCase.split(";").map((useCase) => (
                 <li key={useCase}>
-                  <Text>{useCase}</Text>
+                  <Text size="large">{useCase}</Text>
                 </li>
               ))}
             </ul>
