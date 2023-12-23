@@ -93,6 +93,11 @@ export const getToolsDetails = async ({ slug }: { slug: string }) => {
               include: {
                 tags: true,
               },
+              // Added below to show published and distinct
+              where: {
+                isToolPublished: true,
+              },
+              distinct: ["toolId"],
             },
           },
         },

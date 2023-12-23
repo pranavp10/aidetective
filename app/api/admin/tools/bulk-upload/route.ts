@@ -1,9 +1,13 @@
+import cloudinary from '@/lib/cloudinary';
 import { prisma } from '@/lib/prisma'
 import { setToolsOccurrences, slugger } from '@/lib/slugger';
-import { bulkUploadToolSchema } from '@/schema/tools.schema';
+import { bulkUploadToolSchema, BulkUploadToolsSchema } from '@/schema/tools.schema';
 import { authOptions } from '@/utils/authOptions';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server'
+import puppeteer from 'puppeteer'
+import { mkdir, rm, writeFile, } from 'fs/promises';
+import path from 'path';
 
 export const POST = async (request: Request) => {
 
@@ -23,27 +27,69 @@ export const POST = async (request: Request) => {
         }
         await setToolsOccurrences()
         const allTools = result.data
-        const tools = allTools.map((tool) => ({
-            name: tool.name,
-            description: tool.description,
-            slug: slugger.slug(tool.name),
-            summary: tool.summary || '-',
-            websiteURL: tool.websiteURL,
-            appStoreURL: tool.appStoreURL,
-            playStoreURL: tool.playStoreURL,
-            featuredAt: undefined,
-            pricing: tool.pricing,
-            userId: session.user.id,
-            isToolPublished: false,
-            tags: { connect: tool.tags.map((tagId) => ({ tagId })) },
-            imageURL: '-',
-            possibleUseCase: tool.possibleUseCase,
-        }))
-        await prisma.tools.createMany({
-            data: [...tools]
+        const allToolsCreated: { success: boolean, tool?: Omit<Tool, 'tags'> }[] = []
+        allTools.forEach(async (tool) => {
+            const toolCreated = await addTool(tool, session.user.id)
+            allToolsCreated.push(toolCreated)
         })
-        return new NextResponse(JSON.stringify([]), { status: 201 })
+
+        return new NextResponse(JSON.stringify(allToolsCreated), { status: 201 })
     } catch (error) {
         return new NextResponse(JSON.stringify({ error }), { status: 500 })
     }
+}
+
+
+async function addTool(tool: BulkUploadToolsSchema[0], userId: string): Promise<{ success: boolean, tool?: Omit<Tool, 'tags'> }> {
+    return new Promise((resolve) => {
+        setTimeout(async () => {
+            const tempDir = path.join(process.cwd(), 'temp');
+            await mkdir(tempDir, { recursive: true });
+            const screenshotPath = path.join(tempDir, 'screenshot.png');
+
+            try {
+                const createdTool = await prisma.tools.create({
+                    data: {
+                        name: tool.name,
+                        description: tool.description,
+                        slug: slugger.slug(tool.name),
+                        summary: tool.summary || '-',
+                        websiteURL: tool.websiteURL,
+                        appStoreURL: tool.appStoreURL,
+                        playStoreURL: tool.playStoreURL,
+                        featuredAt: undefined,
+                        pricing: tool.pricing,
+                        userId: userId,
+                        isToolPublished: false,
+                        tags: { connect: tool.tags.map((tagId) => ({ tagId })) },
+                        imageURL: '-',
+                        possibleUseCase: tool.possibleUseCase,
+                    }
+                })
+
+                const browser = await puppeteer.launch();
+                const page = await browser.newPage();
+                await page.goto(tool.websiteURL);
+
+                const screenShortData = await page.screenshot();
+                const buffer = Buffer.from(screenShortData)
+                await writeFile(screenshotPath, buffer)
+                const response = await cloudinary.uploader.upload(screenshotPath, {
+                    folder: 'superflex/tools',
+                    public_id: createdTool.toolId
+                })
+                await prisma.tools.update({
+                    where: { toolId: createdTool.toolId },
+                    data: { imageURL: response.url }
+                })
+                await rm(screenshotPath)
+                await browser.close();
+                resolve({ success: true, tool: createdTool });
+            } catch (e) {
+                console.log(e)
+                resolve({ success: false, });
+                await rm(screenshotPath)
+            }
+        }, 1);
+    });
 }

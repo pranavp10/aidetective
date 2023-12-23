@@ -1,6 +1,14 @@
 "use client";
 import { ArrowUpTray } from "@medusajs/icons";
-import { Button, Drawer, FocusModal, Heading, Table, Text } from "@medusajs/ui";
+import {
+  Button,
+  Drawer,
+  FocusModal,
+  Heading,
+  Table,
+  Text,
+  useToast,
+} from "@medusajs/ui";
 import { useEffect, useState } from "react";
 import { parse } from "papaparse";
 import useSWR, { mutate } from "swr";
@@ -11,22 +19,36 @@ import axios from "axios";
 export const ImportTools = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
   const [tools, setTools] = useState<BulkUpload[]>([]);
   const { data } = useSWR<Tag[]>("/api/admin/tags");
 
   const save = async () => {
     setLoading(true);
     try {
-      await axios.post(
+      const { data } = await axios.post<Tool[]>(
         "/api/admin/tools/bulk-upload",
         tools.map((tool) => ({
           ...tool,
           tags: tool.tags.map((tag) => tag.tagId),
         }))
       );
+      toast({
+        title: "Success",
+        description: data.map((tool) => tool.name).join(", "),
+        variant: "success",
+        duration: 2000000,
+      });
       mutate("/api/admin/tools/unpublished");
       setLoading(false);
     } catch (e) {
+      toast({
+        title: "Error",
+        description: JSON.stringify(e),
+        variant: "success",
+        duration: 3000000,
+      });
+
       setLoading(false);
     }
   };
@@ -96,7 +118,6 @@ export const ImportTools = () => {
                       <Table.HeaderCell>Website</Table.HeaderCell>
                       <Table.HeaderCell>App store</Table.HeaderCell>
                       <Table.HeaderCell>Play Store</Table.HeaderCell>
-                      <Table.HeaderCell></Table.HeaderCell>
                     </Table.Row>
                   </Table.Header>
                   <Table.Body>
@@ -105,12 +126,15 @@ export const ImportTools = () => {
                         <Table.Row key={tool.websiteURL}>
                           <Table.Cell>{tool.name}</Table.Cell>
                           <Table.Cell>{tool.summary}</Table.Cell>
-                          <Table.Cell>{tool.description}</Table.Cell>
+                          <Table.Cell>
+                            <Text className="w-96">{tool.description}</Text>
+                          </Table.Cell>
                           <Table.Cell>{tool.possibleUseCase}</Table.Cell>
                           <Table.Cell>{tool.pricing}</Table.Cell>
                           <Table.Cell>
                             {tool.tags.map((tag) => tag.name)}
                           </Table.Cell>
+                          <Table.Cell>{tool.websiteURL}</Table.Cell>
                           <Table.Cell>{tool.appStoreURL}</Table.Cell>
                           <Table.Cell>{tool.playStoreURL}</Table.Cell>
                         </Table.Row>

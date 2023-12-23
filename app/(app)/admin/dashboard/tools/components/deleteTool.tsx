@@ -27,6 +27,10 @@ export const DeleteTool = ({
         if (oldData)
           return [...oldData.filter((tool) => tool.toolId !== data.toolId)];
       });
+      mutate<Tool[]>("/api/admin/tools/unpublished", async (oldData) => {
+        if (oldData)
+          return [...oldData.filter((tool) => tool.toolId !== data.toolId)];
+      });
       toast({
         title: "Success",
         description: "Tool deleted",
