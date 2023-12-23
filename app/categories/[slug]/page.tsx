@@ -46,19 +46,6 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams() {
-  try {
-    const tools = await getTags();
-    return (
-      tools?.map((tool) => ({
-        slug: tool.slug,
-      })) || []
-    );
-  } catch (e) {
-    return [];
-  }
-}
-
 const Page = async ({ params: { slug } }: { params: { slug: string } }) => {
   const tools = await getToolsByTagSlug({ slug });
   const tag = await getTagBySlug({ slug });
