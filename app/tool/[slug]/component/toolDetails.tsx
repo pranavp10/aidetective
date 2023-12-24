@@ -6,7 +6,9 @@ import { pricing } from "@/data/pricing";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const image =
-    tool.imageURL !== "-" ? tool.imageURL.replace("jpg", "webp") : "/noImg.png";
+    tool.imageURL !== "-"
+      ? tool.imageURL.replace(".jpg", ".webp").replace("http:", "https:")
+      : "/noImg.png";
   const name = tool.name;
   const description = tool.description;
   const possibleUseCase = tool.possibleUseCase;
