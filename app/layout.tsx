@@ -8,7 +8,6 @@ import SWRProvider from "@/context/SWRProvider";
 import { ToastProvider } from "@/context/ToastProvider";
 import { PHProvider, PostHogPageview } from "@/context/PostHogProvider";
 import { Suspense } from "react";
-import { getTags } from "@/fetch/getToolsTags";
 import LayoutWrapper from "@/context/LayoutWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -59,7 +58,7 @@ export default async function RootLayout({
         <meta name="theme-color" content="#b91d47" />
       </head>
       <body
-        className={`bg-ui-bg-base text-ui-fg-base ${inter.className} h-screen overflow-hidden`}
+        className={`bg-ui-bg-base text-ui-fg-base ${inter.className} w-full h-full`}
       >
         <ToastProvider />
         <Suspense>

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ArrowUpRightMini } from "@medusajs/icons";
 import { Button, Heading, Text } from "@medusajs/ui";
-import { ToolBookmark } from "@/components/toolCard/toolBookmark/toolBookmark";
+import { ToolBookmark } from "@/components/toolCard/toolBookmark";
 import { pricing } from "@/data/pricing";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {

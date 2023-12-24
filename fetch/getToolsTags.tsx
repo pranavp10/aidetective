@@ -38,6 +38,45 @@ export const getToolsTags = cache(async (): Promise<Tool[] | undefined> => {
   }
 });
 
+export const searchTool = cache(
+  async ({
+    query,
+    page,
+  }: {
+    query: string;
+    page: number;
+  }): Promise<Tool[] | undefined> => {
+    const skip = (page - 1) * pageSize;
+    try {
+      const tools = await prisma.tools.findMany({
+        include: { tags: true },
+        where: {
+          OR: [
+            {
+              description: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              summary: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          ],
+          isToolPublished: true,
+        },
+        skip,
+        take: pageSize,
+      });
+      return tools;
+    } catch (e) {
+      return undefined;
+    }
+  }
+);
+
 export const getToolsByTagSlug = cache(
   async ({ slug }: { slug: string }): Promise<Tool[] | undefined> => {
     const relatedTags = mappedTags.find((mappedTag) => mappedTag.slug === slug);
@@ -100,7 +139,6 @@ export const getToolsDetails = cache(async ({ slug }: { slug: string }) => {
               include: {
                 tags: true,
               },
-              // Added below to show published and distinct
               where: {
                 isToolPublished: true,
               },
@@ -115,3 +153,5 @@ export const getToolsDetails = cache(async ({ slug }: { slug: string }) => {
     return null;
   }
 });
+
+const pageSize = 12;

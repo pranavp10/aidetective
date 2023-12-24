@@ -2,7 +2,7 @@
 "use client";
 import { Heading, Text } from "@medusajs/ui";
 import { useRouter } from "next/navigation";
-import { ToolBookmark } from "./toolBookmark/toolBookmark";
+import { ToolBookmark } from "./toolBookmark";
 import { ArrowUpRightMini } from "@medusajs/icons";
 import { pricing } from "@/data/pricing";
 
@@ -12,7 +12,7 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
 
   return (
     <div
-      className="rounded-lg cursor-pointer gap-3 relative flex bg-gray-100 hover:shadow-md px-3 py-2 items-center flex-col group"
+      className="rounded-lg cursor-pointer gap-3 relative flex bg-gray-100 hover:shadow-md px-3 py-2 flex-col group"
       onClick={() => push(`/tool/${tool.slug}`)}
     >
       <img
