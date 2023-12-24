@@ -1,3 +1,4 @@
+import { mappedTags } from "@/data/tags";
 import { prisma } from "@/lib/prisma";
 import { cache } from "react";
 
@@ -39,6 +40,8 @@ export const getToolsTags = cache(async (): Promise<Tool[] | undefined> => {
 
 export const getToolsByTagSlug = cache(
   async ({ slug }: { slug: string }): Promise<Tool[] | undefined> => {
+    const relatedTags = mappedTags.find((mappedTag) => mappedTag.slug === slug);
+
     try {
       const tag = await prisma.tags.findUnique({
         where: {
@@ -47,6 +50,13 @@ export const getToolsByTagSlug = cache(
         include: {
           tools: {
             where: {
+              tags: {
+                some: {
+                  slug: {
+                    in: relatedTags?.map,
+                  },
+                },
+              },
               isToolPublished: true,
             },
             include: {
