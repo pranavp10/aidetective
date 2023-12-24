@@ -16,7 +16,11 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
       onClick={() => push(`/tool/${tool.slug}`)}
     >
       <img
-        src={tool.imageURL !== "-" ? tool.imageURL : "/noImg.png"}
+        src={
+          tool.imageURL !== "-"
+            ? tool.imageURL.replace("jpg", "webp")
+            : "/noImg.png"
+        }
         alt={`${tool.name} landing page`}
         className="rounded-lg w-full h-20 object-cover"
       />

@@ -5,7 +5,8 @@ import { ToolBookmark } from "@/components/toolCard/toolBookmark/toolBookmark";
 import { pricing } from "@/data/pricing";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
-  const image = tool.imageURL !== "-" ? tool.imageURL : "/noImg.png";
+  const image =
+    tool.imageURL !== "-" ? tool.imageURL.replace("jpg", "webp") : "/noImg.png";
   const name = tool.name;
   const description = tool.description;
   const possibleUseCase = tool.possibleUseCase;
