@@ -5,14 +5,8 @@ import { cache } from "react";
 export const getTags = cache(async (): Promise<Tag[] | undefined> => {
   try {
     const allTags = await prisma.tags.findMany({
-      orderBy: {
-        name: "asc",
-      },
-      include: {
-        tools: {
-          where: { isToolPublished: true },
-        },
-      },
+      orderBy: { name: "asc" },
+      include: { tools: { where: { isToolPublished: true } } },
     });
     const tags = allTags.filter((tags) => !!tags.tools.length);
     return tags;
@@ -21,22 +15,21 @@ export const getTags = cache(async (): Promise<Tag[] | undefined> => {
   }
 });
 
-export const getToolsTags = cache(async (): Promise<Tool[] | undefined> => {
-  try {
-    const tools = await prisma.tools.findMany({
-      include: { tags: true },
-      orderBy: {
-        name: "asc",
-      },
-      where: {
-        isToolPublished: true,
-      },
-    });
-    return tools;
-  } catch (e) {
-    return undefined;
+export const getToolsTags = cache(
+  async ({ page }: { page: number }): Promise<Tool[] | undefined> => {
+    try {
+      const tools = await prisma.tools.findMany({
+        include: { tags: true },
+        orderBy: { name: "asc" },
+        where: { isToolPublished: true },
+        take: pageSize * page,
+      });
+      return tools;
+    } catch (e) {
+      return undefined;
+    }
   }
-});
+);
 
 export const searchTool = cache(
   async ({
@@ -89,18 +82,10 @@ export const getToolsByTagSlug = cache(
         include: {
           tools: {
             where: {
-              tags: {
-                some: {
-                  slug: {
-                    in: relatedTags?.map,
-                  },
-                },
-              },
+              tags: { some: { slug: { in: relatedTags?.map } } },
               isToolPublished: true,
             },
-            include: {
-              tags: true,
-            },
+            include: { tags: true },
           },
         },
       });

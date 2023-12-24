@@ -17,7 +17,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const pricingDetails = pricing.find((price) => price.value === tool.pricing);
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-4xl">
       <div className="flex items-center justify-between mb-4 w-full">
         <Heading level="h1" className="text-3xl font-medium">
           {name}

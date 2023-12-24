@@ -1,9 +1,24 @@
-import ToolsWrapper from "./component/ToolsWrapper";
+import { getToolsTags } from "@/fetch/getToolsTags";
+import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
 
-const Page = () => {
+const Page = async ({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) => {
+  const page = Number(searchParams?.page) || 1;
+  const tools = await getToolsTags({ page });
+
   return (
     <div className="pt-6">
-      <ToolsWrapper />
+      {!!tools?.length ? (
+        <ToolCardLayout tools={tools} />
+      ) : (
+        <div>No tools found</div>
+      )}
     </div>
   );
 };
