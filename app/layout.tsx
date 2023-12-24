@@ -32,7 +32,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  const tags = await getTags();
 
   return (
     <html lang="en">
@@ -69,7 +68,7 @@ export default async function RootLayout({
         <PHProvider>
           <SessionProvider session={session}>
             <SWRProvider>
-              <LayoutWrapper tags={tags}>{children}</LayoutWrapper>
+              <LayoutWrapper>{children}</LayoutWrapper>
             </SWRProvider>
           </SessionProvider>
         </PHProvider>

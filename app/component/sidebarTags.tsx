@@ -1,14 +1,11 @@
 "use client";
+import { mappedTags } from "@/data/tags";
 import useShowNavbar from "@/hooks/useShowNavbar";
 import { Text } from "@medusajs/ui";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-type SidebarTagsPops = {
-  tags?: Tag[];
-};
-
-const SidebarTags = ({ tags }: SidebarTagsPops) => {
+const SidebarTags = () => {
   const pathname = usePathname();
   const showNaveBar = useShowNavbar();
 
@@ -35,8 +32,8 @@ const SidebarTags = ({ tags }: SidebarTagsPops) => {
                     <Text className="text-gray-900 font-medium">All Tools</Text>
                   </Link>
                 </li>
-                {tags?.map(({ name, slug, tagId, emoji }) => (
-                  <li key={tagId}>
+                {mappedTags.map(({ name, slug, emoji }) => (
+                  <li key={slug}>
                     <Link
                       href={`/categories/${slug}`}
                       className={`group flex w-full items-center rounded-md border transition-all hover:bg-ui-bg-base-hover gap-3 px-3 py-1.5

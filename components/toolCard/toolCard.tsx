@@ -18,7 +18,7 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
       <img
         src={
           tool.imageURL !== "-"
-            ? tool.imageURL.replace("jpg", "webp")
+            ? tool.imageURL.replace(".jpg", ".webp").replace("http:", "https:")
             : "/noImg.png"
         }
         alt={`${tool.name} landing page`}

@@ -31,7 +31,7 @@ const NavBar = () => {
               className="rounded-full"
               variant="primary"
               onClick={() => {
-                signIn("google", { callbackUrl: "/user/tool/submit-tool" });
+                signIn("google", { callbackUrl: "/submit" });
               }}
             >
               <Plus />
@@ -49,7 +49,7 @@ const NavBar = () => {
               className="rounded-full"
               variant="primary"
               onClick={() => {
-                push("/user/tool/submit-tool");
+                push("/submit");
               }}
             >
               <Plus />
