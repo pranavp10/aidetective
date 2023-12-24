@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
+import { cache } from "react";
 
-export const getTags = async (): Promise<Tag[] | undefined> => {
+export const getTags = cache(async (): Promise<Tag[] | undefined> => {
   try {
     const allTags = await prisma.tags.findMany({
       orderBy: {
@@ -17,9 +18,9 @@ export const getTags = async (): Promise<Tag[] | undefined> => {
   } catch (e) {
     throw "Something when wrong";
   }
-};
+});
 
-export const getToolsTags = async (): Promise<Tool[] | undefined> => {
+export const getToolsTags = cache(async (): Promise<Tool[] | undefined> => {
   try {
     const tools = await prisma.tools.findMany({
       include: { tags: true },
@@ -34,53 +35,49 @@ export const getToolsTags = async (): Promise<Tool[] | undefined> => {
   } catch (e) {
     return undefined;
   }
-};
+});
 
-export const getToolsByTagSlug = async ({
-  slug,
-}: {
-  slug: string;
-}): Promise<Tool[] | undefined> => {
-  try {
-    const tag = await prisma.tags.findUnique({
-      where: {
-        slug,
-      },
-      include: {
-        tools: {
-          where: {
-            isToolPublished: true,
-          },
-          include: {
-            tags: true,
+export const getToolsByTagSlug = cache(
+  async ({ slug }: { slug: string }): Promise<Tool[] | undefined> => {
+    try {
+      const tag = await prisma.tags.findUnique({
+        where: {
+          slug,
+        },
+        include: {
+          tools: {
+            where: {
+              isToolPublished: true,
+            },
+            include: {
+              tags: true,
+            },
           },
         },
-      },
-    });
-    return tag?.tools;
-  } catch (e) {
-    return undefined;
+      });
+      return tag?.tools;
+    } catch (e) {
+      return undefined;
+    }
   }
-};
+);
 
-export const getTagBySlug = async ({
-  slug,
-}: {
-  slug: string;
-}): Promise<Tag | undefined> => {
-  try {
-    const tag = await prisma.tags.findUnique({
-      where: {
-        slug,
-      },
-    });
-    return tag ? tag : undefined;
-  } catch (e) {
-    return undefined;
+export const getTagBySlug = cache(
+  async ({ slug }: { slug: string }): Promise<Tag | undefined> => {
+    try {
+      const tag = await prisma.tags.findUnique({
+        where: {
+          slug,
+        },
+      });
+      return tag ? tag : undefined;
+    } catch (e) {
+      return undefined;
+    }
   }
-};
+);
 
-export const getToolsDetails = async ({ slug }: { slug: string }) => {
+export const getToolsDetails = cache(async ({ slug }: { slug: string }) => {
   try {
     const tool = await prisma.tools.findUnique({
       where: {
@@ -107,4 +104,4 @@ export const getToolsDetails = async ({ slug }: { slug: string }) => {
   } catch (e) {
     return null;
   }
-};
+});
