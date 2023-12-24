@@ -1,7 +1,7 @@
 'use client'
 import { usePathname } from "next/navigation"
 
-const removeHeader = ['/login', '/admin/dashboard', '/user/tool/submit-tool']
+const removeHeader = ['/login', '/admin/dashboard', '/submit']
 
 const useShowNavbar = (): boolean => {
     const pathname = usePathname()
