@@ -22,7 +22,7 @@ export const ToolCard = ({ tool }: { tool: Tool }) => {
     >
       {(isToolOwner || isFeatured) && (
         <div className="bg-gradient-to-r from-pink-500 text-xs px-2 py-0.5 via-red-500 to-yellow-500 text-white rounded-full absolute top-0 right-2 z-10 -translate-y-1/2">
-          {isFeatured && "Featured"}
+          {isFeatured && "Featured"} {isFeatured && isToolOwner && "/"}{" "}
           {isToolOwner && "Owner"}
         </div>
       )}
