@@ -68,7 +68,6 @@ const PUT = async (request: Request, { params }: { params: { id: string } }) => 
                     playStoreURL,
                     featuredAt: featuredAt ? new Date(featuredAt).toISOString() : undefined,
                     pricing,
-                    userId: session.user.id,
                     isToolPublished,
                     tags: { connect: tags.map((tagId) => ({ tagId })) },
                     imageURL,

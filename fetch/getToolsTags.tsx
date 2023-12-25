@@ -1,3 +1,6 @@
+"use server";
+
+import { pageSize } from "@/data/constants";
 import { mappedTags } from "@/data/tags";
 import { prisma } from "@/lib/prisma";
 import { cache } from "react";
@@ -17,14 +20,16 @@ export const getTags = cache(async (): Promise<Tag[] | undefined> => {
 
 export const getToolsTags = cache(
   async ({ page }: { page: number }): Promise<Tool[] | undefined> => {
+    const skip = (page - 1) * pageSize;
     try {
       const tools = await prisma.tools.findMany({
         include: { tags: true },
         orderBy: { name: "asc" },
         where: { isToolPublished: true },
-        take: pageSize * page,
+        skip: skip,
+        take: pageSize,
       });
-      return tools;
+      return JSON.parse(JSON.stringify(tools));
     } catch (e) {
       return undefined;
     }
@@ -138,5 +143,3 @@ export const getToolsDetails = cache(async ({ slug }: { slug: string }) => {
     return null;
   }
 });
-
-const pageSize = 12;

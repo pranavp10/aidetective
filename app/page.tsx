@@ -1,5 +1,5 @@
 import { getToolsTags } from "@/fetch/getToolsTags";
-import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
+import InfiniteScrollTools from "./component/infiniteScrollTools";
 
 const Page = async ({
   searchParams,
@@ -14,11 +14,7 @@ const Page = async ({
 
   return (
     <div className="pt-6">
-      {!!tools?.length ? (
-        <ToolCardLayout tools={tools} />
-      ) : (
-        <div>No tools found</div>
-      )}
+      <InfiniteScrollTools initialTools={tools || []} pageNumber={page} />
     </div>
   );
 };
