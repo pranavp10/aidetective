@@ -67,6 +67,7 @@ model Tools {
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   featuredAt       DateTime?
+  isFeatured       Boolean            @default(false)
   pricing          Pricing            @default(free)
   isToolPublished  Boolean            @default(false)
   appStoreURL      String?

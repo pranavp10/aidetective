@@ -38,9 +38,13 @@ const NavBar = () => {
                 <Plus />
                 Submit Tool (FREE)
               </Button>
-              <Button onClick={() => signIn("google")} variant="transparent">
+              <Button
+                className="rounded-full"
+                onClick={() => signIn("google")}
+                variant="secondary"
+              >
                 <Google />
-                Login
+                Continue with Google
               </Button>
             </div>
           )}
@@ -74,12 +78,6 @@ const NavBar = () => {
                       onClick={() => push("/dashboard")}
                     >
                       Dashboard
-                    </DropdownMenu.Item>
-                    <DropdownMenu.Item
-                      className="gap-x-2 cursor-pointer"
-                      onClick={() => push("/user/tool")}
-                    >
-                      Submitted Tools
                     </DropdownMenu.Item>
                     {session.user.role === "SUPER_ADMIN" && (
                       <DropdownMenu.Item
