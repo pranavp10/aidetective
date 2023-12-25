@@ -5,7 +5,7 @@ import { ToolBookmark } from "./toolBookmark";
 import { ArrowUpRightMini } from "@medusajs/icons";
 import { pricing } from "@/data/pricing";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export const ToolCard = ({ tool }: { tool: Tool }) => {
   const pricingDetails = pricing.find((price) => price.value === tool.pricing);
