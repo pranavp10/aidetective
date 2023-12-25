@@ -12,7 +12,7 @@ const NavBar = () => {
   const { push } = useRouter();
 
   return (
-    <div className="bg-white sticky top-0 z-10 shadow-sm">
+    <div className="bg-white sticky top-0 z-50 shadow-sm">
       <nav className="max-w-7xl m-auto py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
