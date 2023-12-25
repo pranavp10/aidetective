@@ -9,19 +9,21 @@ import { useSession } from "next-auth/react";
 export const ToolCard = ({ tool }: { tool: Tool }) => {
   const pricingDetails = pricing.find((price) => price.value === tool.pricing);
   const { data } = useSession();
-  const isToolOwnerLoggedInBorder = data?.user.id === tool.userId;
+  const isToolOwner = data?.user.id === tool.userId;
+  const isFeatured = tool.isFeatured;
 
   return (
     <div
       className={`relative ${
-        isToolOwnerLoggedInBorder
+        isToolOwner || isFeatured
           ? "bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-lg p-0.5"
           : ""
       }`}
     >
-      {isToolOwnerLoggedInBorder && (
+      {(isToolOwner || isFeatured) && (
         <div className="bg-gradient-to-r from-pink-500 text-xs px-2 py-0.5 via-red-500 to-yellow-500 text-white rounded-full absolute top-0 right-2 z-10 -translate-y-1/2">
-          Owner
+          {isFeatured && "Featured"} {isFeatured && isToolOwner && "/"}{" "}
+          {isToolOwner && "Owner"}
         </div>
       )}
       <div className="rounded-md gap-3 relative flex bg-gray-100 px-3 py-2 flex-col group hover:shadow-md">
