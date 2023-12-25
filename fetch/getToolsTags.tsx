@@ -1,3 +1,6 @@
+"use server";
+
+import { pageSize } from "@/data/constants";
 import { mappedTags } from "@/data/tags";
 import { prisma } from "@/lib/prisma";
 import { cache } from "react";
@@ -5,14 +8,8 @@ import { cache } from "react";
 export const getTags = cache(async (): Promise<Tag[] | undefined> => {
   try {
     const allTags = await prisma.tags.findMany({
-      orderBy: {
-        name: "asc",
-      },
-      include: {
-        tools: {
-          where: { isToolPublished: true },
-        },
-      },
+      orderBy: { name: "asc" },
+      include: { tools: { where: { isToolPublished: true } } },
     });
     const tags = allTags.filter((tags) => !!tags.tools.length);
     return tags;
@@ -21,22 +18,62 @@ export const getTags = cache(async (): Promise<Tag[] | undefined> => {
   }
 });
 
-export const getToolsTags = cache(async (): Promise<Tool[] | undefined> => {
-  try {
-    const tools = await prisma.tools.findMany({
-      include: { tags: true },
-      orderBy: {
-        name: "asc",
-      },
-      where: {
-        isToolPublished: true,
-      },
-    });
-    return tools;
-  } catch (e) {
-    return undefined;
+export const getToolsTags = cache(
+  async ({ page }: { page: number }): Promise<Tool[] | undefined> => {
+    const skip = (page - 1) * pageSize;
+    try {
+      const tools = await prisma.tools.findMany({
+        include: { tags: true },
+        orderBy: { name: "asc" },
+        where: { isToolPublished: true },
+        skip: skip,
+        take: pageSize,
+      });
+      return JSON.parse(JSON.stringify(tools));
+    } catch (e) {
+      return undefined;
+    }
   }
-});
+);
+
+export const searchTool = cache(
+  async ({
+    query,
+    page,
+  }: {
+    query: string;
+    page: number;
+  }): Promise<Tool[] | undefined> => {
+    const skip = (page - 1) * pageSize;
+    try {
+      const tools = await prisma.tools.findMany({
+        include: { tags: true },
+        where: {
+          OR: [
+            {
+              description: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              summary: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          ],
+          isToolPublished: true,
+        },
+        skip,
+        take: pageSize,
+      });
+      return tools;
+    } catch (e) {
+      return undefined;
+    }
+  }
+);
 
 export const getToolsByTagSlug = cache(
   async ({ slug }: { slug: string }): Promise<Tool[] | undefined> => {
@@ -50,18 +87,10 @@ export const getToolsByTagSlug = cache(
         include: {
           tools: {
             where: {
-              tags: {
-                some: {
-                  slug: {
-                    in: relatedTags?.map,
-                  },
-                },
-              },
+              tags: { some: { slug: { in: relatedTags?.map } } },
               isToolPublished: true,
             },
-            include: {
-              tags: true,
-            },
+            include: { tags: true },
           },
         },
       });
@@ -100,7 +129,6 @@ export const getToolsDetails = cache(async ({ slug }: { slug: string }) => {
               include: {
                 tags: true,
               },
-              // Added below to show published and distinct
               where: {
                 isToolPublished: true,
               },

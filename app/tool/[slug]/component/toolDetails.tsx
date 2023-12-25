@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ArrowUpRightMini } from "@medusajs/icons";
 import { Button, Heading, Text } from "@medusajs/ui";
-import { ToolBookmark } from "@/components/toolCard/toolBookmark/toolBookmark";
+import { ToolBookmark } from "@/components/toolCard/toolBookmark";
 import { pricing } from "@/data/pricing";
 
 export const ToolDetails = ({ tool }: { tool: Tool }) => {
@@ -17,7 +17,7 @@ export const ToolDetails = ({ tool }: { tool: Tool }) => {
   const pricingDetails = pricing.find((price) => price.value === tool.pricing);
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-4xl">
       <div className="flex items-center justify-between mb-4 w-full">
         <Heading level="h1" className="text-3xl font-medium">
           {name}

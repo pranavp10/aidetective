@@ -1,22 +1,22 @@
-import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
 import { getToolsTags } from "@/fetch/getToolsTags";
+import InfiniteScrollTools from "./component/infiniteScrollTools";
 
-export async function generateStaticParams() {
-  return ["/"];
-}
+const Page = async ({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) => {
+  const page = Number(searchParams?.page) || 1;
+  const tools = await getToolsTags({ page });
 
-const Page = async () => {
-  const tools = await getToolsTags();
-
-  if (tools) {
-    return (
-      <div>
-        <ToolCardLayout tools={tools} />
-      </div>
-    );
-  } else {
-    return <div>No tools found</div>;
-  }
+  return (
+    <div className="pt-6">
+      <InfiniteScrollTools initialTools={tools || []} pageNumber={page} />
+    </div>
+  );
 };
 
 export default Page;
