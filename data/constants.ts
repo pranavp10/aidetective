@@ -1,1 +1,1 @@
-export const pageSize = 12;
+export const pageSize = 16;
