@@ -5,16 +5,19 @@ import { ToolBookmark } from "./toolBookmark";
 import { ArrowUpRightMini } from "@medusajs/icons";
 import { pricing } from "@/data/pricing";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export const ToolCard = ({ tool }: { tool: Tool }) => {
   const pricingDetails = pricing.find((price) => price.value === tool.pricing);
   const { data } = useSession();
+  const { push } = useRouter();
   const isToolOwner = data?.user.id === tool.userId;
   const isFeatured = tool.isFeatured;
 
   return (
     <div
-      className={`relative ${
+      onClick={() => push(`/tool/${tool.slug}`)}
+      className={`relative cursor-pointer ${
         isToolOwner || isFeatured
           ? "bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-lg p-0.5"
           : ""
