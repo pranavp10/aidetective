@@ -38,9 +38,13 @@ const NavBar = () => {
                 <Plus />
                 Submit Tool (FREE)
               </Button>
-              <Button onClick={() => signIn("google")} variant="transparent">
+              <Button
+                className="rounded-full"
+                onClick={() => signIn("google")}
+                variant="secondary"
+              >
                 <Google />
-                Login
+                Continue with Google
               </Button>
             </div>
           )}
