@@ -15,4 +15,6 @@ type Tool = {
     slug: string
     playStoreURL?: string | null;
     tags: Tags[]
+    userId: string
+    isFeatured: boolean
 }

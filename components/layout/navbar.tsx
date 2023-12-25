@@ -79,12 +79,6 @@ const NavBar = () => {
                     >
                       Dashboard
                     </DropdownMenu.Item>
-                    <DropdownMenu.Item
-                      className="gap-x-2 cursor-pointer"
-                      onClick={() => push("/user/tool")}
-                    >
-                      Submitted Tools
-                    </DropdownMenu.Item>
                     {session.user.role === "SUPER_ADMIN" && (
                       <DropdownMenu.Item
                         className="gap-x-2 cursor-pointer"
