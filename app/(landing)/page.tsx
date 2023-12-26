@@ -1,5 +1,5 @@
+import InfiniteScrollTools from "@/components/component/infiniteScrollTools";
 import { getToolsTags } from "@/fetch/getToolsTags";
-import InfiniteScrollTools from "../component/infiniteScrollTools";
 
 const Page = async ({
   searchParams,

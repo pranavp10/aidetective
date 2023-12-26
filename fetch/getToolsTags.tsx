@@ -36,56 +36,43 @@ export const getToolsTags = cache(
   }
 );
 
-export const searchTool = cache(
-  async ({
-    query,
-    page,
-  }: {
-    query: string;
-    page: number;
-  }): Promise<Tool[] | undefined> => {
-    const skip = (page - 1) * pageSize;
-    try {
-      const tools = await prisma.tools.findMany({
-        include: { tags: true },
-        where: {
-          OR: [
-            {
-              name: {
-                contains: query,
-                mode: "insensitive",
-              },
+export const searchTool = async ({
+  query,
+  page,
+}: {
+  query: string;
+  page: number;
+}): Promise<Tool[] | undefined> => {
+  const skip = (page - 1) * pageSize;
+  try {
+    const tools = await prisma.tools.findMany({
+      include: { tags: true },
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: "insensitive",
             },
-            {
-              summary: {
-                contains: query,
-                mode: "insensitive",
-              },
+          },
+          {
+            description: {
+              contains: query,
+              mode: "insensitive",
             },
-            {
-              description: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-            {
-              possibleUseCase: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-          ],
-          isToolPublished: true,
-        },
-        skip,
-        take: pageSize,
-      });
-      return tools;
-    } catch (e) {
-      return undefined;
-    }
+          },
+        ],
+        isToolPublished: true,
+      },
+      distinct: ["toolId"],
+      skip,
+      take: pageSize,
+    });
+    return tools;
+  } catch (e) {
+    return undefined;
   }
-);
+};
 
 export const getToolsByTagSlug = cache(
   async ({ slug }: { slug: string }): Promise<Tool[] | undefined> => {

@@ -1,16 +1,11 @@
-import ToolCardSkeleton from "@/components/toolCard/toolCardSkeleton";
+import ToolCardSkeletonListView from "@/components/toolCard/toolCardSkeletonListView";
 
 const Loading = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
-      <ToolCardSkeleton />
-      <ToolCardSkeleton />
-      <ToolCardSkeleton />
-      <ToolCardSkeleton />
-      <ToolCardSkeleton />
-      <ToolCardSkeleton />
-      <ToolCardSkeleton />
-      <ToolCardSkeleton />
+    <div className="flex flex-col gap-4 mt-4">
+      <ToolCardSkeletonListView />
+      <ToolCardSkeletonListView />
+      <ToolCardSkeletonListView />
     </div>
   );
 };

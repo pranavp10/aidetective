@@ -10,8 +10,7 @@ export default async function Page({
   };
 }) {
   const query = searchParams?.query || "";
-  const page = Number(searchParams?.page) || 1;
-  const tools = await searchTool({ page, query });
+  const tools = await searchTool({ page: 1, query });
 
   return <div>{tools && <ToolCardLayout tools={tools} listView />}</div>;
 }
