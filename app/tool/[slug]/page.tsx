@@ -2,7 +2,7 @@ import React from "react";
 import { ToolDetails } from "./component/toolDetails";
 import { Heading } from "@medusajs/ui";
 import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
-import { getToolsDetails, getToolsTags } from "@/fetch/getToolsTags";
+import { getToolsDetails } from "@/fetch/getToolsTags";
 
 export async function generateMetadata({
   params: { slug },
