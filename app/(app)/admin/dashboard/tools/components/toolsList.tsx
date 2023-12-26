@@ -20,7 +20,9 @@ export const ToolsList = ({ tools }: { tools: Tool[] }) => {
     <Table>
       <Table.Header>
         <Table.Row>
+          <Table.HeaderCell>Tool Id</Table.HeaderCell>
           <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>User</Table.HeaderCell>
           <Table.HeaderCell>Status</Table.HeaderCell>
           <Table.HeaderCell>Create At</Table.HeaderCell>
           <Table.HeaderCell>Links</Table.HeaderCell>
@@ -31,7 +33,13 @@ export const ToolsList = ({ tools }: { tools: Tool[] }) => {
         {tools?.map((tool) => {
           return (
             <Table.Row key={tool.toolId}>
+              <Table.Cell>
+                <Badge>{tool.toolId}</Badge>
+              </Table.Cell>
               <Table.Cell>{tool.name}</Table.Cell>
+              <Table.Cell>
+                <Badge>{tool.userId}</Badge>
+              </Table.Cell>
               <Table.Cell>
                 <StatusBadge color={tool.isToolPublished ? "green" : "red"}>
                   {tool.isToolPublished ? "Published" : "Not Published"}
@@ -46,7 +54,6 @@ export const ToolsList = ({ tools }: { tools: Tool[] }) => {
                   <ArrowUpRightOnBox />
                 </a>
               </Table.Cell>
-
               <Table.Cell>
                 <DropdownMenu>
                   <DropdownMenu.Trigger>

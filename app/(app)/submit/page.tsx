@@ -58,7 +58,7 @@ const Page = () => {
             },
           ];
       });
-      push("/user/tool");
+      push("/dashboard");
     } catch (e: any) {
       setIsLoading(false);
       toast({
@@ -97,7 +97,7 @@ const Page = () => {
                 ⌛ It takes less than 1 minute!
               </Text>
             </div>
-            <IconButton type="button" onClick={() => push("/user/tool")}>
+            <IconButton type="button" onClick={() => push("/dashboard")}>
               <XMark className="cursor-pointer" />
             </IconButton>
           </div>
