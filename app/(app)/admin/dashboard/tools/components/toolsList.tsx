@@ -1,5 +1,5 @@
 "use client";
-import { Table, DropdownMenu, Badge, StatusBadge } from "@medusajs/ui";
+import { Table, DropdownMenu, Badge, StatusBadge, Text } from "@medusajs/ui";
 import dayjs from "dayjs";
 import {
   ArrowUpRightOnBox,
@@ -21,6 +21,7 @@ export const ToolsList = ({ tools }: { tools: Tool[] }) => {
         <Table.Row>
           <Table.HeaderCell>Tool Id</Table.HeaderCell>
           <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>Slug</Table.HeaderCell>
           <Table.HeaderCell>User</Table.HeaderCell>
           <Table.HeaderCell>Status</Table.HeaderCell>
           <Table.HeaderCell>Create At</Table.HeaderCell>
@@ -35,7 +36,12 @@ export const ToolsList = ({ tools }: { tools: Tool[] }) => {
               <Table.Cell>
                 <Badge>{tool.toolId}</Badge>
               </Table.Cell>
-              <Table.Cell>{tool.name}</Table.Cell>
+              <Table.Cell>
+                <Text>{tool.name}</Text>
+              </Table.Cell>
+              <Table.Cell>
+                <Badge>{tool.slug}</Badge>
+              </Table.Cell>
               <Table.Cell>
                 <Badge>{tool.userId}</Badge>
               </Table.Cell>

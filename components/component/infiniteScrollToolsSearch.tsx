@@ -1,7 +1,6 @@
 "use client";
 
 import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
-import { pageSize } from "@/data/constants";
 import { searchTool } from "@/fetch/getToolsTags";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -18,7 +17,6 @@ const InfiniteToolScrollSearch = ({
 }) => {
   const [tools, setTools] = useState<Tool[]>(initialTools);
   const [page, setPage] = useState<number>(pageNumber);
-
   const { ref, inView } = useInView({
     threshold: 0,
   });
