@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
         if (event.type === 'checkout.session.completed') {
             const checkoutSessionCompleted = event.data.object;
             const metadata = checkoutSessionCompleted.metadata as { toolId: string, userId: string }
-            prisma.tools.update({
+            await prisma.tools.update({
                 where: {
                     toolId: metadata.toolId,
                     userId: metadata.userId
@@ -23,9 +23,12 @@ export async function POST(request: NextRequest) {
                     isFeatured: true
                 }
             })
+            return new Response("RESPONSE EXECUTE", {
+                status: 200,
+            });
         }
-        return new Response("RESPONSE EXECUTE", {
-            status: 200,
+        return new Response(`Error not featured`, {
+            status: 400,
         });
     } catch (err) {
         return new Response(`Webhook Error: ${err}`, {
