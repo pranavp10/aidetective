@@ -26,7 +26,8 @@ export const toolsSchema = z
         possibleUseCase: z.string().nonempty(),
         imageURL: z.any(),
         tags: z.string().array().min(1, 'At least one tags is required'),
-        isToolPublished: z.boolean()
+        isToolPublished: z.boolean(),
+        isFeatured: z.boolean()
     })
 
 export type ToolsSchema = z.infer<typeof toolsSchema>;

@@ -63,6 +63,7 @@ export const POST = async (request: Request) => {
                pricing,
                userId: session.user.id,
                isToolPublished: false,
+               isFeatured: false,
                tags: { connect: tags.map((tagId) => ({ tagId })) },
                imageURL,
                possibleUseCase,

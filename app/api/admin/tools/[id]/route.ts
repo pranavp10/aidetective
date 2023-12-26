@@ -52,6 +52,7 @@ const PUT = async (request: Request, { params }: { params: { id: string } }) => 
         const tags = requestTool.tags
         const slug = requestTool.slug
         const isToolPublished = requestTool.isToolPublished
+        const isFeatured = requestTool.isFeatured
 
         const updatedTool = await prisma.tools.update(
             {
@@ -72,6 +73,7 @@ const PUT = async (request: Request, { params }: { params: { id: string } }) => 
                     tags: { connect: tags.map((tagId) => ({ tagId })) },
                     imageURL,
                     possibleUseCase,
+                    isFeatured
                 }
             }
         )

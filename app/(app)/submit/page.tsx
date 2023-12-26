@@ -3,6 +3,7 @@ import { AppStoreURL } from "@/app/(app)/admin/dashboard/tools/components/fields
 import { Description } from "@/app/(app)/admin/dashboard/tools/components/fields/description";
 import { ImageURL } from "@/app/(app)/admin/dashboard/tools/components/fields/imageUrl";
 import { IsToolPublished } from "@/app/(app)/admin/dashboard/tools/components/fields/isToolPublished";
+import { IsToolFeatured } from "@/app/(app)/admin/dashboard/tools/components/fields/isToolFeatured";
 import { Name } from "@/app/(app)/admin/dashboard/tools/components/fields/name";
 import { PlayStoreURL } from "@/app/(app)/admin/dashboard/tools/components/fields/playStoreURL";
 import { PossibleUseCase } from "@/app/(app)/admin/dashboard/tools/components/fields/possibleUseCase";
@@ -112,6 +113,7 @@ const Page = () => {
             <PlayStoreURL />
             <AppStoreURL />
             <IsToolPublished hideContent />
+            <IsToolFeatured hideContent />
             <Button type="submit" isLoading={isLoading} className="w-full">
               Save
             </Button>
