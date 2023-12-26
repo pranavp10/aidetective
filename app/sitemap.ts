@@ -1,3 +1,4 @@
+import { mappedTags } from '@/data/tags'
 import { prisma } from '@/lib/prisma'
 import { MetadataRoute } from 'next'
 
@@ -20,7 +21,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]
     try {
         const slugs = await prisma.tools.findMany({ select: { slug: true }, where: { isToolPublished: true } })
-        const tagsSlug = await prisma.tags.findMany({ select: { slug: true }, })
 
         const toolsUrls: SitemapFile[] = slugs.map(({ slug }: { slug: string }) => ({
             url: `${WEBSITE_URL}/tool/${slug}`,
@@ -28,8 +28,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'monthly',
             priority: 0.6,
         }))
-        const tagsUrls: SitemapFile[] = tagsSlug.map(({ slug }: { slug: string }) => ({
-            url: `${WEBSITE_URL}/categories/${slug}`,
+        const tagsUrls: SitemapFile[] = mappedTags.map(({ slug }: { slug: string }) => ({
+            url: `${WEBSITE_URL}/tags/${slug}`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.5,

@@ -8,7 +8,6 @@ import SWRProvider from "@/context/SWRProvider";
 import { ToastProvider } from "@/context/ToastProvider";
 import { PHProvider, PostHogPageview } from "@/context/PostHogProvider";
 import { Suspense } from "react";
-import LayoutWrapper from "@/context/LayoutWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -66,9 +65,7 @@ export default async function RootLayout({
         </Suspense>
         <PHProvider>
           <SessionProvider session={session}>
-            <SWRProvider>
-              <LayoutWrapper>{children}</LayoutWrapper>
-            </SWRProvider>
+            <SWRProvider>{children}</SWRProvider>
           </SessionProvider>
         </PHProvider>
       </body>

@@ -2,6 +2,7 @@ import React from "react";
 import { getTagBySlug, getToolsByTagSlug } from "@/fetch/getToolsTags";
 import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
 import { mappedTags } from "@/data/tags";
+import { Heading } from "@medusajs/ui";
 
 export async function generateMetadata({
   params: { slug },
@@ -50,7 +51,24 @@ const Page = async ({ params: { slug } }: { params: { slug: string } }) => {
   const tools = await getToolsByTagSlug({ slug });
   const tag = mappedTags.find((mappedTag) => mappedTag.slug === slug);
 
-  return <div>{tools && <ToolCardLayout tools={tools} />}</div>;
+  return (
+    <div>
+      {tag && (
+        <div className="flex gap-4 pb-8 pt-8 items-center">
+          <div className="font-bold text-3xl rounded-md bg-gray-50 p-3 w-16 h-16 flex items-center justify-center">
+            {tag.emoji}
+          </div>
+          <div>
+            <Heading className="font-semibold text-2xl">{tag.name}</Heading>
+            <Heading className="font-bold text-xl text-gray-500">
+              {tools?.length} AI tools
+            </Heading>
+          </div>
+        </div>
+      )}
+      {tools && <ToolCardLayout tools={tools} />}
+    </div>
+  );
 };
 
 export default Page;
