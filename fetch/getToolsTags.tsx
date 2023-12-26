@@ -91,6 +91,7 @@ export const getToolsByTagSlug = cache(
               isToolPublished: true,
             },
             include: { tags: true },
+            distinct: ["toolId"],
           },
         },
       });
