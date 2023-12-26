@@ -1,6 +1,7 @@
 import { Heading } from "@medusajs/ui";
 import { getBookmark, getSubmittedTools } from "@/fetch/bookMark";
 import { ToolCardLayout } from "@/components/toolCard/toolCardLayout";
+import { ToolCardAdminLayout } from "@/components/toolCard/toolCardAdminLayout";
 
 const Dashboard = async () => {
   const [bookmarkedTool, submittedTools] = await Promise.all([
@@ -12,7 +13,7 @@ const Dashboard = async () => {
     <div>
       <div className="mt-4 grid gap-4">
         <Heading>Submitted Tool</Heading>
-        {submittedTools && <ToolCardLayout tools={submittedTools} />}
+        {submittedTools && <ToolCardAdminLayout tools={submittedTools} />}
       </div>
       <div className="mt-4 grid gap-4">
         <Heading>Bookmarks</Heading>
