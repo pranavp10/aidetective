@@ -51,18 +51,6 @@ export const searchTool = cache(
         where: {
           OR: [
             {
-              description: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-            {
-              slug: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-            {
               name: {
                 contains: query,
                 mode: "insensitive",
@@ -70,6 +58,18 @@ export const searchTool = cache(
             },
             {
               summary: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              possibleUseCase: {
                 contains: query,
                 mode: "insensitive",
               },
