@@ -10,31 +10,31 @@ export async function generateMetadata({
   params: { slug: string };
 }) {
   try {
-    const toolDetails = await getToolsDetails({ slug });
+    const data = await getToolsDetails({ slug });
 
-    if (!toolDetails) {
+    if (!data?.toolDetails) {
       return {
         title: "Not found",
         description: "The page you are looking  for does not exits.",
       };
     }
     return {
-      title: toolDetails.name,
-      description: toolDetails.description,
+      title: data?.toolDetails.name,
+      description: data?.toolDetails.description,
       alternates: {
-        canonical: `/tool/${toolDetails.slug}`,
+        canonical: `/tool/${data?.toolDetails.slug}`,
       },
       openGraph: {
-        title: toolDetails.name,
-        description: toolDetails.description,
+        title: data?.toolDetails.name,
+        description: data?.toolDetails.description,
         type: "article",
-        url: `/tool/${toolDetails.slug}`,
+        url: `/tool/${data?.toolDetails.slug}`,
         images: [
           {
-            url: `/api/og/tool?name=${toolDetails.name}&url=${toolDetails.imageURL}`,
+            url: `/api/og/tool?name=${data?.toolDetails.name}&url=${data?.toolDetails.imageURL}`,
             width: 800,
             height: 400,
-            alt: `${toolDetails.name}`,
+            alt: `${data?.toolDetails.name}`,
           },
         ],
       },
@@ -48,15 +48,15 @@ export async function generateMetadata({
 }
 
 const Page = async ({ params: { slug } }: { params: { slug: string } }) => {
-  const toolDetails = await getToolsDetails({ slug });
+  const data = await getToolsDetails({ slug });
 
-  if (!toolDetails) return <div>Page not found</div>;
+  if (!data) return <div>Page not found</div>;
 
   return (
     <div>
-      {toolDetails.name ? <ToolDetails tool={toolDetails} /> : <></>}
+      {data.toolDetails.name ? <ToolDetails tool={data.toolDetails} /> : <></>}
       <Heading className="my-6">Related tools</Heading>
-      <ToolCardLayout tools={toolDetails.tags.map((tag) => tag.tools).flat()} />
+      <ToolCardLayout tools={data.relatedTools} />
     </div>
   );
 };
