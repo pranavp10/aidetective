@@ -57,6 +57,18 @@ export const searchTool = cache(
               },
             },
             {
+              slug: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              name: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
               summary: {
                 contains: query,
                 mode: "insensitive",
@@ -117,30 +129,40 @@ export const getTagBySlug = cache(
   }
 );
 
-export const getToolsDetails = cache(async ({ slug }: { slug: string }) => {
-  try {
-    const tool = await prisma.tools.findUnique({
-      where: {
-        slug,
-      },
-      include: {
-        tags: {
-          include: {
-            tools: {
-              include: {
-                tags: true,
-              },
-              where: {
-                isToolPublished: true,
-              },
-              distinct: ["toolId"],
+export const getToolsDetails = cache(
+  async ({
+    slug,
+  }: {
+    slug: string;
+  }): Promise<{ toolDetails: Tool; relatedTools: Tool[] } | undefined> => {
+    try {
+      const toolDetails = await prisma.tools.findUnique({
+        where: {
+          slug,
+        },
+        include: {
+          tags: true,
+        },
+      });
+      if (toolDetails) {
+        const relatedTools = await prisma.tools.findMany({
+          where: {
+            tags: {
+              some: { slug: { in: toolDetails.tags.map((tag) => tag.slug) } },
             },
           },
-        },
-      },
-    });
-    return tool;
-  } catch (e) {
-    return null;
+          include: {
+            tags: true,
+          },
+          distinct: ["toolId"],
+        });
+        const filterTools = relatedTools.filter(
+          (tool: Tool) => tool.toolId !== toolDetails.toolId
+        );
+        return { toolDetails, relatedTools: filterTools };
+      }
+    } catch (e) {
+      return undefined;
+    }
   }
-});
+);

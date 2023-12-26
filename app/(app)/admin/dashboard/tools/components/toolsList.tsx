@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import {
   ArrowUpRightOnBox,
   EllipsisVertical,
-  Link,
   PencilSquare,
   Trash,
 } from "@medusajs/icons";

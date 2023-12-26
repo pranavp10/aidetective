@@ -1,7 +1,7 @@
+import { Footer } from "@/components/layout/footer";
 import NavBar from "@/components/layout/navbar";
 import SearchInput from "@/components/searchInput/searchInput";
 import React from "react";
-import { Footer } from "../../components/layout/footer";
 
 export default async function Layout({
   children,
