@@ -10,7 +10,10 @@ export const IsToolPublished = ({ hideContent }: { hideContent?: boolean }) => {
         !hideContent ? (
           <div className="flex items-center gap-x-2">
             <Switch checked={value} onClick={() => onChange(!value)} />
-            <Label htmlFor="isPublished" className="text-ui-fg-subtle">
+            <Label
+              htmlFor="isPublished"
+              className="text-ui-fg-subtle block text-sm font-semibold leading-6 text-gray-900"
+            >
               Do you want to publish tool?
             </Label>
           </div>

@@ -11,7 +11,10 @@ export const PlayStoreURL = () => {
     <Controller
       render={({ field: { value, onChange } }) => (
         <div className="flex flex-col gap-y-2">
-          <Label htmlFor="playStore" className="text-ui-fg-subtle">
+          <Label
+            htmlFor="playStore"
+            className="text-ui-fg-subtle block text-sm font-semibold leading-6 text-gray-900"
+          >
             Play store URL
           </Label>
           <Input
@@ -20,6 +23,7 @@ export const PlayStoreURL = () => {
             value={value}
             onChange={(e) => onChange(e.target.value)}
             aria-invalid={!!errors?.playStoreURL?.message}
+            className="bg-white"
           />
           {errors?.playStoreURL?.message && (
             <Label className="text-ui-fg-error">
