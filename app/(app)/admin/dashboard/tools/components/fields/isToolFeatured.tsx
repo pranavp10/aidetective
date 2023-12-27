@@ -8,7 +8,7 @@ export const IsToolFeatured = ({ hideContent }: { hideContent?: boolean }) => {
     <Controller
       render={({ field: { value, onChange } }) =>
         !hideContent ? (
-          <div className="flex flex-col gap-x-2 bg-red-500 text-white py-2 px-3 rounded-xl">
+          <div className="flex flex-col gap-x-2 bg-red-500 text-white py-2 px-3 rounded-xl text-sm font-semibold leading-6">
             <Label htmlFor="isFeatured" className="text-white mb-3">
               Do you want to feature this tool at the top without Payment?
             </Label>

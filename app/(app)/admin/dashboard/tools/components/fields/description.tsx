@@ -11,7 +11,10 @@ export const Description = () => {
     <Controller
       render={({ field: { value, onChange } }) => (
         <div className="flex flex-col gap-y-2">
-          <Label htmlFor="description" className="text-ui-fg-subtle">
+          <Label
+            htmlFor="description"
+            className="text-ui-fg-subtle block text-sm font-semibold leading-6 text-gray-900"
+          >
             Description
           </Label>
           <Textarea
@@ -20,6 +23,7 @@ export const Description = () => {
             value={value}
             onChange={(e) => onChange(e.target.value)}
             aria-invalid={!!errors?.description?.message}
+            className="bg-white"
           />
           {errors?.description?.message && (
             <Label className="text-ui-fg-error">

@@ -18,12 +18,15 @@ export const Tags = () => {
     <Controller
       render={({ field: { value, onChange } }) => (
         <div className="flex flex-col gap-y-2">
-          <Label htmlFor="pricing" className="text-ui-fg-subtle">
+          <Label
+            htmlFor="pricing"
+            className="text-ui-fg-subtle block text-sm font-semibold leading-6 text-gray-900"
+          >
             Tags
           </Label>
           <DropdownMenu open={open}>
             <DropdownMenu.Trigger asChild onClick={() => setOpen(true)}>
-              <div className="flex flex-wrap gap-2 caret-ui-fg-base bg-ui-bg-field hover:bg-ui-bg-field-hover border-ui-border-base shadow-buttons-neutral placeholder-ui-fg-muted text-ui-fg-base transition-fg relative appearance-none outline-none focus:border-ui-border-interactive focus:shadow-borders-active disabled:text-ui-fg-disabled disabled:!bg-ui-bg-disabled disabled:!border-ui-border-base disabled:placeholder-ui-fg-disabled disabled:cursor-not-allowed disabled:!shadow-none aria-[invalid=true]:!border-ui-border-error aria-[invalid=true]:focus:!shadow-borders-error invalid:!border-ui-border-error invalid:focus:!shadow-borders-error txt-medium w-full rounded-md border px-3 py-[7px]">
+              <div className="flex flex-wrap gap-2 caret-ui-fg-base bg-white hover:bg-ui-bg-field-hover border-ui-border-base shadow-buttons-neutral placeholder-ui-fg-muted text-ui-fg-base transition-fg relative appearance-none outline-none focus:border-ui-border-interactive focus:shadow-borders-active disabled:text-ui-fg-disabled disabled:!bg-ui-bg-disabled disabled:!border-ui-border-base disabled:placeholder-ui-fg-disabled disabled:cursor-not-allowed disabled:!shadow-none aria-[invalid=true]:!border-ui-border-error aria-[invalid=true]:focus:!shadow-borders-error invalid:!border-ui-border-error invalid:focus:!shadow-borders-error txt-medium w-full rounded-md border px-3 py-[7px]">
                 {value?.length ? (
                   data?.map((tag: Tag) => {
                     const isSelected = value?.includes(tag.tagId);

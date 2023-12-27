@@ -13,11 +13,14 @@ export const Pricing = () => {
     <Controller
       render={({ field: { value, onChange } }) => (
         <div className="flex flex-col gap-y-2">
-          <Label htmlFor="pricing" className="text-ui-fg-subtle">
+          <Label
+            htmlFor="pricing"
+            className="text-ui-fg-subtle block text-sm font-semibold leading-6 text-gray-900"
+          >
             Pricing
           </Label>
           <Select value={value} onValueChange={(value) => onChange(value)}>
-            <Select.Trigger>
+            <Select.Trigger className="bg-white">
               <Select.Value placeholder="Select Pricing" />
             </Select.Trigger>
             <Select.Content>

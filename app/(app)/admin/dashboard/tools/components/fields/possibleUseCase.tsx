@@ -14,7 +14,7 @@ export const PossibleUseCase = () => {
         <div className="flex flex-col gap-y-2">
           <Label
             htmlFor="possibleUseCase"
-            className="text-ui-fg-subtle flex items-center gap-2"
+            className="text-ui-fg-subtle flex items-center gap-2 text-sm font-semibold leading-6 text-gray-900"
           >
             Possible use case{" "}
             <Tooltip content="Add the Possible use cases separated by `;` eg: Possible use case 1;possible use case 2;possible use case 3 ">
@@ -28,6 +28,7 @@ export const PossibleUseCase = () => {
               value={value}
               onChange={(e) => onChange(e.target.value)}
               aria-invalid={!!errors?.possibleUseCase?.message}
+              className="bg-white"
             />
           </div>
           {errors?.possibleUseCase?.message && (

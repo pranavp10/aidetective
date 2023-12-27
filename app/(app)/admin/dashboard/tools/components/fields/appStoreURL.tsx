@@ -13,7 +13,10 @@ export const AppStoreURL = () => {
       control={control}
       render={({ field: { value, onChange, ref, onBlur, disabled, name } }) => (
         <div className="flex flex-col gap-y-2">
-          <Label htmlFor="appStoreURL" className="text-ui-fg-subtle">
+          <Label
+            htmlFor="appStoreURL"
+            className="text-ui-fg-subtle block text-sm font-semibold leading-6 text-gray-900"
+          >
             App Store URL
           </Label>
           <Input
@@ -26,6 +29,7 @@ export const AppStoreURL = () => {
             value={value}
             onChange={(e) => onChange(e.target.value)}
             aria-invalid={!!errors?.appStoreURL?.message}
+            className="bg-white"
           />
           {errors?.appStoreURL?.message && (
             <Label className="text-ui-fg-error">
