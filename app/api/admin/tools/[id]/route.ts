@@ -2,6 +2,7 @@ import cloudinary from '@/lib/cloudinary'
 import { prisma } from '@/lib/prisma'
 import { toolsSchema } from '@/schema/tools.schema'
 import { authOptions } from '@/utils/authOptions'
+import { openai, pinecone } from '@/utils/chromadb'
 import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
 
@@ -86,6 +87,11 @@ const PUT = async (request: Request, { params }: { params: { id: string } }) => 
                 user: true
             }
         })
+        const documents = `${name} ${description} ${summary} ${possibleUseCase} ${pricing} ${slug}`
+        const embeddings = await openai.embeddings.create({ input: documents, model: 'text-embedding-ada-002' })
+        const insertData = embeddings.data.map((vector, index) => ({ id: updatedTool.toolId, values: vector.embedding }))
+        await pinecone.Index("tools").upsert(insertData);
+
         return NextResponse.json(updatedToolDetails)
     } catch (error) {
         return new NextResponse(JSON.stringify({ error }), { status: 500 })

@@ -8,11 +8,7 @@ import { NextResponse } from 'next/server'
 const GET = async (request: Request, { params }: { params: { id: string } }) => {
     const id = params.id
     try {
-        const tag = await prisma.tags.findUnique({
-            where: {
-                tagId: id
-            }
-        })
+        const tag = await prisma.tags.findUnique({ where: { tagId: id } })
         return NextResponse.json(tag)
     } catch (error) {
         return new NextResponse(JSON.stringify({ error }), { status: 500 })

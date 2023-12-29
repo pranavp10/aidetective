@@ -3,6 +3,7 @@ import { checkRateLimit } from '@/lib/ratelimit'
 import { setToolsOccurrences, slugger } from '@/lib/slugger'
 import { toolsSchema } from '@/schema/tools.schema'
 import { authOptions } from '@/utils/authOptions'
+import { openai, pinecone } from '@/utils/chromadb'
 import { getServerSession } from 'next-auth'
 import { NextResponse } from 'next/server'
 
@@ -19,12 +20,6 @@ export const POST = async (request: Request) => {
       if (!session?.user.id || !(['USER', 'SUPER_ADMIN'].includes(session?.user.role || ""))) {
          return new NextResponse(JSON.stringify({ error: 'user unauthorised' }), { status: 403 })
       }
-      const tool = await prisma.tools.findMany({
-         where: {
-            userId: session?.user.id
-         }
-      })
-
       const body: unknown = await request.json();
       const result = toolsSchema.safeParse(body);
       if (!result.success) {
@@ -79,6 +74,10 @@ export const POST = async (request: Request) => {
             user: true
          }
       })
+      const documents = `${name} ${description} ${summary} ${possibleUseCase} ${pricing} ${slug}`
+      const embeddings = await openai.embeddings.create({ input: documents, model: 'text-embedding-ada-002' })
+      const insertData = embeddings.data.map((vector, index) => ({ id: insertedTool.toolId, values: vector.embedding }))
+      await pinecone.Index("tools").upsert(insertData);
       return new NextResponse(JSON.stringify(toolDetails), { status: 201 })
    } catch (error) {
       console.log(error)
