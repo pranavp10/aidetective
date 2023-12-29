@@ -13,7 +13,7 @@ import { WebsiteURl } from "@/app/(app)/admin/dashboard/tools/components/fields/
 import { ToolsSchema, toolsSchema } from "@/schema/tools.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Clock, RocketLaunch, Star, ArrowLeft } from "@medusajs/icons";
-import { Button, Heading, Text, useToast } from "@medusajs/ui";
+import { Button, Heading, IconButton, Text, useToast } from "@medusajs/ui";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -149,10 +149,12 @@ const Page = () => {
             className="px-6 pb-24 pt-20 lg:px-14 overflow-y-auto"
           >
             <div className="max-w-xl lg:mr-0 lg:max-w-xl">
-              <ArrowLeft
-                onClick={() => push("/dashboard")}
-                className="cursor-pointer text-gray-800 mb-8"
-              />
+              <IconButton className="mb-8" variant="transparent">
+                <ArrowLeft
+                  onClick={() => push("/dashboard")}
+                  className="cursor-pointer text-gray-800"
+                />
+              </IconButton>
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 <div className="sm:col-span-2">
                   <WebsiteURl />
