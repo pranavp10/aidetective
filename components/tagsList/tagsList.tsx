@@ -15,7 +15,7 @@ const TagsList = () => {
           className={`group flex w-full items-center rounded-full border transition-all border-ui-border-base hover:bg-ui-bg-base-hover gap-2 px-3 py-1
                     ${
                       pathname === `/`
-                        ? "bg-ui-bg-base-pressed text-ui-fg-base "
+                        ? "bg-gradient-to-r from-pink-200 via-red-200 to-yellow-200"
                         : "border-transparent text-ui-fg-subtle"
                     }`}
         >
@@ -30,7 +30,7 @@ const TagsList = () => {
             className={`group flex w-full items-center rounded-full border transition-all border-ui-border-base hover:bg-ui-bg-base-hover gap-2 px-3 py-1
                     ${
                       pathname === `/tag/${slug}`
-                        ? "bg-ui-bg-base-pressed text-ui-fg-base "
+                        ? "bg-gradient-to-r from-pink-200 via-red-200 to-yellow-200"
                         : "border-transparent text-ui-fg-subtle"
                     }`}
           >
