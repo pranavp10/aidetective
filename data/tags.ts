@@ -373,8 +373,11 @@ export const mappedTags = [
     },
     {
       name: "Prompts / AI-ML",
-      slug: "prompt",
-      map: ["prompts", "prompt-guides", "gpt3", "gpt4", "llm", "programming"],
+      slug: "prompts",
+      map: [
+        "prompt-guides",
+        // "prompts", "gpt3", "gpt4", "llm", "programming"
+      ],
       emoji: "🤖",
     },
     {

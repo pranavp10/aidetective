@@ -3,6 +3,7 @@
 import { pageSize } from "@/data/constants";
 import { mappedTags } from "@/data/tags";
 import { prisma } from "@/lib/prisma";
+import { openai, pinecone } from "@/utils/chromadb";
 import { cache } from "react";
 
 export const getTags = cache(async (): Promise<Tag[] | undefined> => {
@@ -36,56 +37,67 @@ export const getToolsTags = cache(
   }
 );
 
-export const searchTool = cache(
-  async ({
-    query,
-    page,
-  }: {
-    query: string;
-    page: number;
-  }): Promise<Tool[] | undefined> => {
-    const skip = (page - 1) * pageSize;
-    try {
-      const tools = await prisma.tools.findMany({
-        include: { tags: true },
-        where: {
-          OR: [
-            {
-              description: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-            {
-              slug: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-            {
-              name: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-            {
-              summary: {
-                contains: query,
-                mode: "insensitive",
-              },
-            },
-          ],
-          isToolPublished: true,
-        },
-        skip,
-        take: pageSize,
-      });
-      return tools;
-    } catch (e) {
-      return undefined;
-    }
+export const searchToolWithAI = async ({
+  query,
+}: {
+  query: string;
+  page: number;
+}): Promise<Tool[] | undefined> => {
+  try {
+    const embeddings = await openai.embeddings.create({
+      input: query,
+      model: "text-embedding-ada-002",
+    });
+    const vector = embeddings.data[0].embedding;
+    const collection = await pinecone.index("tools").query({ vector, topK: 3 });
+    const toolIds = collection.matches.map((value) => value.id);
+    const tools = await prisma.tools.findMany({
+      where: { toolId: { in: toolIds } },
+      include: { tags: true },
+    });
+    return tools;
+  } catch (e) {
+    return undefined;
   }
-);
+};
+
+export const searchTool = async ({
+  query,
+  page,
+}: {
+  query: string;
+  page: number;
+}): Promise<Tool[] | undefined> => {
+  const skip = (page - 1) * pageSize;
+  try {
+    const tools = await prisma.tools.findMany({
+      include: { tags: true },
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            description: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+        isToolPublished: true,
+      },
+      distinct: ["toolId"],
+      skip,
+      take: pageSize,
+    });
+    return tools;
+  } catch (e) {
+    return undefined;
+  }
+};
 
 export const getToolsByTagSlug = cache(
   async ({ slug }: { slug: string }): Promise<Tool[] | undefined> => {

@@ -11,7 +11,10 @@ export const WebsiteURl = () => {
     <Controller
       render={({ field: { value, onChange } }) => (
         <div className="flex flex-col gap-y-2">
-          <Label htmlFor="websiteURL" className="text-ui-fg-subtle">
+          <Label
+            htmlFor="websiteURL"
+            className="text-ui-fg-subtle block text-sm font-semibold leading-6 text-gray-900"
+          >
             Website URL
           </Label>
           <Input
@@ -20,6 +23,7 @@ export const WebsiteURl = () => {
             placeholder="https://aidetective.xyz"
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            className="bg-white"
           />
           {errors?.websiteURL?.message && (
             <Label className="text-ui-fg-error">

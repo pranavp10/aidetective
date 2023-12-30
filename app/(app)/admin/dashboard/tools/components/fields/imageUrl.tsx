@@ -14,7 +14,7 @@ export const ImageURL = () => {
   };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onDrop = useCallback(onChange, []);
-  const { getInputProps, open } = useDropzone({
+  const { open } = useDropzone({
     onDrop,
     multiple: false,
     accept: {
@@ -26,7 +26,7 @@ export const ImageURL = () => {
 
   return (
     <Controller
-      render={({ field: { value, onChange } }) => {
+      render={({ field: { onChange } }) => {
         const imageURL = getImageUrl(url);
         return (
           <div className="relative rounded-xl border-2  border-ui-border-base border-dashed">
@@ -37,8 +37,6 @@ export const ImageURL = () => {
                 </div>
                 <input
                   onClick={open}
-                  {...getInputProps}
-                  type="file"
                   className="absolute inset-0 h-full w-full cursor-pointer rounded-md border-gray-300 opacity-0"
                   id="brand-photo"
                   name="brand-photo"

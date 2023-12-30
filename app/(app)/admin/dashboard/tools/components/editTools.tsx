@@ -19,6 +19,7 @@ import { ImageURL } from "./fields/imageUrl";
 import axios from "axios";
 import { mutate } from "swr";
 import { Slug } from "./fields/slug";
+import { IsToolFeatured } from "./fields/isToolFeatured";
 
 export const EditTools = ({
   tool,
@@ -44,6 +45,7 @@ export const EditTools = ({
       possibleUseCase: tool.possibleUseCase,
       imageURL: tool?.imageURL,
       slug: tool.slug,
+      isFeatured: tool.isFeatured,
     },
   });
   const { toast } = useToast();
@@ -110,6 +112,7 @@ export const EditTools = ({
               <PlayStoreURL />
               <AppStoreURL />
               <IsToolPublished />
+              <IsToolFeatured />
             </Drawer.Body>
             <Drawer.Footer>
               <Drawer.Close asChild>
