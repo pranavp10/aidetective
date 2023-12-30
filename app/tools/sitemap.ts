@@ -1,24 +1,22 @@
+import { prisma } from '@/lib/prisma'
 import { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const WEBSITE_URL = 'https://www.aidetective.xyz'
-
-    const defaultSlugs: SitemapFile[] = [
-        {
-            url: WEBSITE_URL,
-            lastModified: new Date(),
-            changeFrequency: 'yearly',
-            priority: 1,
-        },
-        {
-            url: `${WEBSITE_URL}/login`,
+    try {
+        const slugs = await prisma.tools.findMany({ select: { slug: true }, where: { isToolPublished: true } })
+        const toolsUrls: SitemapFile[] = slugs.map(({ slug }: { slug: string }) => ({
+            url: `${WEBSITE_URL}/tool/${slug}`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-    ]
+            priority: 0.6,
+        }))
 
-    return [...defaultSlugs,]
+        return [...toolsUrls]
+    }
+    catch (e) {
+        return []
+    }
 }
 
 
