@@ -23,16 +23,15 @@ const AuthButton = () => {
   }, [data]);
 
   return (
-    <div className="flex gap-4 flex-col">
-      <Button variant="secondary" onClick={() => signIn("google")}>
-        <Google />
-        Login with Google
-      </Button>
-      <Button variant="secondary" onClick={() => signIn("github")}>
-        <Github />
-        Login with Github
-      </Button>
-    </div>
+    <Button
+      variant="secondary"
+      size="large"
+      className="w-full"
+      onClick={() => signIn("google")}
+    >
+      <Google />
+      Continue with Google
+    </Button>
   );
 };
 
