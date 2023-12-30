@@ -37,7 +37,7 @@ export const getToolsTags = cache(
   }
 );
 
-export const searchTool = async ({
+export const searchToolWithAI = async ({
   query,
 }: {
   query: string;
@@ -54,6 +54,44 @@ export const searchTool = async ({
     const tools = await prisma.tools.findMany({
       where: { toolId: { in: toolIds } },
       include: { tags: true },
+    });
+    return tools;
+  } catch (e) {
+    return undefined;
+  }
+};
+
+export const searchTool = async ({
+  query,
+  page,
+}: {
+  query: string;
+  page: number;
+}): Promise<Tool[] | undefined> => {
+  const skip = (page - 1) * pageSize;
+  try {
+    const tools = await prisma.tools.findMany({
+      include: { tags: true },
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            description: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+        isToolPublished: true,
+      },
+      distinct: ["toolId"],
+      skip,
+      take: pageSize,
     });
     return tools;
   } catch (e) {
